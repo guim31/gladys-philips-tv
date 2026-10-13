@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-13
+
 ### Added
 
 - Philips TVs with the JointSpace API 6 (Android TV and Google TV since 2016,
@@ -33,4 +35,5 @@ the notes of the version's GitHub Release.
 - _Test the connection_ action, connection status per TV, documentation in
   English, French, German and Spanish.
 
-[Unreleased]: https://github.com/guim31/gladys-philips-tv/commits/main
+[Unreleased]: https://github.com/guim31/gladys-philips-tv/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/guim31/gladys-philips-tv/releases/tag/v1.0.0
