@@ -3,7 +3,7 @@
 // container (the interval chosen in the configuration), its states published
 // to Gladys when they change, the "content changed" scene event fired on
 // transitions, every command (features, widgets, scene actions), the pairing
-// of the Android TVs and the network search.
+// of the Android TVs and the network search (SSDP).
 //
 // Gladys never polls these devices (should_poll: false): the scene event must
 // fire even for a TV whose device was not added, and a TV in standby is read
@@ -1548,33 +1548,35 @@ export class PhilipsHub {
   }
 
   /**
-   * Look for Philips TVs on the network (mDNS through the core), and put
-   * the new ones in the free slots of the configuration, or the new address
-   * of a known one in its slot.
+   * Look for Philips TVs on the network (SSDP through the core: the TVs are
+   * UPnP media renderers), and put the new ones in the free slots of the
+   * configuration, or the new address of a known one in its slot.
    * @returns {Promise<object>} the report, in the four languages
    */
   async search() {
     let results;
     try {
-      results = await this.gladys.scanNetwork('mdns', {
+      results = await this.gladys.scanNetwork('ssdp', {
         timeoutSeconds: this.timings.searchSeconds,
       });
     } catch (err) {
       logger.warn(`Network search unavailable: ${err.message}`);
       return everyLanguage(SEARCH_TEXT, (text) => text.unavailable);
     }
-    const hosts = [...new Set(results.map(addressOf).filter(Boolean))];
-    const found = [];
-    for (const host of hosts) {
-      try {
-        const { info } = await new PhilipsClient({ host, request: this.request }).readSystem();
-        if (info.platformId) {
-          found.push({ host, info });
+    // Every media renderer answers (speakers, other TVs): /system tells a
+    // Philips TV, read in parallel with a short timeout.
+    const probes = await Promise.all(
+      ssdpCandidates(results).map(async ({ host, mac }) => {
+        try {
+          const { info } = await new PhilipsClient({ host, request: this.request }).readSystem();
+          return info.platformId ? { host, mac, info } : null;
+        } catch (err) {
+          logger.debug(`Search: ${host} is not a Philips TV (${err.message})`);
+          return null;
         }
-      } catch (err) {
-        logger.debug(`Search: ${host} is not a Philips TV (${err.message})`);
-      }
-    }
+      }),
+    );
+    const found = probes.filter(Boolean);
     if (found.length === 0) {
       return everyLanguage(SEARCH_TEXT, (text) => text.none);
     }
@@ -1610,6 +1612,10 @@ export class PhilipsHub {
       }
     }
     const needPairing = found.some(({ info }) => info.pairing);
+    // The MAC address the core saw: Wake-on-LAN before the TV gave its own.
+    const macs = new Map(
+      found.filter(({ mac }) => mac).map(({ info, mac }) => [info.platformId, mac]),
+    );
     if (Object.keys(patch).length > 0) {
       try {
         await this.gladys.setConfig(patch);
@@ -1626,6 +1632,13 @@ export class PhilipsHub {
       }
       await this.reconfigure({ ...this.rawConfig, ...patch });
     }
+    for (const record of this.records.values()) {
+      const mac = record.identity && macs.get(record.identity.platformId);
+      if (mac && !record.identity.mac) {
+        record.identity = { ...record.identity, mac };
+        this.saveRecord(record);
+      }
+    }
     return everyLanguage(SEARCH_TEXT, (text) =>
       [...lines.map((line) => line(text)), ...(needPairing ? [text.pair] : [])].join('\n'),
     );
@@ -1640,15 +1653,37 @@ export class PhilipsHub {
   }
 }
 
-/** The IPv4 address of an mDNS answer, its host name otherwise. */
-export function addressOf(result) {
-  const addresses = Array.isArray(result?.addresses) ? result.addresses : [];
-  const ipv4 = addresses.find((address) => /^\d{1,3}(\.\d{1,3}){3}$/.test(address));
-  if (ipv4) {
-    return ipv4;
+const MAX_CANDIDATES = 32;
+
+/** "aa-bb-cc-dd-ee-ff", "AABBCCDDEEFF"… → "aa:bb:cc:dd:ee:ff", null otherwise. */
+export function normalizeMac(raw) {
+  const hex = String(raw ?? '')
+    .toLowerCase()
+    .replace(/[^0-9a-f]/g, '');
+  return hex.length === 12 && hex !== '000000000000' ? hex.match(/../g).join(':') : null;
+}
+
+/**
+ * The addresses of the SSDP answers (IPv4, once each), with the MAC address
+ * the core may have seen.
+ * @returns {Array<{ host: string, mac: string|null }>}
+ */
+export function ssdpCandidates(results) {
+  const byHost = new Map();
+  for (const result of Array.isArray(results) ? results : []) {
+    const host = result?.source_ip;
+    if (typeof host !== 'string' || !/^\d{1,3}(\.\d{1,3}){3}$/.test(host)) {
+      continue;
+    }
+    const mac = normalizeMac(result.source_mac);
+    const known = byHost.get(host);
+    if (known) {
+      known.mac ??= mac;
+    } else if (byHost.size < MAX_CANDIDATES) {
+      byHost.set(host, { host, mac });
+    }
   }
-  const host = typeof result?.host === 'string' ? result.host.replace(/\.$/, '') : '';
-  return host || addresses[0] || null;
+  return [...byHost.values()];
 }
 
 /** The MAC address of /network/devices: the interface at this address first. */
@@ -1657,5 +1692,5 @@ export function macOf(answer, host) {
     (item) => typeof item?.mac === 'string' && /^([0-9a-f]{2}[:-]){5}[0-9a-f]{2}$/i.test(item.mac),
   );
   const chosen = interfaces.find((item) => item.ip === host) ?? interfaces[0];
-  return chosen ? chosen.mac.toLowerCase().replace(/-/g, ':') : null;
+  return chosen ? normalizeMac(chosen.mac) : null;
 }

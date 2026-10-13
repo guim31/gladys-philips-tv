@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { HOME_APP, OTHER_SOURCE } from '../src/devices.js';
-import { ORIGINS, TRIGGERS, addressOf, macOf } from '../src/hub.js';
+import { ORIGINS, TRIGGERS, macOf, normalizeMac, ssdpCandidates } from '../src/hub.js';
 import {
   CREDENTIALS,
   FakePhilips,
@@ -494,40 +494,42 @@ test('a reconnection publishes everything again', async (t) => {
   assert.equal(statesOf(world, 'volume').length, before + 1);
 });
 
-test('search: a TV found by mDNS goes to a free slot, a moved TV to its new address', async (t) => {
+test('search: a TV found by SSDP goes to a free slot, a moved TV to its new address', async (t) => {
   const tv = pairedTv();
   const saphi = new FakePhilips({ kind: 'saphi' });
+  saphi.networkDevices = []; // its MAC: the one the core saw
   const world = await createWorld({
     tvs: { [HOST_1]: tv },
     config: { tv_1_host: HOST_1, language: 'en' },
   });
   t.after(() => world.app.stop());
   world.network.tvs[HOST_2] = saphi;
-  world.fake.scanResults.mdns = [
-    {
-      name: 'Philips TV',
-      host: 'philips.local',
-      addresses: ['fe80::1', HOST_2],
-      port: 1925,
-      txt: [],
-    },
-    { name: 'Philips TV', host: 'android.local', addresses: [HOST_1], port: 1926, txt: [] },
-    { name: 'Printer', host: 'printer.local', addresses: ['192.0.2.99'], port: 631, txt: [] },
+  const ssdp = (ip, mac) => ({
+    source_ip: ip,
+    ...(mac ? { source_mac: mac } : {}),
+    source_port: 1900,
+    headers: 'HTTP/1.1 200 OK\r\nST: urn:schemas-upnp-org:device:MediaRenderer:1\r\n',
+  });
+  world.fake.scanResults.ssdp = [
+    ssdp(HOST_2, '02-00-5E-10-00-0B'),
+    ssdp(HOST_2),
+    ssdp(HOST_1),
+    ssdp('192.0.2.99'), // a speaker: no JointSpace API
+    { source_ip: 'fe80::1', headers: '' },
   ];
   const ack = await world.fake.action('search');
   assert.equal(ack.success, true, ack.error);
   assert.match(message(ack), /Philips 50PUS6804\/12 \(192\.0\.2\.11\) added as TV 2/);
   assert.match(message(ack), /Philips 65OLED855\/12: already TV 1/);
   assert.equal(world.fake.config.tv_2_host, HOST_2, 'written in the configuration');
-  assert.equal(world.fake.scans.at(-1).type, 'mdns');
+  assert.equal(world.fake.scans.at(-1).type, 'ssdp');
   assert.equal(world.fake.discoveredDevices.length, 2);
+  assert.equal(world.hub.records.get(2).identity.mac, '02:00:5e:10:00:0b', 'the MAC the core saw');
 
   // DHCP moved the Android TV: same identity, new address, pairing kept.
   delete world.network.tvs[HOST_1];
   world.network.tvs['192.0.2.20'] = tv;
-  world.fake.scanResults.mdns = [
-    { name: 'tv', host: 'tv.local', addresses: ['192.0.2.20'], port: 1926, txt: [] },
-  ];
+  world.fake.scanResults.ssdp = [ssdp('192.0.2.20')];
   await world.fake.scanRequest();
   assert.equal(world.fake.config.tv_1_host, '192.0.2.20');
   const device = world.fake.discoveredDevices.find((item) => item.name === 'Philips 65OLED855/12');
@@ -577,10 +579,20 @@ test('no TV configured, or an address not understood', async (t) => {
   assert.match(world.fake.connectionStatus.message.fr, /Rechercher les téléviseurs/);
 });
 
-test('mDNS addresses and MAC addresses', () => {
-  assert.equal(addressOf({ addresses: ['fe80::1', '192.0.2.5'], host: 'tv.local.' }), '192.0.2.5');
-  assert.equal(addressOf({ addresses: [], host: 'tv.local.' }), 'tv.local');
-  assert.equal(addressOf({}), null);
+test('SSDP answers and MAC addresses', () => {
+  assert.deepEqual(
+    ssdpCandidates([
+      { source_ip: '192.0.2.5' },
+      { source_ip: '192.0.2.5', source_mac: '02:00:5E:10:00:05' },
+      { source_ip: 'tv.local' },
+      null,
+    ]),
+    [{ host: '192.0.2.5', mac: '02:00:5e:10:00:05' }],
+  );
+  assert.deepEqual(ssdpCandidates(undefined), []);
+  assert.equal(normalizeMac('0200.5e10.0005'), '02:00:5e:10:00:05');
+  assert.equal(normalizeMac('00:00:00:00:00:00'), null);
+  assert.equal(normalizeMac(undefined), null);
   assert.equal(
     macOf(
       [

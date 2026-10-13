@@ -17,12 +17,8 @@
   "network_wake": true,
   "network_discovery": [
     {
-      "type": "mdns",
-      "service": "_philipstv_rpc._tcp"
-    },
-    {
-      "type": "mdns",
-      "service": "_philipstv_s_rpc._tcp"
+      "type": "ssdp",
+      "st": "urn:schemas-upnp-org:device:MediaRenderer:1"
     }
   ],
   "config_schema": [

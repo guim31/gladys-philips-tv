@@ -64,10 +64,11 @@ test('identity: name, image, cover, local transport, multimedia category, Wake-o
   assert.deepEqual(manifest.categories, ['multimedia']);
   // The magic packet of a TV whose network sleeps goes through the core.
   assert.equal(manifest.network_wake, true);
-  // The TVs announce their API in mDNS: the core browses, the container reads /system.
+  // The TVs are UPnP media renderers: the core searches, the container reads
+  // /system. (Their mDNS services, `_philipstv_rpc._tcp`, hold an underscore
+  // the core and the store refuse.)
   assert.deepEqual(manifest.network_discovery, [
-    { type: 'mdns', service: '_philipstv_rpc._tcp' },
-    { type: 'mdns', service: '_philipstv_s_rpc._tcp' },
+    { type: 'ssdp', st: 'urn:schemas-upnp-org:device:MediaRenderer:1' },
   ]);
 });
 

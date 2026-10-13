@@ -281,6 +281,6 @@ test('the German documentation says "du"', () => {
 test('the documentation says it was developed without the hardware', () => {
   assert.match(docs.en, /Developed without the hardware: feedback welcome/);
   for (const lang of LANGS) {
-    assert.match(docs[lang], /github\.com\/guim31\/gladys-sony-bravia\/issues/);
+    assert.match(docs[lang], /github\.com\/guim31\/gladys-philips-tv\/issues/);
   }
 });

@@ -1,0 +1,214 @@
+# Philips TV
+
+Controle sus televisores Philips desde Gladys, en su red local: encenderlos y
+apagarlos, ajustar el volumen, cambiar de fuente, abrir una aplicación,
+cambiar de canal, ajustar el Ambilight (estilo, color fijo, encendido o
+apagado), pulsar cualquier tecla del mando, desde el panel o desde una escena.
+Y reaccionar a lo que pasa en pantalla: «cuando Netflix se abra en el
+televisor, bajar las luces».
+
+> **Desarrollada sin el hardware: sus comentarios son bienvenidos.** Esta
+> integración se ha construido y probado con las respuestas reales de
+> televisores Philips que conserva la biblioteca libre ha-philipsjs (la que usa
+> Home Assistant) y con la documentación comunitaria de la API JointSpace, con
+> un televisor simulado, no con un televisor Philips real. Si algo no funciona
+> como se describe, indíquelo en el
+> [foro de Gladys](https://community.gladysassistant.com) o en las
+> [issues](https://github.com/guim31/gladys-philips-tv/issues).
+
+## Lo que necesita
+
+- Gladys Assistant 5.1.0 o posterior.
+- Un **televisor Philips** con la API JointSpace 6, en la misma red local que
+  Gladys, con una dirección IP fija (una reserva DHCP en su router):
+  - un modelo **Android TV o Google TV** (2016 y posteriores): emparejado una
+    vez con Gladys, con un código que muestra el televisor;
+  - o un modelo **Saphi** (Linux): sin emparejamiento.
+- Para encender el televisor desde Gladys: en el televisor, **Encender con
+  Wi-Fi (WoWLAN)** o **Encender con Chromecast** activado (normalmente en
+  **Ajustes → Redes inalámbricas y redes → Con cable o Wi-Fi**). Sin ello,
+  muchos televisores apagan su red en espera.
+
+## Puesta en marcha
+
+1. Instale la integración desde el catálogo de Gladys.
+2. Encienda el televisor. En **Configuración**, haga clic en **Buscar
+   televisores**: los televisores que responden en su red se colocan en las
+   posiciones libres (_televisor 1_, _2_, _3_), con su dirección. O escriba
+   usted mismo la **Dirección** del televisor (por ejemplo `192.168.1.20`).
+   Si quiere, dele un **Nombre**, y guarde.
+3. Un **televisor Android** se empareja después una vez:
+   1. haga clic en **Mostrar un código de emparejamiento en el televisor**
+      (elija el televisor): aparece un código de 4 cifras en pantalla;
+   2. escríbalo en **Confirmar el código de emparejamiento** (el mismo
+      televisor) y ejecútela, rápido: el televisor espera unos 30 segundos.
+
+   Gladys aparece en el televisor como _Gladys Assistant_. La integración
+   conserva el emparejamiento: no volverá a pedirse ningún código. Un
+   televisor Saphi no necesita emparejamiento.
+
+4. Haga clic en **Probar la conexión**: el mensaje bajo el botón indica, para
+   cada televisor, si responde, su modelo, si está encendido y emparejado.
+5. Abra la pestaña **Descubrir**: un dispositivo por televisor. Haga clic en
+   **Añadir**, elija una estancia, guarde. Un televisor aparece en cuanto ha
+   respondido una vez: enciéndalo si no aparece. **Buscar** en esta pestaña
+   también busca televisores nuevos.
+
+Las opciones al final de la página:
+
+- **Wake-on-LAN** (activado por defecto): un televisor cuya red se duerme en
+  espera ya no responde. Gladys pide entonces a su núcleo que envíe un paquete
+  Wake-on-LAN a la dirección MAC que dio el televisor, que lo despierta. La
+  integración lo declara, como muestra la pantalla de instalación.
+- **Intervalo de actualización**: con qué frecuencia se leen los televisores
+  (10 s por defecto). A un televisor en espera solo se le pregunta su estado y
+  su Ambilight.
+- **Idioma de los nombres de funciones**: los nombres dados a las funciones al
+  añadir un dispositivo, y los textos de las listas y de los eventos de escena.
+
+## El dispositivo de cada televisor
+
+| Función          | Lo que hace                                                                                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Encendido        | Encendido o en espera. El encendido se lo pide al televisor, o envía un paquete Wake-on-LAN si no responde en absoluto.                                                   |
+| Volumen          | El volumen, como control deslizante, dentro de los límites del televisor (0 a 60 en la mayoría de los modelos).                                                           |
+| Bajar volumen    | Un paso más bajo, como el mando.                                                                                                                                          |
+| Subir volumen    | Un paso más alto.                                                                                                                                                         |
+| Silenciar        | Silencia o restablece el sonido.                                                                                                                                          |
+| Fuente           | Televisores Android: _TV_ (el sintonizador) o _HDMI 1_ a _HDMI 4_, y para cambiar. _Otra_ es una aplicación; elegirla pulsa Inicio.                                       |
+| Aplicación       | Televisores Android: la aplicación en primer plano (el televisor la indica), y para abrir otra. _Inicio u otra_ pulsa Inicio.                                             |
+| Canal            | El número del canal en pantalla, y para cambiar a otro número.                                                                                                            |
+| Canal anterior   | Canal anterior.                                                                                                                                                           |
+| Canal siguiente  | Canal siguiente.                                                                                                                                                          |
+| En reproducción  | Lo que hay en pantalla, como texto: `5 · La 1`, `Netflix`, `HDMI 2`, _Fuente HDMI_ o _Apagada_.                                                                           |
+| Ambilight        | Ambilight encendido o apagado.                                                                                                                                            |
+| Estilo Ambilight | El estilo, de los menús del televisor: _Seguir el vídeo_ (Estándar, Intenso, Juego…), _Seguir el audio_ (Lumina, Retro…), _Lounge light_ (Lava ardiente…) o _Color fijo_. |
+| Color Ambilight  | Un color fijo, con el selector de color de Gladys.                                                                                                                        |
+| Ambilight + Hue  | Las lámparas Hue que siguen al Ambilight, encendidas o apagadas (solo televisores con Ambilight + Hue).                                                                   |
+
+El televisor indica lo que sabe hacer: un televisor Saphi no tiene _Fuente_
+ni _Aplicación_, un televisor sin Ambilight ninguna función Ambilight. Las
+listas (aplicaciones, estilos Ambilight, canales) se leen en el televisor y la
+integración las conserva: están ahí incluso cuando duerme. Un comando que
+necesita la pantalla (una fuente, una aplicación, un canal) enciende primero
+el televisor y lo espera, hasta 25 segundos.
+
+## Panel
+
+Cuatro widgets, para colocar uno al lado de otro; cada uno muestra un
+televisor (el primero de la configuración si no se elige ninguno en sus
+ajustes). El núcleo permite cuatro botones por widget, de ahí los cuatro.
+
+- **Mando Philips**: el estado del televisor, lo que hay en pantalla, el
+  volumen, y los botones **Encender** (o _Apagar_), **Volumen −**,
+  **Volumen +** y **Silenciar**.
+- **Ambilight Philips**: el Ambilight y su estilo, un botón para encenderlo o
+  apagarlo, y tres estilos elegidos en los ajustes del widget (entre ellos un
+  color fijo); el actual aparece marcado.
+- **Teclas Philips**: cuatro teclas del mando, elegidas en los ajustes del
+  widget: las flechas por defecto. Añada un segundo con _OK_, _Volver_,
+  _Inicio_, _Fuentes_ o _Reproducir / pausa_…
+- **Accesos directos Philips**: hasta cuatro fuentes o aplicaciones
+  favoritas, escritas por su nombre en los ajustes (`HDMI 2`, `Netflix`…);
+  _TV_ y _HDMI 1_ a _HDMI 3_ si no se escribe nada. Un toque la muestra, con el
+  televisor encendido primero. Un nombre que el televisor no conoce se indica
+  bajo los botones.
+
+## Escenas
+
+### Desencadenante
+
+**TV: aplicación, canal o fuente cambiada**: lo que hay en pantalla ha
+cambiado, encendido incluido. Filtros: el televisor, lo que hay ahora en
+pantalla (aplicación o pantalla de inicio, canal, fuente HDMI), su nombre
+exactamente como lo muestra el televisor (`Netflix`, `YouTube`), y quién lo
+cambió (Gladys, o el televisor y su mando, una consola por HDMI-CEC…).
+Variables: el televisor, el tipo (`app`, `channel`, `source`), el nombre (de
+la aplicación, el canal o la fuente), el número de canal, y quién lo cambió.
+
+El televisor indica qué aplicación está en primer plano: pasar de una
+aplicación a otra activa la escena. Para una fuente HDMI, el televisor no dice
+cuál: el nombre es el que eligió Gladys, si no _Fuente HDMI_.
+
+No hay desencadenante «televisor encendido» o «televisor apagado»: la función
+**Encendido** ya activa escenas, como cualquier dispositivo.
+
+### Acciones
+
+- **Abrir una aplicación en el televisor**: por su nombre como en el
+  televisor (`Netflix`, `youtube`: mayúsculas, acentos y espacios no
+  importan). Salida: la aplicación abierta.
+- **Elegir una fuente del televisor**: _TV_ o _HDMI 1_ a _HDMI 4_. Salida: la
+  fuente elegida.
+- **Ajustar el Ambilight**: un estilo (_Seguir el vídeo · Estándar_, _Lounge
+  light · Lava ardiente_…), un color fijo (escrito `#FF8800`, el último si está
+  vacío) o apagado. Un estilo que el televisor no tiene se rechaza. Salida: el
+  estilo aplicado.
+- **Enviar una tecla del mando**: Inicio, Volver, flechas, OK, Fuentes,
+  volumen, canal, reproducción, colores, cifras, Ambilight…, de una a diez
+  veces. Salida: las pulsaciones enviadas.
+
+Las dos primeras requieren un televisor Android, y encienden primero el
+televisor si hace falta. Con varios televisores, elija el televisor en la
+acción. Las funciones **Encendido**, **Volumen**, **Canal** y Ambilight están
+en la acción habitual _Controlar un dispositivo_.
+
+### Ideas de escenas
+
+- **Noche de cine**: los viernes a las 21 h, _Abrir una aplicación en el
+  televisor_ `Netflix`, _Ajustar el Ambilight_ en _Seguir el vídeo ·
+  Inmersivo_, bajar las luces del salón.
+- **Netflix abierto**: desencadenante _TV: aplicación, canal o fuente
+  cambiada_, ahora en pantalla _Aplicación_, nombre `Netflix`: cerrar las
+  persianas.
+- **Buenas noches**: a las 23 h, _Ajustar el Ambilight_ en un color fijo
+  `#FF6A00`, y apagar el televisor (**Encendido**) unos minutos después.
+- **Salir de casa**: en la escena «todos se han ido», poner el **Encendido**
+  de los televisores en apagado.
+
+## Solución de problemas
+
+- **«Aún no se ha conectado: encienda el televisor una vez»**: el televisor
+  nunca ha respondido. Compruebe su dirección y enciéndalo.
+- **«Aún no emparejado»**: un televisor Android necesita el emparejamiento:
+  _Mostrar un código de emparejamiento en el televisor_ y luego _Confirmar el
+  código de emparejamiento_.
+- **«Emparejamiento rechazado por el televisor: vuelva a emparejarlo»**: el
+  emparejamiento se borró en el televisor (un restablecimiento, un software
+  nuevo). Vuelva a emparejarlo del mismo modo.
+- **«Código incorrecto»**: escriba de nuevo las 4 cifras mostradas. **«El
+  código ha caducado»**: muestre uno nuevo y confírmelo en menos de 30
+  segundos.
+- **«No hay API de televisor Philips en esta dirección»**: responde otro
+  dispositivo.
+- **«Televisor anterior a 2016 (JointSpace 1)»**: estos modelos antiguos no
+  son compatibles.
+- **El televisor no se enciende**: active _Encender con Wi-Fi (WoWLAN)_ o
+  _Encender con Chromecast_ en el televisor, y mantenga _Wake-on-LAN_
+  activado; el paquete no atraviesa routers ni VLAN.
+- **Buscar televisores no encuentra nada**: el televisor debe estar
+  encendido, en la misma red; escriba su dirección en su lugar.
+- **Una fuente HDMI no cambia**: las direcciones HDMI son las de los modelos
+  de 2019 y posteriores; en los televisores Android más antiguos, use la tecla
+  _Fuentes_.
+- Los registros de la integración (pestaña **Configuración**) indican lo que
+  responde cada televisor; nunca se escribe en ellos ninguna clave de
+  emparejamiento.
+
+## Límites
+
+- Desarrollada sin el hardware: los comportamientos vienen de ha-philipsjs, de
+  pylips y de sus respuestas reales, no de un televisor real.
+- Televisores Philips con la API JointSpace 6: modelos Android TV y Google TV
+  desde 2016, modelos Saphi. Los modelos anteriores a 2016 (JointSpace 1) no
+  son compatibles.
+- Fuentes y aplicaciones: solo televisores Android. El televisor no dice qué
+  entrada HDMI está en pantalla.
+- Ambilight: los estilos de los menús del televisor y un color fijo; los
+  colores píxel a píxel y el brillo del Ambilight no se controlan.
+- Canales: los de las listas de canales del televisor, leídas una vez al día.
+- Todo se queda en su red local: sin nube, sin cuenta Philips. La integración
+  solo habla con los televisores configurados, y pide al núcleo de Gladys los
+  paquetes Wake-on-LAN y las búsquedas SSDP.
+- Sin relación con Philips ni con TP Vision. Philips y Ambilight son marcas de
+  Koninklijke Philips N.V.

@@ -16,8 +16,8 @@ its only runtime dependency. It started from the official JavaScript template.
 ```bash
 npm install
 npm test                                  # node --test, the built-in runner
-node --test test/devices.test.js          # one file
-node --test --test-name-pattern "plug"    # tests whose name matches
+node --test test/hub.test.js              # one file
+node --test --test-name-pattern "pairing" # tests whose name matches
 npm run lint                              # ESLint
 npm run format:check                      # Prettier, as the CI runs it
 npm run format                            # Prettier, fix in place
@@ -31,15 +31,27 @@ pushing.
 ## Architecture
 
 ```
-index.js                          SDK wiring only: handlers registered before connect()
-src/devices/index.js              registry of the device blueprints + dispatch helpers
-src/devices/<type>.js             one device type per file (buildDevice, onPoll, onSetValue...)
+index.js                          SDK wiring only: registerHandlers, shutdown, connect()
+src/app.js                        every SDK handler, wired to the hub (the tests use it too)
+src/hub.js                        PhilipsHub: one record per TV, poll timer, states, scene event,
+                                  commands, pairing, SSDP search
+src/devices.js                    the device of a TV: features by capability, names, options, states
+src/philips/client.js             JointSpace 6 client: /system on 1925 and 1926, Digest, pairing
+src/philips/digest.js             HTTP Digest (client side, and the check of the fake TV)
+src/philips/crypto.js             the shared key: HMAC signature of the pairing, AES of /system
+src/philips/http.js               the only network code (node:http / node:https), a test seam
+src/philips/model.js              parsers of the answers, sources, Ambilight styles, colours, names
+src/philips/keys.js               remote keys: our stable keys, JointSpace names, labels, icons
 src/scenes.js                     scene action handlers (manifest `scene_actions`)
-src/widgets.js                    dashboard widget handlers (manifest `widgets`)
+src/widgets.js                    dashboard widgets: remote, ambilight, keys, shortcuts
 src/config.js                     DEFAULT_CONFIG (mirrors the manifest defaults) + normalization
-src/weather.js                    example driver (Open-Meteo)
-gladys-assistant-integration.json manifest: name, config_schema, actions, image...
-docs/en.md, docs/fr.md            user documentation, re-hosted by Gladys (mandatory)
+src/store.js                      /data/philips-state.json: credentials, identity and lists of each TV
+src/texts.js                      messages in four languages (status, errors, reports, styles)
+gladys-assistant-integration.json manifest: name, config_schema, actions, scenes, widgets...
+docs/{en,fr,de,es}.md             user documentation, re-hosted by Gladys, same sections
+test/fixtures/philips/            real answers kept by ha-philipsjs (MIT)
+test/helpers/fakePhilips.js       in-memory TV (Android: Digest + pairing; Saphi), also served over HTTP(S)
+test/helpers/philipsServer.js     the fake TV on a real port (Docker checks)
 test/                             node --test, against the SDK's fake Gladys (integration-sdk/testing)
 .github/scripts/release.mjs       release helpers (manifest bump, changelog), tested in test/
 ```
@@ -70,8 +82,10 @@ test/                             node --test, against the SDK's fake Gladys (in
   `type: "provider"`: 5.1.0). `test/manifest.test.js` ties the manifest to the
   code (defaults, action, scene and widget handlers): change both sides
   together.
-- **User-facing text** is bilingual (English and French): action messages,
-  manifest texts, and `docs/en.md` / `docs/fr.md`, kept in sync.
+- **User-facing text** exists in four languages (English, French, German with
+  "du", Spanish with "usted"): action messages, manifest texts, widget
+  contents, feature names, and `docs/{en,fr,de,es}.md` with the same sections.
+  `test/i18n.test.js` checks them.
 - **Style.** Prettier formats, ESLint catches mistakes. Comments explain why,
   in English. Tests never touch the network.
 
@@ -213,3 +227,80 @@ long, et sur un « Sie »/« Ihr… » de politesse en allemand. Le store exige 
 - Docs `en`, `fr`, `de`, `es` avec les mêmes sections.
 - Chauffe, ouverture, sécurité : ne rien rendre pilotable « comme un thermostat » ou par un assistant
   vocal quand une erreur serait dangereuse (leçon d'OctoPrint).
+
+## Philips TV (propre à cette intégration)
+
+**API JointSpace 6** (ha-philipsjs, MIT, et l'intégration HA `philips_js` pour l'usage ; pylips,
+MIT, pour la doc communautaire des points d'accès) :
+
+- `GET /6/system` répond **sans authentification**, en HTTP sur 1925 et/ou en HTTPS sur 1926 :
+  on essaie les deux. `featuring.systemfeatures.secured_transport` (`"true"`, chaîne) et
+  `pairing_type: "digest_auth_pairing"` disent « Android, HTTPS 1926, Digest » ; sinon Saphi,
+  HTTP 1925, rien. `featuring.jsonfeatures` dit ce que le téléviseur sait faire : `applications`,
+  `activities: ["intent"]` (lancement d'applis et de sources), `ambilight: ["Ambilight", "Hue"…]`.
+  Les fonctionnalités de l'appareil en dépendent (`featuresOf`) : un Saphi n'a ni source ni appli.
+- Les champs `*_encrypted` de `/system` (numéro de série, modèle…) sont en AES-128-CBC (IV en tête,
+  base64) avec les 16 premiers octets de la **clé partagée** de tous les clients JointSpace (publique,
+  dans l'appli Philips, ha-philipsjs, pylips) : ce n'est pas un secret. Le modèle Saphi vaut
+  `1_50PUS6804/12` : on retire le préfixe `\d+_`. Identité = `sn-<numéro de série>` (minuscules,
+  alphanumérique), sinon `id-<deviceid>`.
+- **Appairage** : `POST pair/request` (sans authentification) `{ access: { scope, featuring },
+device: { id, app_id, app_name, device_name, device_os, type } }` → `{ error_id: "SUCCESS",
+auth_key, timestamp, timeout }`, le code s'affiche. Puis `POST pair/grant` en **Digest** (user =
+  notre `device.id` aléatoire, mot de passe = `auth_key`) avec `auth_signature` =
+  base64(HMAC-SHA1(clé partagée, timestamp + PIN)) — vecteur de test : 1128 + `0667` →
+  `rdPzC+bdWQHQMcwe3X+LddeG/tA=`. `INVALID_PIN` : mauvais code, l'appairage en cours reste valable.
+  Les identifiants (device id, clé) sont ceux du Digest de toutes les requêtes suivantes ; ils vivent
+  dans `/data/philips-state.json` (mode 0600), par identité du téléviseur, jamais dans la config.
+- Un champ `required: true` dans une action de configuration est évité (le code PIN est
+  `required: false` et validé par le code) : même règle que les autres intégrations.
+- Digest (MD5, `qop="auth"`, comme le `CachedDigestAuth` de ha-philipsjs ; le realm du faux
+  téléviseur est inventé) : le défi est gardé et réutilisé (`nc` croissant) ; un nonce périmé répond
+  401 avec un nouveau défi, on renvoie une fois.
+- `powerstate` vaut `On`, `Standby` ou `StandbyKeep` (veille avec réseau). Beaucoup de téléviseurs
+  coupent le réseau en veille : plus de réponse du tout → « éteint », transport `unreachable`,
+  allumage par `gladys.wakeOnLan(mac)` (MAC lue dans `GET network/devices`), puis `POST powerstate
+On` dès qu'il répond en veille (un Android réveillé par WoL peut rester écran éteint).
+- `activities/current` donne le **composant** de l'appli au premier plan (contrairement à Sony) :
+  l'id d'appli est `<className>-<packageName>`, comme dans `applications`. Le lecteur TV
+  (`org.droidtv.playtv`) couvre le tuner **et** les entrées HDMI : `context.level1` (`WatchTv`,
+  `WatchSatellite` / `WatchExtension`…) et `activities/tv` (`ccid: "@"` sur une source HDMI)
+  départagent. Le téléviseur ne dit jamais **quelle** entrée HDMI : on montre celle que Gladys a
+  choisie, sinon « Source HDMI ».
+- Sources : intent `org.droidtv.playtv.SELECTURI` avec l'URI passthrough
+  `content://android.media.tv/passthrough/com.mediatek.tvinput%2F.hdmi.HDMIInputService%2FHW5…8`
+  (HDMI 1 à 4, puces MediaTek des modèles 2019+, liste de ha-philipsjs) ; le tuner :
+  `content://android.media.tv/channel[/<ccid>]`.
+- Chaînes : `activities/tv` ne donne souvent que le `ccid` ; numéro et nom viennent de
+  `channeldb/tv/channelLists/<id>` (lu au plus une fois par jour). `POST activities/tv`
+  `{ channelList: { id }, channel: { ccid } }`.
+- Ambilight : `ambilight/power` (`On`/`Off`), `ambilight/currentconfiguration`
+  `{ styleName, isExpert: false, menuSetting }` pour un style des menus. Les firmwares Android et
+  Saphi **omettent** `menuSettings` dans `supportedstyles` : listes de repli de ha-philipsjs par
+  famille. Couleur fixe = style lounge (`Lounge light` ou `FOLLOW_COLOR`, celui qui liste
+  `MANUAL_HUE`) en mode expert, `colorSettings: { color: { hue, saturation, brightness } (0-255),
+colorDelta, algorithm: "MANUAL_HUE" }, speed` (forme de Home Assistant, non éprouvée sur un vrai
+  téléviseur).
+- Les réponses ne sont pas toujours du JSON valide (`{,`, `,,`, `Context Service not started`) :
+  `decodeBody` les répare comme ha-philipsjs. Un point d'accès en 404/403 est marqué mort jusqu'à la
+  prochaine lecture complète.
+- **Recherche** : les services mDNS des téléviseurs (`_philipstv_rpc._tcp`, `_philipstv_s_rpc._tcp`,
+  ceux de HA) contiennent un `_` **refusé par le cœur et par le store** (`MDNS_SERVICE_REGEX =
+/^_[a-z0-9-]+\._(tcp|udp)$/`, déjà dans 5.1.0) : la recherche passe par **SSDP**
+  (`urn:schemas-upnp-org:device:MediaRenderer:1`, le rendu DLNA des téléviseurs). Tout renderer
+  répond (enceintes, autres téléviseurs) : le conteneur lit `/6/system` de chaque adresse, en
+  parallèle, et **écrit l'adresse dans la config** (`gladys.setConfig({ tv_N_host })`) :
+  emplacement libre pour un nouveau téléviseur, même emplacement pour un téléviseur connu qui a
+  changé d'adresse (l'appairage, rangé par identité, suit). La `source_mac` de la réponse, quand le
+  cœur la connaît, sert au Wake-on-LAN avant que le téléviseur ait donné la sienne.
+
+**Pièges rencontrés ici**
+
+- Les fixtures de ha-philipsjs donnent **le même numéro de série** chiffré aux deux téléviseurs
+  (Android et Saphi) : le faux Saphi en reçoit un autre (`encryptField`), sinon ils se confondent.
+- Le faux Gladys enregistre `setConfig` dans `fake.config` (`POST /config`), mais ne renvoie aucun
+  `config-updated` : le hub se reconfigure lui-même après l'écriture.
+- Libellé d'un bouton de widget : 24 caractères au plus (« Suivre la vidéo · Standard » est trop
+  long) ; les boutons de style ne portent que le réglage, l'icône dit la famille.
+- `validateWidgetContent` refuse aussi les libellés trop longs : le test des widgets l'appelle dans
+  chaque état et chaque langue.
