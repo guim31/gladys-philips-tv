@@ -1,0 +1,42 @@
+{
+  "supportedStyles": [
+    {
+      "styleName": "OFF"
+    },
+    {
+      "styleName": "FOLLOW_VIDEO"
+    },
+    {
+      "styleName": "FOLLOW_AUDIO",
+      "algorithms": [
+        "ENERGY_ADAPTIVE_BRIGHTNESS",
+        "ENERGY_ADAPTIVE_COLORS",
+        "VU_METER",
+        "SPECTRUM_ANALYZER",
+        "KNIGHT_RIDER_CLOCKWISE",
+        "KNIGHT_RIDER_ALTERNATING",
+        "RANDOM_PIXEL_FLASH",
+        "STROBO",
+        "PARTY"
+      ],
+      "maxTuning": 2
+    },
+    {
+      "styleName": "FOLLOW_COLOR",
+      "algorithms": ["MANUAL_HUE", "AUTOMATIC_HUE"],
+      "maxSpeed": 255
+    },
+    {
+      "styleName": "LOUNGE"
+    },
+    {
+      "styleName": "MANUAL"
+    },
+    {
+      "styleName": "EXPERT"
+    },
+    {
+      "styleName": "GRID"
+    }
+  ]
+}

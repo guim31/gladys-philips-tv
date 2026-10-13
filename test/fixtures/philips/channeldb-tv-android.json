@@ -1,0 +1,35 @@
+{
+  "channelLists": [
+    {
+      "id": "all",
+      "version": 10,
+      "listType": "MixedSources",
+      "medium": "mixed",
+      "active": true,
+      "virtual": true,
+      "modifiable": false
+    }
+  ],
+  "favoriteLists": [
+    {
+      "id": "allter",
+      "version": 1545826184134,
+      "parentId": "all",
+      "listType": "MixedSources",
+      "medium": "mixed",
+      "virtual": false,
+      "modifiable": false,
+      "name": "All teresterial"
+    },
+    {
+      "id": "1",
+      "version": "0",
+      "listType": "MixedSources",
+      "medium": "mixed",
+      "name": "Favourites 1",
+      "parentId": "all",
+      "virtual": false,
+      "modifiable": true
+    }
+  ]
+}

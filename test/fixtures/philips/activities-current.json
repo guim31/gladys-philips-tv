@@ -1,0 +1,6 @@
+{
+  "component": {
+    "packageName": "org.droidtv.nettv.market",
+    "className": "org.droidtv.nettv.market.MarketMainActivity"
+  }
+}

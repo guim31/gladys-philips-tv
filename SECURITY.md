@@ -30,6 +30,28 @@ Gladys before reporting a problem.
 
 In scope: the code of this repository and the Docker image it publishes.
 
+What the integration handles:
+
+- **Secrets**: the pairing credentials of each Android TV (a random device id
+  chosen by the integration, and the key the TV gives at pairing). They are
+  sent only to the TV they belong to, as HTTP Digest credentials (the key
+  itself never travels after the pairing), and are never written to the logs
+  nor to the Gladys configuration. The pairing code (PIN) typed in the
+  _Confirm the pairing code_ action is used once and not kept.
+- **`/data`**: `philips-state.json`, written readable by its owner only, holds
+  those credentials (by TV serial number) and, for each TV, what it told about
+  itself: model, serial number, software version, capabilities, MAC address,
+  applications and Ambilight styles.
+- **Network**: HTTPS on port 1926 (certificate not checked: the TVs only have
+  self-signed ones) or plain HTTP on port 1925, to the addresses of the
+  configuration, on the local network; the SSDP searches and the Wake-on-LAN
+  packets are done by the Gladys core on request (`network_discovery`,
+  `network_wake`). No cloud service, no other destination.
+- The AES and HMAC key embedded in `src/philips/crypto.js` is the public key
+  every JointSpace client shares (published in the Philips app, ha-philipsjs
+  and pylips), not a secret of this project or of its users.
+
 Out of scope: Gladys Assistant itself (see its
 [security policy](https://github.com/GladysAssistant/Gladys/security/policy)),
-and the third-party services and devices the integration talks to.
+and the TVs themselves: the JointSpace API of the Saphi TVs is plain HTTP
+without authentication, readable by anyone on the local network.

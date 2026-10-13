@@ -1,0 +1,17 @@
+{
+  "id": "all",
+  "version": 10,
+  "listType": "MixedSources",
+  "medium": "mixed",
+  "Channel": [
+    {
+      "ccid": 1648,
+      "preset": "1",
+      "name": "Irdeto scrambled"
+    },
+    {
+      "ccid": 1649,
+      "preset": "2"
+    }
+  ]
+}
