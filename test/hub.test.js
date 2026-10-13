@@ -140,6 +140,7 @@ test('pairing: a code on the TV, the PIN, the credentials kept under /data', asy
   const paired = await world.fake.action('pair_confirm', { tv: '1', pin: ` ${PIN} ` });
   assert.equal(paired.success, true, paired.error);
   assert.match(message(paired), /is paired/);
+  await world.hub.pollAll(); // the read after the pairing runs in the background
   assert.deepEqual(world.fake.connectionStatus, { connected: true });
   assert.equal(state(world, 'power'), 1);
 
@@ -616,4 +617,64 @@ test('the credentials never reach the logs nor Gladys', async (t) => {
   const sent = JSON.stringify(world.fake.requests);
   assert.ok(!sent.includes(CREDENTIALS.password));
   assert.ok(!sent.includes(CREDENTIALS.user));
+});
+
+test('a TV without /powerstate: on while it answers, asleep otherwise', async (t) => {
+  const tv = pairedTv();
+  tv.failures.powerstate = 404;
+  const world = await createWorld({ tvs: { [HOST_1]: tv } });
+  t.after(() => world.app.stop());
+  assert.equal(state(world, 'power'), 1);
+  assert.equal(state(world, 'volume'), 18);
+  assert.deepEqual(world.fake.connectionStatus, { connected: true });
+  tv.online = false;
+  await world.hub.pollAll();
+  assert.equal(state(world, 'power'), 0);
+});
+
+test('an answer that crashes a parser does not stop the poll timer', async (t) => {
+  const tv = pairedTv();
+  tv.ambilightConfiguration = {
+    styleName: 'FOLLOW_COLOR',
+    isExpert: true,
+    colorSettings: { color: { hue: -3, saturation: 255, brightness: 255 } },
+  };
+  const world = await createWorld({ tvs: { [HOST_1]: tv } });
+  t.after(() => world.app.stop());
+  assert.equal(state(world, 'power'), 1, 'a negative hue is read');
+  world.hub.read = async () => {
+    throw new Error('boom');
+  };
+  world.hub.timersEnabled = true;
+  await world.hub.reconfigure(world.fake.config);
+  assert.ok(world.hub.pollTimer, 'the next read is still scheduled');
+});
+
+test('search: a slot given to a new TV forgets the TV that was there before', async () => {
+  const first = await createWorld({
+    tvs: { [HOST_1]: pairedTv(), [HOST_2]: new FakePhilips({ kind: 'saphi' }) },
+    config: { tv_1_host: HOST_1, tv_2_host: HOST_2, language: 'en' },
+  });
+  await first.fake.configUpdated({ tv_1_host: HOST_1, language: 'en' }); // slot 2 emptied
+  const other = new FakePhilips({ kind: 'saphi', serial: 'ZX9999999999' });
+  first.network.tvs['192.0.2.30'] = other;
+  first.fake.scanResults.ssdp = [{ source_ip: '192.0.2.30', headers: '' }];
+  // The core finds it, then it sleeps before the first full read.
+  const probe = other.handle.bind(other);
+  other.handle = (request) => {
+    const answer = probe(request);
+    other.online = false;
+    return answer;
+  };
+  await first.fake.action('search');
+  assert.equal(first.fake.config.tv_2_host, '192.0.2.30');
+  const atNewAddress = first.fake.discoveredDevices.filter((device) =>
+    device.params.some((param) => param.value === '192.0.2.30'),
+  );
+  assert.ok(
+    atNewAddress.every((device) => device.external_id.endsWith('sn-zx9999999999')),
+    'never the old identity at the new address',
+  );
+  assert.equal(first.hub.records.get(2).identity, null, 'nothing inherited');
+  await first.app.stop();
 });

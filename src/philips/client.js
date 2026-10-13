@@ -125,7 +125,15 @@ export class PhilipsClient {
   /** One HTTP exchange; network failures become UNREACHABLE. */
   async exchange(url, options) {
     try {
-      return await this.request(url, options);
+      try {
+        return await this.request(url, options);
+      } catch (err) {
+        // A kept-alive socket the TV closed meanwhile: once more, on a new one.
+        if (err.kind || !(err.code === 'ECONNRESET' || /socket hang up/i.test(err.message))) {
+          throw err;
+        }
+        return await this.request(url, options);
+      }
     } catch (err) {
       if (err.kind) {
         throw err;

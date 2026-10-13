@@ -333,7 +333,8 @@ export function parseConfiguration(answer) {
 
 /** Ambilight colour (hue, saturation, brightness, 0-255 each) → 0xRRGGBB. */
 export function hsbToRgb({ hue, saturation, brightness }) {
-  const h = ((Number(hue) || 0) / 255) * 6;
+  const raw = Number(hue);
+  const h = (((((Number.isFinite(raw) ? raw : 0) % 255) + 255) % 255) / 255) * 6;
   const s = Math.max(0, Math.min(1, (Number(saturation) || 0) / 255));
   const v = Math.max(0, Math.min(1, (Number(brightness) || 0) / 255));
   const sector = Math.floor(h) % 6;

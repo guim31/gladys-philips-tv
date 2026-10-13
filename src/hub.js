@@ -209,8 +209,12 @@ export class PhilipsHub {
     // The language of the option labels may have changed.
     this.devicesKey = null;
     await this.publishDevices();
-    await this.pollAll({ full: true });
-    this.schedulePoll();
+    try {
+      await this.pollAll({ full: true });
+    } finally {
+      // A read that crashed must not stop the next ones.
+      this.schedulePoll();
+    }
   }
 
   newRecord(tv) {
@@ -300,7 +304,7 @@ export class PhilipsHub {
 
   /** Read one TV again after these delays (a command's effect, a power on). */
   readLater(record, delays) {
-    if (!this.timersEnabled || this.stopped) {
+    if (!this.timersEnabled || this.stopped || record.dropped) {
       return;
     }
     for (const delay of delays) {
@@ -407,7 +411,15 @@ export class PhilipsHub {
 
   async pollAll({ full = false } = {}) {
     const records = [...this.records.values()];
-    const changes = await Promise.all(records.map((record) => this.poll(record, { full })));
+    // One TV whose answer crashes a parser does not stop the others.
+    const changes = await Promise.all(
+      records.map((record) =>
+        this.poll(record, { full }).catch((err) => {
+          logger.error(`${this.label(record)}: read failed`, err);
+          return false;
+        }),
+      ),
+    );
     await this.publishDevices();
     await this.afterChanges(changes.some(Boolean));
   }
@@ -485,7 +497,7 @@ export class PhilipsHub {
 
     let power;
     try {
-      power = parsePower(await record.client.getPowerState());
+      power = await this.readPower(record);
     } catch (err) {
       if (!err.kind) {
         throw err;
@@ -585,6 +597,25 @@ export class PhilipsHub {
       record.error = null;
     }
     return this.applySuccess(record, next);
+  }
+
+  /**
+   * The power state. Some TVs have no /powerstate (Home Assistant handles
+   * them): one that answers its volume is on, and asleep otherwise.
+   */
+  async readPower(record) {
+    if (!record.dead.has('powerstate')) {
+      try {
+        return parsePower(await record.client.getPowerState());
+      } catch (err) {
+        if (err.kind !== ERROR_KINDS.UNSUPPORTED) {
+          throw err;
+        }
+        record.dead.add('powerstate');
+      }
+    }
+    await record.client.getVolume();
+    return 'on';
   }
 
   /** What is in front: the application, and for the TV player, tuner or HDMI. */
@@ -807,7 +838,7 @@ export class PhilipsHub {
   // --- Publishing to Gladys ----------------------------------------------------------
 
   async publishStates(record, { force = false } = {}) {
-    if (!this.isPublished(record)) {
+    if (record.dropped || this.stopped || !this.isPublished(record)) {
       return;
     }
     const states = [];
@@ -969,6 +1000,9 @@ export class PhilipsHub {
 
   /** The commands ran: publish the optimistic states, read the TV soon. */
   async afterCommand(record, { content = false } = {}) {
+    if (record.dropped || this.stopped) {
+      return;
+    }
     if (content) {
       this.ownChange(record);
     }
@@ -1060,6 +1094,9 @@ export class PhilipsHub {
     const deadline = this.now() + this.timings.powerOnWaitMs;
     let asked = !askAgain;
     for (;;) {
+      if (record.dropped || this.stopped) {
+        return;
+      }
       try {
         const power = parsePower(await record.client.getPowerState());
         if (power === 'on') {
@@ -1543,8 +1580,13 @@ export class PhilipsHub {
     logger.info(`${this.label(record)}: paired`);
     record.error = null;
     record.macRead = false;
-    await this.afterChanges(await this.poll(record, { full: true }));
-    await this.publishDevices();
+    // The full read can outlast the action timeout on a slow TV: not awaited.
+    this.poll(record, { full: true })
+      .then(async (changed) => {
+        await this.publishDevices();
+        await this.afterChanges(changed);
+      })
+      .catch((err) => logger.error(`${this.label(record)}: read failed`, err));
     return everyLanguage(PAIR_TEXT, (text) => text.paired(tvName(record)));
   }
 
@@ -1583,6 +1625,7 @@ export class PhilipsHub {
     }
 
     const patch = {};
+    const moved = new Map();
     const used = new Set([...this.config.tvs.map((tv) => tv.slot), ...this.config.invalidSlots]);
     const lines = [];
     const seen = new Set();
@@ -1598,6 +1641,7 @@ export class PhilipsHub {
       const byHost = this.config.tvs.find((tv) => tv.host === host);
       if (byIdentity && byIdentity.tv.host !== host) {
         patch[`tv_${byIdentity.tv.slot}_host`] = host;
+        moved.set(byIdentity.tv.slot, info.platformId);
         lines.push((text) => text.moved(name, host, byIdentity.tv.slot));
       } else if (byIdentity || byHost) {
         lines.push((text) => text.known(name, (byIdentity?.tv ?? byHost).slot));
@@ -1623,12 +1667,16 @@ export class PhilipsHub {
       } catch (err) {
         logger.warn(`Configuration refused: ${err.message}`);
       }
-      // A moved TV keeps its identity, lists and pairing: carry them over.
+      // A moved TV keeps its identity and lists; a slot given to a new TV
+      // forgets what an old one left there.
       for (const [key, host] of Object.entries(patch)) {
         const slot = Number(key.split('_')[1]);
         const saved = this.saved.tvs[slot];
-        if (saved && saved.identity) {
+        const found = moved.get(slot);
+        if (saved?.identity && found && saved.identity.platformId === found) {
           this.saved.tvs[slot] = { ...saved, host };
+        } else {
+          delete this.saved.tvs[slot];
         }
       }
       await this.reconfigure({ ...this.rawConfig, ...patch });
