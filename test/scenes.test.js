@@ -1,93 +1,81 @@
+// -----------------------------------------------------------------------------
+// Scene actions: by name, a TV to choose when there are several, the outputs.
+// -----------------------------------------------------------------------------
+
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { createFakeGladys } from '@gladysassistant/integration-sdk/testing';
-import { DEVICE_BLUEPRINTS } from '../src/devices/index.js';
-import { MOTION_DETECTED_TRIGGER, motionSensor } from '../src/devices/motionSensor.js';
-import { SCENE_ACTIONS } from '../src/scenes.js';
-import { normalizeConfig } from '../src/config.js';
+import { parseColor } from '../src/scenes.js';
+import { FakePhilips, HOST_1, HOST_2, createWorld, deviceOf, pairedTv } from './helpers/world.js';
 
-const manifest = JSON.parse(
-  await readFile(new URL('../gladys-assistant-integration.json', import.meta.url), 'utf8'),
-);
-const config = normalizeConfig();
-
-const declarationOf = (list, key) => manifest[list].find((entry) => entry.key === key);
-const keysOf = (list) => (list ?? []).map((entry) => entry.key);
-const deviceIdOf = (gladys, key) =>
-  DEVICE_BLUEPRINTS.find((bp) => bp.key === key).deviceExternalId(gladys);
-
-// Let the async interval callback run to completion.
-const flush = () => new Promise((resolve) => setImmediate(resolve));
-
-test('the motion sensor fires one motion_detected event per detection, none on the clear', async (t) => {
-  t.mock.timers.enable({ apis: ['setInterval', 'setTimeout'] });
-  const gladys = createFakeGladys();
-  const stopPush = motionSensor.startPush(gladys, config);
-  try {
-    t.mock.timers.tick(60_000);
-    await flush();
-    assert.equal(gladys.fake.sceneEvents.length, 1, 'one detection, one event');
-    assert.equal(gladys.fake.sceneEvents[0].key, MOTION_DETECTED_TRIGGER);
-    assert.equal(gladys.fake.states.at(-1).state, 1, 'the state is still published');
-
-    t.mock.timers.tick(10_000);
-    await flush();
-    assert.equal(gladys.fake.states.at(-1).state, 0, 'the detection is cleared');
-    assert.equal(gladys.fake.sceneEvents.length, 1, 'the clear fires no event');
-  } finally {
-    stopPush();
-  }
+test('open_app, select_source, send_key: done, with their outputs', async (t) => {
+  const world = await createWorld();
+  t.after(() => world.app.stop());
+  let ack = await world.fake.sceneAction('open_app', { app: 'netflix' });
+  assert.deepEqual(ack.data.outputs, { app: 'Netflix' });
+  ack = await world.fake.sceneAction('select_source', { source: 'hdmi_3' });
+  assert.deepEqual(ack.data.outputs, { source: 'HDMI 3' });
+  assert.match(world.tv.launches.at(-1).extras.uri, /HW7$/);
+  ack = await world.fake.sceneAction('send_key', { key: 'right', repeat: 3 });
+  assert.deepEqual(ack.data.outputs, { presses: 3 });
+  assert.deepEqual(world.tv.keys.slice(-3), ['CursorRight', 'CursorRight', 'CursorRight']);
+  ack = await world.fake.sceneAction('send_key', { key: 'up', repeat: 99 });
+  assert.deepEqual(ack.data.outputs, { presses: 10 });
+  ack = await world.fake.sceneAction('send_key', { key: 'eject' });
+  assert.equal(ack.success, false);
+  assert.match(ack.error, /Unknown key "eject"/);
 });
 
-test('motion_detected data only carries keys the trigger declares', async (t) => {
-  t.mock.timers.enable({ apis: ['setInterval', 'setTimeout'] });
-  const gladys = createFakeGladys();
-  const stopPush = motionSensor.startPush(gladys, config);
-  try {
-    t.mock.timers.tick(60_000);
-    await flush();
-  } finally {
-    stopPush();
-  }
-  const [{ data }] = gladys.fake.sceneEvents;
-  const trigger = declarationOf('scene_triggers', MOTION_DETECTED_TRIGGER);
-  // The core keeps the `fields` keys (filters) and the `variables` keys
-  // (exposed to the scene): any other key would be silently dropped.
-  const declared = [...keysOf(trigger.fields), ...keysOf(trigger.variables)];
-  for (const [key, value] of Object.entries(data)) {
-    assert.ok(declared.includes(key), `data.${key} is not declared, the core would drop it`);
-    assert.ok(value === null || typeof value !== 'object', `data.${key} must be a primitive`);
-  }
-  // A `"source": "devices"` filter stores a device external_id.
-  assert.equal(data.device, deviceIdOf(gladys, 'motion-sensor'));
-  const targets = trigger.fields.find((field) => field.key === 'target').options;
-  assert.ok(
-    targets.some((option) => option.value === data.target),
-    `data.target "${data.target}" must be one of the filter options`,
-  );
-});
-
-test('identify_device signals the chosen device and returns the declared outputs', async () => {
-  const gladys = createFakeGladys();
-  const outputs = await SCENE_ACTIONS.identify_device(gladys, {
-    fields: { device: deviceIdOf(gladys, 'light') },
-    config,
+test('ambilight_style: a style, off, a fixed colour typed or the last one', async (t) => {
+  const world = await createWorld();
+  t.after(() => world.app.stop());
+  let ack = await world.fake.sceneAction('ambilight_style', { style: 'audio_vu_meter' });
+  assert.deepEqual(ack.data.outputs, { style: 'Follow audio · Retro' });
+  assert.equal(world.tv.ambilightConfiguration.styleName, 'FOLLOW_AUDIO');
+  ack = await world.fake.sceneAction('ambilight_style', { style: 'off' });
+  assert.deepEqual(ack.data.outputs, { style: 'off' });
+  assert.equal(world.tv.ambilightPower, 'Off');
+  ack = await world.fake.sceneAction('ambilight_style', { style: 'color', color: '#00FF00' });
+  assert.deepEqual(ack.data.outputs, { style: 'color' });
+  assert.deepEqual(world.tv.ambilightConfiguration.colorSettings.color, {
+    hue: 85,
+    saturation: 255,
+    brightness: 255,
   });
-  assert.deepEqual(outputs, { signalled: true });
-  const declared = keysOf(declarationOf('scene_actions', 'identify_device').outputs);
-  for (const key of Object.keys(outputs)) {
-    assert.ok(declared.includes(key), `output "${key}" is not declared, the core would drop it`);
-  }
+  ack = await world.fake.sceneAction('ambilight_style', { style: 'color' });
+  assert.equal(ack.success, true, 'the last colour');
+  assert.equal(world.tv.ambilightConfiguration.colorSettings.color.hue, 85);
+  ack = await world.fake.sceneAction('ambilight_style', { style: 'color', color: 'green' });
+  assert.match(ack.error, /Colour not understood: "green"/);
+  ack = await world.fake.sceneAction('ambilight_style', { style: 'video_sports' });
+  assert.match(ack.error, /no Ambilight style "video_sports"/, 'not an Android menu');
 });
 
-test('identify_device reports a device that cannot signal itself through its output', async () => {
-  // Not a failure: a scene action is never a condition, the scene author
-  // gates the following actions on the output instead.
-  const gladys = createFakeGladys();
-  const outputs = await SCENE_ACTIONS.identify_device(gladys, {
-    fields: { device: deviceIdOf(gladys, 'weather-station') },
-    config,
+test('several TVs: the action needs one, by device', async (t) => {
+  const saphi = new FakePhilips({ kind: 'saphi' });
+  const world = await createWorld({
+    tvs: { [HOST_1]: pairedTv(), [HOST_2]: saphi },
+    config: { tv_1_host: HOST_1, tv_2_host: HOST_2, language: 'en' },
   });
-  assert.deepEqual(outputs, { signalled: false });
+  t.after(() => world.app.stop());
+  let ack = await world.fake.sceneAction('send_key', { key: 'home' });
+  assert.match(ack.error, /Several TVs are configured/);
+  const device = world.fake.discoveredDevices.find((item) => item.name.includes('50PUS'));
+  ack = await world.fake.sceneAction('send_key', { device: device.external_id, key: 'home' });
+  assert.equal(ack.success, true, ack.error);
+  assert.deepEqual(saphi.keys, ['Home']);
+  ack = await world.fake.sceneAction('send_key', {
+    device: 'ext:test-integration:tv:zz',
+    key: 'home',
+  });
+  assert.match(ack.error, /no longer in the configuration/);
+  ack = await world.fake.sceneAction('open_app', { device: device.external_id, app: 'Netflix' });
+  assert.match(ack.error, /not an Android TV/);
+  assert.ok(deviceOf(world));
+});
+
+test('colours typed in a scene', () => {
+  assert.equal(parseColor('#FF8800'), 0xff8800);
+  assert.equal(parseColor(' ff8800 '), 0xff8800);
+  assert.equal(parseColor('#F80'), null);
+  assert.equal(parseColor(undefined), null);
 });

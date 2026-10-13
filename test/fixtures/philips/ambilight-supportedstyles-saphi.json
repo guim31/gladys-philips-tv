@@ -1,0 +1,32 @@
+{
+  "supportedStyles": [
+    {},
+    {},
+    {
+      "styleName": "FOLLOW_AUDIO",
+      "algorithms": [
+        "ENERGY_ADAPTIVE_BRIGHTNESS",
+        "ENERGY_ADAPTIVE_COLORS",
+        "VU_METER",
+        "SPECTRUM_ANALYZER",
+        "KNIGHT_RIDER_CLOCKWISE",
+        "KNIGHT_RIDER_ALTERNATING",
+        "RANDOM_PIXEL_FLASH",
+        "STROBO",
+        "PARTY"
+      ],
+      "maxTuning": 2
+    },
+    {
+      "styleName": "Lounge light",
+      "algorithms": ["MANUAL_HUE", "AUTOMATIC_HUE"],
+      "maxSpeed": 255
+    },
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+  ]
+}

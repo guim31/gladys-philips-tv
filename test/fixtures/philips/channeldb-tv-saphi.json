@@ -1,0 +1,13 @@
+{
+  "channelLists": [
+    {
+      "id": "all",
+      "version": 10,
+      "listType": "MixedSources",
+      "medium": "mixed",
+      "active": true,
+      "virtual": true,
+      "modifiable": false
+    }
+  ]
+}
