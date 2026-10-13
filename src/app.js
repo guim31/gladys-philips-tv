@@ -15,7 +15,7 @@ const logger = createLogger({ name: 'philips-app' });
 
 /**
  * @param {object} gladys GladysIntegration instance
- * @param {object} [options] test seams: store, request, timers, timings, now, sleep
+ * @param {object} [options] test seams: store, request, timers, timings, now, sleep, logger
  */
 export function registerHandlers(gladys, options = {}) {
   const hub = new PhilipsHub({
@@ -26,6 +26,7 @@ export function registerHandlers(gladys, options = {}) {
     timings: options.timings,
     now: options.now,
     sleep: options.sleep,
+    logger: options.logger,
   });
 
   // Resolved once the hub has started; every handler waits for it, so a

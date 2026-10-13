@@ -123,6 +123,16 @@ code de ce dépôt. Compléter ce fichier quand un nouveau piège est découvert
   15000, 30000, 60000). Le template publie `poll_frequency: 300` sans `should_poll` : c'est faux,
   le cœur répond 400 à la découverte. Pour une cadence hors liste, publier `should_poll: false` et
   pousser les états depuis le conteneur, en gardant un `onPoll` de repli.
+- **Polling du cœur 5.2.0 (GladysAssistant/Gladys#3198, correctif #3199)** : un appareil **déjà
+  créé** sans `should_poll` n'est jamais sondé, même après le correctif. Ne jamais dépendre du
+  seul `onPoll` : ici les téléviseurs sont lus par le minuteur interne du hub (`pollTimer`,
+  `poll_interval`), `should_poll: false`, et `onPoll` reste un repli. `test/logs.test.js` le
+  prouve sans aucun appel à `onPoll`.
+- **Logs** : au niveau info, seulement le cycle de vie (démarrage, perte et retour d'un
+  téléviseur, appairage, Wake-on-LAN, erreurs utiles). Rien par lecture ni par état publié. Une
+  erreur qui se répète à chaque lecture passe par `hub.problem(key, …)` (un avertissement au
+  premier échec, le reste en debug) et `hub.recovered(key)` (une ligne au rétablissement).
+  `test/logs.test.js` capture le logger injecté (`createWorld({ logger: captureLogger() })`).
 - **`min` et `max` sont NOT NULL** dans `t_device_feature`, y compris pour `text/text` : sans eux,
   « Ajouter à Gladys » échoue en HTTP 422. Mettre 0/0, comme Zigbee2MQTT.
 - Un état publié sur une fonctionnalité **pas encore ajoutée** dans Gladys reçoit un 200 puis est
