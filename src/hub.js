@@ -782,7 +782,8 @@ export class PhilipsHub {
     const own = this.now() < record.ownChangeUntil;
     await this.fire(TRIGGERS.CONTENT_CHANGED, record, {
       kind: screen.kind,
-      name: screen.name ?? '',
+      // A channel without a name in the lists goes by its number.
+      name: screen.name ?? (screen.number !== null ? String(screen.number) : ''),
       channel_number: screen.kind === CONTENT_KINDS.CHANNEL ? screen.number : null,
       origin: own ? ORIGINS.GLADYS : ORIGINS.TV,
     });

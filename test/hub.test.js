@@ -284,6 +284,7 @@ test('content changed: app to app, channel, HDMI, with who did it', async (t) =>
   const last = events(world).at(-1).data;
   assert.equal(last.kind, 'channel');
   assert.equal(last.channel_number, 2);
+  assert.equal(last.name, '2', 'no name in the lists: its number');
   assert.equal(last.origin, ORIGINS.GLADYS);
   assert.equal(state(world, 'channel'), 2);
 });
