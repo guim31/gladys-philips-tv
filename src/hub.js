@@ -58,7 +58,7 @@ import {
   pick,
 } from './texts.js';
 
-const logger = createLogger({ name: 'philips-hub' });
+const defaultLogger = createLogger({ name: 'philips-hub' });
 
 // Widget keys (manifest `widgets`): permanent once published.
 export const WIDGET_KEYS = Object.freeze({
@@ -134,9 +134,13 @@ export class PhilipsHub {
    * @param {object} [options.timings] HUB_TIMINGS overrides
    * @param {() => number} [options.now]
    * @param {(ms: number) => Promise<void>} [options.sleep]
+   * @param {object} [options.logger] the SDK logger by default (the tests capture it)
    */
-  constructor({ gladys, store, request, timers = true, timings, now, sleep }) {
+  constructor({ gladys, store, request, timers = true, timings, now, sleep, logger }) {
     this.gladys = gladys;
+    this.log = logger ?? defaultLogger;
+    /** Failures that repeat at every read, by key: logged once, and once when they end. */
+    this.problems = new Map();
     this.store = store;
     this.request = request;
     this.timersEnabled = timers;
@@ -157,6 +161,33 @@ export class PhilipsHub {
     this.saved = { tvs: {}, credentials: {} };
     this.pollTimer = null;
     this.stopped = false;
+  }
+
+  /**
+   * A failure that may repeat at every read (Gladys refusing a request, an
+   * answer that crashes a parser): one warning the first time, nothing more
+   * at info level until `recovered`.
+   */
+  problem(key, message, err, { crash = false } = {}) {
+    if (this.problems.has(key)) {
+      this.log.debug(`${message}: ${err?.message}`);
+      return;
+    }
+    this.problems.set(key, message);
+    if (crash) {
+      // A bug: its stack, once.
+      this.log.error(message, err);
+    } else {
+      this.log.warn(`${message}: ${err?.message}`);
+    }
+  }
+
+  recovered(key) {
+    const message = this.problems.get(key);
+    if (message !== undefined) {
+      this.problems.delete(key);
+      this.log.info(`${message}: back to normal`);
+    }
   }
 
   get language() {
@@ -295,8 +326,9 @@ export class PhilipsHub {
     this.pollTimer = setTimeout(async () => {
       try {
         await this.pollAll();
+        this.recovered('poll');
       } catch (err) {
-        logger.error('Poll failed', err);
+        this.problem('poll', 'Poll failed', err, { crash: true });
       }
       this.schedulePoll();
     }, this.config.pollIntervalMs);
@@ -311,8 +343,15 @@ export class PhilipsHub {
       const timer = setTimeout(() => {
         record.timers.delete(timer);
         this.poll(record)
-          .then((changed) => this.afterChanges(changed))
-          .catch((err) => logger.error('Read failed', err));
+          .then((changed) => {
+            this.recovered(`read:${record.tv.slot}`);
+            return this.afterChanges(changed);
+          })
+          .catch((err) =>
+            this.problem(`read:${record.tv.slot}`, `${this.label(record)}: read failed`, err, {
+              crash: true,
+            }),
+          );
       }, delay);
       timer.unref?.();
       record.timers.add(timer);
@@ -353,8 +392,10 @@ export class PhilipsHub {
       // Even an empty list: the Discovery tab then shows no stale TV.
       await this.gladys.publishDiscoveredDevices(devices);
       this.devicesKey = key;
+      this.recovered('devices');
     } catch (err) {
-      logger.warn(`Devices refused: ${err.message}`);
+      // Sent again at the next read: warned once.
+      this.problem('devices', 'Devices refused by Gladys', err);
     }
   }
 
@@ -414,10 +455,18 @@ export class PhilipsHub {
     // One TV whose answer crashes a parser does not stop the others.
     const changes = await Promise.all(
       records.map((record) =>
-        this.poll(record, { full }).catch((err) => {
-          logger.error(`${this.label(record)}: read failed`, err);
-          return false;
-        }),
+        this.poll(record, { full }).then(
+          (changed) => {
+            this.recovered(`read:${record.tv.slot}`);
+            return changed;
+          },
+          (err) => {
+            this.problem(`read:${record.tv.slot}`, `${this.label(record)}: read failed`, err, {
+              crash: true,
+            });
+            return false;
+          },
+        ),
       ),
     );
     await this.publishDevices();
@@ -525,7 +574,7 @@ export class PhilipsHub {
         if (!TRANSIENT.has(err.kind)) {
           error ??= err;
         }
-        logger.debug(`${this.label(record)}: ${path} failed: ${err.message}`);
+        this.log.debug(`${this.label(record)}: ${path} failed: ${err.message}`);
         return undefined;
       }
     };
@@ -591,9 +640,12 @@ export class PhilipsHub {
       const known = record.error?.kind;
       record.error = { kind: error.kind, message: error.message };
       if (known !== error.kind) {
-        logger.warn(`${this.label(record)}: ${error.message}`);
+        this.log.warn(`${this.label(record)}: ${error.message}`);
       }
     } else {
+      if (record.error && record.snapshot.reachable !== false) {
+        this.log.info(`${this.label(record)}: answers normally again`);
+      }
       record.error = null;
     }
     return this.applySuccess(record, next);
@@ -701,7 +753,7 @@ export class PhilipsHub {
     }
     const previous = record.identity;
     if (previous && previous.platformId !== info.platformId) {
-      logger.warn(
+      this.log.warn(
         `${this.label(record)}: another TV answers at this address (${info.model ?? '?'}): new device`,
       );
       for (const { externalId } of featureValues(this.gladys, record, this.language)) {
@@ -752,6 +804,9 @@ export class PhilipsHub {
     if (next.channel) {
       record.lastChannel = next.channel.ccid;
     }
+    if (previous.reachable === false) {
+      this.log.info(`${this.label(record)}: answers again`);
+    }
     const snapshot = { reachable: true, ...next };
     const widgetChanged =
       previous.reachable !== true ||
@@ -778,13 +833,13 @@ export class PhilipsHub {
         power: record.identity ? 'standby' : null,
       };
       if (previous.reachable !== false) {
-        logger.info(`${this.label(record)}: no answer (${err.message})`);
+        this.log.info(`${this.label(record)}: no answer (${err.message})`);
       }
     } else {
       // Something answered, but not as expected: keep the last known states.
       record.error = { kind: err.kind, message: err.message };
       if (wasError !== err.kind) {
-        logger.warn(`${this.label(record)}: ${err.message}`);
+        this.log.warn(`${this.label(record)}: ${err.message}`);
       }
     }
     await this.publishStates(record);
@@ -831,7 +886,7 @@ export class PhilipsHub {
         ...data,
       });
     } catch (err) {
-      logger.warn(`Scene event ${key} refused: ${err.message}`);
+      this.log.warn(`Scene event ${key} refused: ${err.message}`);
     }
   }
 
@@ -859,8 +914,9 @@ export class PhilipsHub {
         for (const state of batch) {
           this.published.set(state.device_feature_external_id, state.text ?? state.state);
         }
+        this.recovered(`states:${record.tv.slot}`);
       } catch (err) {
-        logger.warn(`States of ${this.label(record)} refused: ${err.message}`);
+        this.problem(`states:${record.tv.slot}`, `States of ${this.label(record)} refused`, err);
       }
     }
   }
@@ -895,8 +951,9 @@ export class PhilipsHub {
       for (const entry of entries) {
         this.transports.set(entry.external_id, entry.transport);
       }
+      this.recovered('transports');
     } catch (err) {
-      logger.warn(`Transports refused: ${err.message}`);
+      this.problem('transports', 'Transports refused by Gladys', err);
     }
   }
 
@@ -936,8 +993,9 @@ export class PhilipsHub {
     try {
       await this.gladys.setConnectionStatus(status.connected, status.message);
       this.connection = key;
+      this.recovered('connection');
     } catch (err) {
-      logger.warn(`Connection status refused: ${err.message}`);
+      this.problem('connection', 'Connection status refused by Gladys', err);
     }
   }
 
@@ -966,7 +1024,7 @@ export class PhilipsHub {
 
   /** The error of a failed command, as a sentence for the user. */
   commandError(record, err) {
-    logger.warn(`${this.label(record)}: command failed: ${err.message}`);
+    this.log.warn(`${this.label(record)}: command failed: ${err.message}`);
     let kind = err.kind;
     if (kind === ERROR_KINDS.UNREACHABLE && !record.identity) {
       kind = 'notReached';
@@ -1021,13 +1079,13 @@ export class PhilipsHub {
     this.ownChange(record);
     try {
       await this.gladys.wakeOnLan(record.identity.mac);
-      logger.info(`${this.label(record)}: Wake-on-LAN sent`);
+      this.log.info(`${this.label(record)}: Wake-on-LAN sent`);
     } catch (err) {
       // 429: a wake was sent less than 2 s ago, which is just as good.
       if (err.status === 429) {
         return;
       }
-      logger.warn(`${this.label(record)}: Wake-on-LAN refused: ${err.message}`);
+      this.log.warn(`${this.label(record)}: Wake-on-LAN refused: ${err.message}`);
       throw failure(this.language, 'wakeRefused');
     }
   }
@@ -1085,7 +1143,7 @@ export class PhilipsHub {
   /** After a magic packet, without waiting: ask the TV to turn on once it answers. */
   followWake(record) {
     this.waitOn(record, { askAgain: true }).catch((err) =>
-      logger.info(`${this.label(record)}: did not turn on (${err.message})`),
+      this.log.info(`${this.label(record)}: did not turn on (${err.message})`),
     );
   }
 
@@ -1414,8 +1472,8 @@ export class PhilipsHub {
     try {
       const outcome = await Promise.race([work.then(() => 'done'), late]);
       if (outcome === 'late') {
-        logger.info(`${feature.external_id}: still running, acknowledged`);
-        work.catch((err) => logger.warn(`${feature.external_id}: ${err.message}`));
+        this.log.debug(`${feature.external_id}: still running, acknowledged`);
+        work.catch((err) => this.log.warn(`${feature.external_id}: ${err.message}`));
       }
     } finally {
       clearTimeout(timer);
@@ -1531,7 +1589,7 @@ export class PhilipsHub {
       return everyLanguage(PAIR_TEXT, (text) => text.notNeeded);
     }
     this.pairings.set(number, answer);
-    logger.info(`${this.label(record)}: pairing code requested`);
+    this.log.info(`${this.label(record)}: pairing code requested`);
     return everyLanguage(PAIR_TEXT, (text) => text.shown(number, answer.timeoutSeconds));
   }
 
@@ -1555,7 +1613,7 @@ export class PhilipsHub {
       if (!err.kind) {
         throw err;
       }
-      logger.warn(`${this.label(record)}: pairing refused (${err.errorId ?? err.kind})`);
+      this.log.warn(`${this.label(record)}: pairing refused (${err.errorId ?? err.kind})`);
       if (err.kind !== ERROR_KINDS.PAIRING) {
         throw this.commandError(record, err);
       }
@@ -1577,7 +1635,7 @@ export class PhilipsHub {
       this.saved.credentials[record.identity.platformId] = credentials;
       this.store.save(this.saved);
     }
-    logger.info(`${this.label(record)}: paired`);
+    this.log.info(`${this.label(record)}: paired`);
     record.error = null;
     record.macRead = false;
     // The full read can outlast the action timeout on a slow TV: not awaited.
@@ -1586,7 +1644,7 @@ export class PhilipsHub {
         await this.publishDevices();
         await this.afterChanges(changed);
       })
-      .catch((err) => logger.error(`${this.label(record)}: read failed`, err));
+      .catch((err) => this.log.error(`${this.label(record)}: read failed`, err));
     return everyLanguage(PAIR_TEXT, (text) => text.paired(tvName(record)));
   }
 
@@ -1603,7 +1661,7 @@ export class PhilipsHub {
         timeoutSeconds: this.timings.searchSeconds,
       });
     } catch (err) {
-      logger.warn(`Network search unavailable: ${err.message}`);
+      this.log.warn(`Network search unavailable: ${err.message}`);
       return everyLanguage(SEARCH_TEXT, (text) => text.unavailable);
     }
     // Every media renderer answers (speakers, other TVs): /system tells a
@@ -1614,7 +1672,7 @@ export class PhilipsHub {
           const { info } = await new PhilipsClient({ host, request: this.request }).readSystem();
           return info.platformId ? { host, mac, info } : null;
         } catch (err) {
-          logger.debug(`Search: ${host} is not a Philips TV (${err.message})`);
+          this.log.debug(`Search: ${host} is not a Philips TV (${err.message})`);
           return null;
         }
       }),
@@ -1665,7 +1723,7 @@ export class PhilipsHub {
       try {
         await this.gladys.setConfig(patch);
       } catch (err) {
-        logger.warn(`Configuration refused: ${err.message}`);
+        this.log.warn(`Configuration refused: ${err.message}`);
       }
       // A moved TV keeps its identity and lists; a slot given to a new TV
       // forgets what an old one left there.

@@ -10,6 +10,13 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Changed
+
+- Quieter logs: a failure that repeats at every read (Gladys refusing the
+  states, an unexpected answer of the TV) is written once, then once more when
+  it ends, instead of at every poll; a TV that answers again after a silence
+  says so in one line.
+
 ## [1.0.0] - 2026-10-13
 
 ### Added

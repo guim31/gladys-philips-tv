@@ -63,6 +63,7 @@ export const pairedTv = (options = {}) => {
  * @param {Array} [options.devices] devices already created in Gladys
  * @param {boolean} [options.connect]
  * @param {string} [options.dataDir] the /data of the integration (paired by default)
+ * @param {object} [options.logger] the hub's logger (see captureLogger)
  */
 export async function createWorld({
   clock = createClock(),
@@ -72,6 +73,7 @@ export async function createWorld({
   connect = true,
   dataDir = pairedDataDir(),
   timings = {},
+  logger,
 } = {}) {
   const network = createNetwork(tvs ?? { [HOST_1]: pairedTv() });
   const gladys = createFakeGladys({ config, devices });
@@ -82,6 +84,7 @@ export async function createWorld({
     timings,
     now: clock.now,
     sleep: clock.sleep,
+    logger,
   });
   if (connect) {
     await gladys.connect();
@@ -111,6 +114,23 @@ export async function createAll(world) {
   for (const device of world.fake.discoveredDevices) {
     await world.fake.deviceCreated(device);
   }
+}
+
+/** A logger that keeps its lines, to check what reaches the info level. */
+export function captureLogger() {
+  const lines = [];
+  const logger = { lines, child: () => logger };
+  for (const level of ['debug', 'info', 'warn', 'error']) {
+    logger[level] = (...args) =>
+      lines.push({
+        level,
+        text: args.map((arg) => (arg instanceof Error ? arg.message : String(arg))).join(' '),
+      });
+  }
+  /** Lines at info level and above (what `docker logs` shows by default). */
+  logger.visible = () => lines.filter((line) => line.level !== 'debug');
+  logger.clear = () => lines.splice(0);
+  return logger;
 }
 
 export { FakePhilips, MAC, PIN };
