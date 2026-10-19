@@ -15,22 +15,12 @@
   "categories": ["multimedia"],
   "transports": ["local"],
   "network_wake": true,
-  "network_discovery": [
-    {
-      "type": "ssdp",
-      "st": "urn:schemas-upnp-org:device:MediaRenderer:1"
-    }
-  ],
+  "network_discovery": [{ "type": "ssdp", "st": "urn:schemas-upnp-org:device:MediaRenderer:1" }],
   "config_schema": [
     {
       "key": "intro",
       "type": "section",
-      "label": {
-        "en": "Your Philips TV",
-        "fr": "Votre téléviseur Philips",
-        "de": "Dein Philips-Fernseher",
-        "es": "Su televisor Philips"
-      },
+      "label": { "en": "Your Philips TV", "fr": "Votre téléviseur Philips", "de": "Dein Philips-Fernseher", "es": "Su televisor Philips" },
       "description": {
         "en": "Philips Android TV or Google TV (2016 and later), or Saphi. Turn the TV on, run \"Search for TVs\" below or type its address, and save. An Android TV is then paired once, with the two pairing actions below. Up to three TVs.",
         "fr": "Philips Android TV, Google TV (2016 et après) ou Saphi. Allumez le téléviseur, lancez « Rechercher les téléviseurs » ci-dessous ou saisissez son adresse, et enregistrez. Un téléviseur Android s'appaire ensuite une fois, avec les deux actions d'appairage. Jusqu'à trois téléviseurs.",
@@ -41,48 +31,28 @@
     {
       "key": "tv_1_host",
       "type": "string",
-      "label": {
-        "en": "Address",
-        "fr": "Adresse",
-        "de": "Adresse",
-        "es": "Dirección"
-      },
+      "label": { "en": "Address", "fr": "Adresse", "de": "Adresse", "es": "Dirección" },
       "description": {
         "en": "IP address of the TV. Give it a fixed address in your router.",
         "fr": "Adresse IP du téléviseur. Fixez-la dans votre box ou routeur.",
         "de": "IP-Adresse des Fernsehers. Lege sie in deinem Router fest.",
         "es": "Dirección IP del televisor. Fíjela en su router."
       },
-      "placeholder": {
-        "en": "e.g. 192.168.1.20",
-        "fr": "ex. 192.168.1.20",
-        "de": "z. B. 192.168.1.20",
-        "es": "p. ej. 192.168.1.20"
-      },
+      "placeholder": { "en": "e.g. 192.168.1.20", "fr": "ex. 192.168.1.20", "de": "z. B. 192.168.1.20", "es": "p. ej. 192.168.1.20" },
       "required": false,
       "default": ""
     },
     {
       "key": "tv_1_name",
       "type": "string",
-      "label": {
-        "en": "Name",
-        "fr": "Nom",
-        "de": "Name",
-        "es": "Nombre"
-      },
+      "label": { "en": "Name", "fr": "Nom", "de": "Name", "es": "Nombre" },
       "description": {
         "en": "Name of the device in Gladys. Empty: Philips and the model.",
         "fr": "Nom de l'appareil dans Gladys. Vide : Philips et le modèle.",
         "de": "Name des Geräts in Gladys. Leer: Philips und das Modell.",
         "es": "Nombre del dispositivo en Gladys. Vacío: Philips y el modelo."
       },
-      "placeholder": {
-        "en": "e.g. Living room TV",
-        "fr": "ex. TV du salon",
-        "de": "z. B. Wohnzimmer-TV",
-        "es": "p. ej. TV del salón"
-      },
+      "placeholder": { "en": "e.g. Living room TV", "fr": "ex. TV du salon", "de": "z. B. Wohnzimmer-TV", "es": "p. ej. TV del salón" },
       "required": false,
       "default": ""
     },
@@ -105,48 +75,28 @@
     {
       "key": "tv_2_host",
       "type": "string",
-      "label": {
-        "en": "Address",
-        "fr": "Adresse",
-        "de": "Adresse",
-        "es": "Dirección"
-      },
+      "label": { "en": "Address", "fr": "Adresse", "de": "Adresse", "es": "Dirección" },
       "description": {
         "en": "IP address of the TV. Give it a fixed address in your router.",
         "fr": "Adresse IP du téléviseur. Fixez-la dans votre box ou routeur.",
         "de": "IP-Adresse des Fernsehers. Lege sie in deinem Router fest.",
         "es": "Dirección IP del televisor. Fíjela en su router."
       },
-      "placeholder": {
-        "en": "e.g. 192.168.1.20",
-        "fr": "ex. 192.168.1.20",
-        "de": "z. B. 192.168.1.20",
-        "es": "p. ej. 192.168.1.20"
-      },
+      "placeholder": { "en": "e.g. 192.168.1.20", "fr": "ex. 192.168.1.20", "de": "z. B. 192.168.1.20", "es": "p. ej. 192.168.1.20" },
       "required": false,
       "default": ""
     },
     {
       "key": "tv_2_name",
       "type": "string",
-      "label": {
-        "en": "Name",
-        "fr": "Nom",
-        "de": "Name",
-        "es": "Nombre"
-      },
+      "label": { "en": "Name", "fr": "Nom", "de": "Name", "es": "Nombre" },
       "description": {
         "en": "Name of the device in Gladys. Empty: Philips and the model.",
         "fr": "Nom de l'appareil dans Gladys. Vide : Philips et le modèle.",
         "de": "Name des Geräts in Gladys. Leer: Philips und das Modell.",
         "es": "Nombre del dispositivo en Gladys. Vacío: Philips y el modelo."
       },
-      "placeholder": {
-        "en": "e.g. Living room TV",
-        "fr": "ex. TV du salon",
-        "de": "z. B. Wohnzimmer-TV",
-        "es": "p. ej. TV del salón"
-      },
+      "placeholder": { "en": "e.g. Living room TV", "fr": "ex. TV du salon", "de": "z. B. Wohnzimmer-TV", "es": "p. ej. TV del salón" },
       "required": false,
       "default": ""
     },
@@ -169,70 +119,36 @@
     {
       "key": "tv_3_host",
       "type": "string",
-      "label": {
-        "en": "Address",
-        "fr": "Adresse",
-        "de": "Adresse",
-        "es": "Dirección"
-      },
+      "label": { "en": "Address", "fr": "Adresse", "de": "Adresse", "es": "Dirección" },
       "description": {
         "en": "IP address of the TV. Give it a fixed address in your router.",
         "fr": "Adresse IP du téléviseur. Fixez-la dans votre box ou routeur.",
         "de": "IP-Adresse des Fernsehers. Lege sie in deinem Router fest.",
         "es": "Dirección IP del televisor. Fíjela en su router."
       },
-      "placeholder": {
-        "en": "e.g. 192.168.1.20",
-        "fr": "ex. 192.168.1.20",
-        "de": "z. B. 192.168.1.20",
-        "es": "p. ej. 192.168.1.20"
-      },
+      "placeholder": { "en": "e.g. 192.168.1.20", "fr": "ex. 192.168.1.20", "de": "z. B. 192.168.1.20", "es": "p. ej. 192.168.1.20" },
       "required": false,
       "default": ""
     },
     {
       "key": "tv_3_name",
       "type": "string",
-      "label": {
-        "en": "Name",
-        "fr": "Nom",
-        "de": "Name",
-        "es": "Nombre"
-      },
+      "label": { "en": "Name", "fr": "Nom", "de": "Name", "es": "Nombre" },
       "description": {
         "en": "Name of the device in Gladys. Empty: Philips and the model.",
         "fr": "Nom de l'appareil dans Gladys. Vide : Philips et le modèle.",
         "de": "Name des Geräts in Gladys. Leer: Philips und das Modell.",
         "es": "Nombre del dispositivo en Gladys. Vacío: Philips y el modelo."
       },
-      "placeholder": {
-        "en": "e.g. Living room TV",
-        "fr": "ex. TV du salon",
-        "de": "z. B. Wohnzimmer-TV",
-        "es": "p. ej. TV del salón"
-      },
+      "placeholder": { "en": "e.g. Living room TV", "fr": "ex. TV du salon", "de": "z. B. Wohnzimmer-TV", "es": "p. ej. TV del salón" },
       "required": false,
       "default": ""
     },
-    {
-      "key": "options",
-      "type": "section",
-      "label": {
-        "en": "Options",
-        "fr": "Options",
-        "de": "Optionen",
-        "es": "Opciones"
-      }
-    },
+    { "key": "options", "type": "section", "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" } },
     {
       "key": "wake_on_lan",
       "type": "boolean",
-      "label": {
-        "en": "Wake-on-LAN",
-        "fr": "Wake-on-LAN",
-        "de": "Wake-on-LAN",
-        "es": "Wake-on-LAN"
-      },
+      "label": { "en": "Wake-on-LAN", "fr": "Wake-on-LAN", "de": "Wake-on-LAN", "es": "Wake-on-LAN" },
       "description": {
         "en": "Wakes a TV whose network sleeps when it is off (Gladys sends the packet).",
         "fr": "Réveille un téléviseur dont le réseau s'endort quand il est éteint (Gladys envoie le paquet).",
@@ -245,12 +161,7 @@
     {
       "key": "poll_interval",
       "type": "select",
-      "label": {
-        "en": "Refresh interval",
-        "fr": "Intervalle de rafraîchissement",
-        "de": "Aktualisierungsintervall",
-        "es": "Intervalo de actualización"
-      },
+      "label": { "en": "Refresh interval", "fr": "Intervalle de rafraîchissement", "de": "Aktualisierungsintervall", "es": "Intervalo de actualización" },
       "description": {
         "en": "How often the TVs are read.",
         "fr": "Fréquence de lecture des téléviseurs.",
@@ -260,42 +171,10 @@
       "required": false,
       "default": "10",
       "options": [
-        {
-          "value": "5",
-          "label": {
-            "en": "5 s",
-            "fr": "5 s",
-            "de": "5 s",
-            "es": "5 s"
-          }
-        },
-        {
-          "value": "10",
-          "label": {
-            "en": "10 s",
-            "fr": "10 s",
-            "de": "10 s",
-            "es": "10 s"
-          }
-        },
-        {
-          "value": "30",
-          "label": {
-            "en": "30 s",
-            "fr": "30 s",
-            "de": "30 s",
-            "es": "30 s"
-          }
-        },
-        {
-          "value": "60",
-          "label": {
-            "en": "60 s",
-            "fr": "60 s",
-            "de": "60 s",
-            "es": "60 s"
-          }
-        }
+        { "value": "5", "label": { "en": "5 s", "fr": "5 s", "de": "5 s", "es": "5 s" } },
+        { "value": "10", "label": { "en": "10 s", "fr": "10 s", "de": "10 s", "es": "10 s" } },
+        { "value": "30", "label": { "en": "30 s", "fr": "30 s", "de": "30 s", "es": "30 s" } },
+        { "value": "60", "label": { "en": "60 s", "fr": "60 s", "de": "60 s", "es": "60 s" } }
       ]
     },
     {
@@ -316,54 +195,17 @@
       "required": false,
       "default": "fr",
       "options": [
-        {
-          "value": "en",
-          "label": {
-            "en": "English",
-            "fr": "Anglais",
-            "de": "Englisch",
-            "es": "Inglés"
-          }
-        },
-        {
-          "value": "fr",
-          "label": {
-            "en": "French",
-            "fr": "Français",
-            "de": "Französisch",
-            "es": "Francés"
-          }
-        },
-        {
-          "value": "de",
-          "label": {
-            "en": "German",
-            "fr": "Allemand",
-            "de": "Deutsch",
-            "es": "Alemán"
-          }
-        },
-        {
-          "value": "es",
-          "label": {
-            "en": "Spanish",
-            "fr": "Espagnol",
-            "de": "Spanisch",
-            "es": "Español"
-          }
-        }
+        { "value": "en", "label": { "en": "English", "fr": "Anglais", "de": "Englisch", "es": "Inglés" } },
+        { "value": "fr", "label": { "en": "French", "fr": "Français", "de": "Französisch", "es": "Francés" } },
+        { "value": "de", "label": { "en": "German", "fr": "Allemand", "de": "Deutsch", "es": "Alemán" } },
+        { "value": "es", "label": { "en": "Spanish", "fr": "Espagnol", "de": "Spanisch", "es": "Español" } }
       ]
     }
   ],
   "actions": [
     {
       "key": "search",
-      "label": {
-        "en": "Search for TVs",
-        "fr": "Rechercher les téléviseurs",
-        "de": "Fernseher suchen",
-        "es": "Buscar televisores"
-      },
+      "label": { "en": "Search for TVs", "fr": "Rechercher les téléviseurs", "de": "Fernseher suchen", "es": "Buscar televisores" },
       "description": {
         "en": "Looks for the Philips TVs turned on in your network, and puts their address in the free slots.",
         "fr": "Cherche les téléviseurs Philips allumés sur votre réseau, et place leur adresse dans les emplacements libres.",
@@ -399,33 +241,9 @@
           },
           "required": false,
           "options": [
-            {
-              "value": "1",
-              "label": {
-                "en": "TV 1",
-                "fr": "Téléviseur 1",
-                "de": "Fernseher 1",
-                "es": "Televisor 1"
-              }
-            },
-            {
-              "value": "2",
-              "label": {
-                "en": "TV 2",
-                "fr": "Téléviseur 2",
-                "de": "Fernseher 2",
-                "es": "Televisor 2"
-              }
-            },
-            {
-              "value": "3",
-              "label": {
-                "en": "TV 3",
-                "fr": "Téléviseur 3",
-                "de": "Fernseher 3",
-                "es": "Televisor 3"
-              }
-            }
+            { "value": "1", "label": { "en": "TV 1", "fr": "Téléviseur 1", "de": "Fernseher 1", "es": "Televisor 1" } },
+            { "value": "2", "label": { "en": "TV 2", "fr": "Téléviseur 2", "de": "Fernseher 2", "es": "Televisor 2" } },
+            { "value": "3", "label": { "en": "TV 3", "fr": "Téléviseur 3", "de": "Fernseher 3", "es": "Televisor 3" } }
           ]
         }
       ]
@@ -457,33 +275,9 @@
           },
           "required": false,
           "options": [
-            {
-              "value": "1",
-              "label": {
-                "en": "TV 1",
-                "fr": "Téléviseur 1",
-                "de": "Fernseher 1",
-                "es": "Televisor 1"
-              }
-            },
-            {
-              "value": "2",
-              "label": {
-                "en": "TV 2",
-                "fr": "Téléviseur 2",
-                "de": "Fernseher 2",
-                "es": "Televisor 2"
-              }
-            },
-            {
-              "value": "3",
-              "label": {
-                "en": "TV 3",
-                "fr": "Téléviseur 3",
-                "de": "Fernseher 3",
-                "es": "Televisor 3"
-              }
-            }
+            { "value": "1", "label": { "en": "TV 1", "fr": "Téléviseur 1", "de": "Fernseher 1", "es": "Televisor 1" } },
+            { "value": "2", "label": { "en": "TV 2", "fr": "Téléviseur 2", "de": "Fernseher 2", "es": "Televisor 2" } },
+            { "value": "3", "label": { "en": "TV 3", "fr": "Téléviseur 3", "de": "Fernseher 3", "es": "Televisor 3" } }
           ]
         },
         {
@@ -495,24 +289,14 @@
             "de": "Am Fernseher angezeigter Code",
             "es": "Código que muestra el televisor"
           },
-          "placeholder": {
-            "en": "e.g. 1234",
-            "fr": "ex. 1234",
-            "de": "z. B. 1234",
-            "es": "p. ej. 1234"
-          },
+          "placeholder": { "en": "e.g. 1234", "fr": "ex. 1234", "de": "z. B. 1234", "es": "p. ej. 1234" },
           "required": false
         }
       ]
     },
     {
       "key": "test_connection",
-      "label": {
-        "en": "Test the connection",
-        "fr": "Tester la connexion",
-        "de": "Verbindung testen",
-        "es": "Probar la conexión"
-      },
+      "label": { "en": "Test the connection", "fr": "Tester la connexion", "de": "Verbindung testen", "es": "Probar la conexión" },
       "description": {
         "en": "Reads every TV now and reports what it finds.",
         "fr": "Lit chaque téléviseur maintenant et indique ce qu'il trouve.",
@@ -542,23 +326,13 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV (empty: any)",
-            "fr": "Téléviseur (vide : tous)",
-            "de": "Fernseher (leer: alle)",
-            "es": "Televisor (vacío: todos)"
-          },
+          "label": { "en": "TV (empty: any)", "fr": "Téléviseur (vide : tous)", "de": "Fernseher (leer: alle)", "es": "Televisor (vacío: todos)" },
           "required": false
         },
         {
           "key": "kind",
           "type": "multi_select",
-          "label": {
-            "en": "Now on screen",
-            "fr": "Désormais à l'écran",
-            "de": "Jetzt auf dem Bildschirm",
-            "es": "Ahora en pantalla"
-          },
+          "label": { "en": "Now on screen", "fr": "Désormais à l'écran", "de": "Jetzt auf dem Bildschirm", "es": "Ahora en pantalla" },
           "options": [
             {
               "value": "app",
@@ -569,24 +343,8 @@
                 "es": "Aplicación o pantalla de inicio"
               }
             },
-            {
-              "value": "channel",
-              "label": {
-                "en": "Channel",
-                "fr": "Chaîne",
-                "de": "Kanal",
-                "es": "Canal"
-              }
-            },
-            {
-              "value": "source",
-              "label": {
-                "en": "HDMI source",
-                "fr": "Source HDMI",
-                "de": "HDMI-Quelle",
-                "es": "Fuente HDMI"
-              }
-            }
+            { "value": "channel", "label": { "en": "Channel", "fr": "Chaîne", "de": "Kanal", "es": "Canal" } },
+            { "value": "source", "label": { "en": "HDMI source", "fr": "Source HDMI", "de": "HDMI-Quelle", "es": "Fuente HDMI" } }
           ]
         },
         {
@@ -598,32 +356,14 @@
             "de": "Name, genau wie am Fernseher",
             "es": "Nombre, exactamente como en el televisor"
           },
-          "placeholder": {
-            "en": "e.g. Netflix, YouTube",
-            "fr": "ex. Netflix, YouTube",
-            "de": "z. B. Netflix, YouTube",
-            "es": "p. ej. Netflix, YouTube"
-          }
+          "placeholder": { "en": "e.g. Netflix, YouTube", "fr": "ex. Netflix, YouTube", "de": "z. B. Netflix, YouTube", "es": "p. ej. Netflix, YouTube" }
         },
         {
           "key": "origin",
           "type": "multi_select",
-          "label": {
-            "en": "Changed by",
-            "fr": "Changé par",
-            "de": "Gewechselt durch",
-            "es": "Cambiado por"
-          },
+          "label": { "en": "Changed by", "fr": "Changé par", "de": "Gewechselt durch", "es": "Cambiado por" },
           "options": [
-            {
-              "value": "gladys",
-              "label": {
-                "en": "Gladys",
-                "fr": "Gladys",
-                "de": "Gladys",
-                "es": "Gladys"
-              }
-            },
+            { "value": "gladys", "label": { "en": "Gladys", "fr": "Gladys", "de": "Gladys", "es": "Gladys" } },
             {
               "value": "tv",
               "label": {
@@ -637,16 +377,7 @@
         }
       ],
       "variables": [
-        {
-          "key": "tv",
-          "type": "string",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          }
-        },
+        { "key": "tv", "type": "string", "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" } },
         {
           "key": "kind",
           "type": "string",
@@ -670,12 +401,7 @@
         {
           "key": "channel_number",
           "type": "number",
-          "label": {
-            "en": "Channel number",
-            "fr": "Numéro de chaîne",
-            "de": "Kanalnummer",
-            "es": "Número de canal"
-          }
+          "label": { "en": "Channel number", "fr": "Numéro de chaîne", "de": "Kanalnummer", "es": "Número de canal" }
         },
         {
           "key": "origin",
@@ -711,12 +437,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty when there is only one TV.",
             "fr": "Vide s'il n'y a qu'un téléviseur.",
@@ -728,32 +449,13 @@
         {
           "key": "app",
           "type": "string",
-          "label": {
-            "en": "App",
-            "fr": "Application",
-            "de": "App",
-            "es": "Aplicación"
-          },
+          "label": { "en": "App", "fr": "Application", "de": "App", "es": "Aplicación" },
           "required": true,
-          "placeholder": {
-            "en": "e.g. Netflix",
-            "fr": "ex. Netflix",
-            "de": "z. B. Netflix",
-            "es": "p. ej. Netflix"
-          }
+          "placeholder": { "en": "e.g. Netflix", "fr": "ex. Netflix", "de": "z. B. Netflix", "es": "p. ej. Netflix" }
         }
       ],
       "outputs": [
-        {
-          "key": "app",
-          "type": "string",
-          "label": {
-            "en": "App opened",
-            "fr": "Application ouverte",
-            "de": "Geöffnete App",
-            "es": "Aplicación abierta"
-          }
-        }
+        { "key": "app", "type": "string", "label": { "en": "App opened", "fr": "Application ouverte", "de": "Geöffnete App", "es": "Aplicación abierta" } }
       ]
     },
     {
@@ -776,12 +478,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty when there is only one TV.",
             "fr": "Vide s'il n'y a qu'un téléviseur.",
@@ -793,83 +490,24 @@
         {
           "key": "source",
           "type": "select",
-          "label": {
-            "en": "Source",
-            "fr": "Source",
-            "de": "Quelle",
-            "es": "Fuente"
-          },
+          "label": { "en": "Source", "fr": "Source", "de": "Quelle", "es": "Fuente" },
           "required": true,
           "options": [
-            {
-              "value": "tv",
-              "label": {
-                "en": "TV",
-                "fr": "TV",
-                "de": "TV",
-                "es": "TV"
-              }
-            },
-            {
-              "value": "hdmi_1",
-              "label": {
-                "en": "HDMI 1",
-                "fr": "HDMI 1",
-                "de": "HDMI 1",
-                "es": "HDMI 1"
-              }
-            },
-            {
-              "value": "hdmi_2",
-              "label": {
-                "en": "HDMI 2",
-                "fr": "HDMI 2",
-                "de": "HDMI 2",
-                "es": "HDMI 2"
-              }
-            },
-            {
-              "value": "hdmi_3",
-              "label": {
-                "en": "HDMI 3",
-                "fr": "HDMI 3",
-                "de": "HDMI 3",
-                "es": "HDMI 3"
-              }
-            },
-            {
-              "value": "hdmi_4",
-              "label": {
-                "en": "HDMI 4",
-                "fr": "HDMI 4",
-                "de": "HDMI 4",
-                "es": "HDMI 4"
-              }
-            }
+            { "value": "tv", "label": { "en": "TV", "fr": "TV", "de": "TV", "es": "TV" } },
+            { "value": "hdmi_1", "label": { "en": "HDMI 1", "fr": "HDMI 1", "de": "HDMI 1", "es": "HDMI 1" } },
+            { "value": "hdmi_2", "label": { "en": "HDMI 2", "fr": "HDMI 2", "de": "HDMI 2", "es": "HDMI 2" } },
+            { "value": "hdmi_3", "label": { "en": "HDMI 3", "fr": "HDMI 3", "de": "HDMI 3", "es": "HDMI 3" } },
+            { "value": "hdmi_4", "label": { "en": "HDMI 4", "fr": "HDMI 4", "de": "HDMI 4", "es": "HDMI 4" } }
           ]
         }
       ],
       "outputs": [
-        {
-          "key": "source",
-          "type": "string",
-          "label": {
-            "en": "Source chosen",
-            "fr": "Source choisie",
-            "de": "Gewählte Quelle",
-            "es": "Fuente elegida"
-          }
-        }
+        { "key": "source", "type": "string", "label": { "en": "Source chosen", "fr": "Source choisie", "de": "Gewählte Quelle", "es": "Fuente elegida" } }
       ]
     },
     {
       "key": "ambilight_style",
-      "label": {
-        "en": "Set the Ambilight",
-        "fr": "Régler l'Ambilight",
-        "de": "Ambilight einstellen",
-        "es": "Ajustar el Ambilight"
-      },
+      "label": { "en": "Set the Ambilight", "fr": "Régler l'Ambilight", "de": "Ambilight einstellen", "es": "Ajustar el Ambilight" },
       "description": {
         "en": "A style, a fixed colour, or off. A style the TV does not have is refused.",
         "fr": "Un style, une couleur fixe, ou éteint. Un style que le téléviseur n'a pas est refusé.",
@@ -882,12 +520,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty when there is only one TV.",
             "fr": "Vide s'il n'y a qu'un téléviseur.",
@@ -899,12 +532,7 @@
         {
           "key": "style",
           "type": "select",
-          "label": {
-            "en": "Style",
-            "fr": "Style",
-            "de": "Stil",
-            "es": "Estilo"
-          },
+          "label": { "en": "Style", "fr": "Style", "de": "Stil", "es": "Estilo" },
           "required": true,
           "options": [
             {
@@ -927,12 +555,7 @@
             },
             {
               "value": "video_vivid",
-              "label": {
-                "en": "Follow video · Vivid",
-                "fr": "Suivre la vidéo · Éclatant",
-                "de": "Video folgen · Lebhaft",
-                "es": "Seguir el vídeo · Intenso"
-              }
+              "label": { "en": "Follow video · Vivid", "fr": "Suivre la vidéo · Éclatant", "de": "Video folgen · Lebhaft", "es": "Seguir el vídeo · Intenso" }
             },
             {
               "value": "video_immersive",
@@ -945,66 +568,31 @@
             },
             {
               "value": "video_game",
-              "label": {
-                "en": "Follow video · Game",
-                "fr": "Suivre la vidéo · Jeu",
-                "de": "Video folgen · Spiel",
-                "es": "Seguir el vídeo · Juego"
-              }
+              "label": { "en": "Follow video · Game", "fr": "Suivre la vidéo · Jeu", "de": "Video folgen · Spiel", "es": "Seguir el vídeo · Juego" }
             },
             {
               "value": "video_comfort",
-              "label": {
-                "en": "Follow video · Comfort",
-                "fr": "Suivre la vidéo · Confort",
-                "de": "Video folgen · Komfort",
-                "es": "Seguir el vídeo · Confort"
-              }
+              "label": { "en": "Follow video · Comfort", "fr": "Suivre la vidéo · Confort", "de": "Video folgen · Komfort", "es": "Seguir el vídeo · Confort" }
             },
             {
               "value": "video_cinema",
-              "label": {
-                "en": "Follow video · Cinema",
-                "fr": "Suivre la vidéo · Cinéma",
-                "de": "Video folgen · Kino",
-                "es": "Seguir el vídeo · Cine"
-              }
+              "label": { "en": "Follow video · Cinema", "fr": "Suivre la vidéo · Cinéma", "de": "Video folgen · Kino", "es": "Seguir el vídeo · Cine" }
             },
             {
               "value": "video_sports",
-              "label": {
-                "en": "Follow video · Sports",
-                "fr": "Suivre la vidéo · Sport",
-                "de": "Video folgen · Sport",
-                "es": "Seguir el vídeo · Deportes"
-              }
+              "label": { "en": "Follow video · Sports", "fr": "Suivre la vidéo · Sport", "de": "Video folgen · Sport", "es": "Seguir el vídeo · Deportes" }
             },
             {
               "value": "audio_energy_adaptive_brightness",
-              "label": {
-                "en": "Follow audio · Lumina",
-                "fr": "Suivre l'audio · Lumina",
-                "de": "Audio folgen · Lumina",
-                "es": "Seguir el audio · Lumina"
-              }
+              "label": { "en": "Follow audio · Lumina", "fr": "Suivre l'audio · Lumina", "de": "Audio folgen · Lumina", "es": "Seguir el audio · Lumina" }
             },
             {
               "value": "audio_energy_adaptive_colors",
-              "label": {
-                "en": "Follow audio · Colora",
-                "fr": "Suivre l'audio · Colora",
-                "de": "Audio folgen · Colora",
-                "es": "Seguir el audio · Colora"
-              }
+              "label": { "en": "Follow audio · Colora", "fr": "Suivre l'audio · Colora", "de": "Audio folgen · Colora", "es": "Seguir el audio · Colora" }
             },
             {
               "value": "audio_vu_meter",
-              "label": {
-                "en": "Follow audio · Retro",
-                "fr": "Suivre l'audio · Retro",
-                "de": "Audio folgen · Retro",
-                "es": "Seguir el audio · Retro"
-              }
+              "label": { "en": "Follow audio · Retro", "fr": "Suivre l'audio · Retro", "de": "Audio folgen · Retro", "es": "Seguir el audio · Retro" }
             },
             {
               "value": "audio_spectrum_analyzer",
@@ -1017,39 +605,19 @@
             },
             {
               "value": "audio_knight_rider_clockwise",
-              "label": {
-                "en": "Follow audio · Scanner",
-                "fr": "Suivre l'audio · Scanner",
-                "de": "Audio folgen · Scanner",
-                "es": "Seguir el audio · Scanner"
-              }
+              "label": { "en": "Follow audio · Scanner", "fr": "Suivre l'audio · Scanner", "de": "Audio folgen · Scanner", "es": "Seguir el audio · Scanner" }
             },
             {
               "value": "audio_knight_rider_alternating",
-              "label": {
-                "en": "Follow audio · Rhythm",
-                "fr": "Suivre l'audio · Rhythm",
-                "de": "Audio folgen · Rhythm",
-                "es": "Seguir el audio · Rhythm"
-              }
+              "label": { "en": "Follow audio · Rhythm", "fr": "Suivre l'audio · Rhythm", "de": "Audio folgen · Rhythm", "es": "Seguir el audio · Rhythm" }
             },
             {
               "value": "audio_random_pixel_flash",
-              "label": {
-                "en": "Follow audio · Flash",
-                "fr": "Suivre l'audio · Flash",
-                "de": "Audio folgen · Flash",
-                "es": "Seguir el audio · Flash"
-              }
+              "label": { "en": "Follow audio · Flash", "fr": "Suivre l'audio · Flash", "de": "Audio folgen · Flash", "es": "Seguir el audio · Flash" }
             },
             {
               "value": "audio_party",
-              "label": {
-                "en": "Follow audio · Party",
-                "fr": "Suivre l'audio · Party",
-                "de": "Audio folgen · Party",
-                "es": "Seguir el audio · Party"
-              }
+              "label": { "en": "Follow audio · Party", "fr": "Suivre l'audio · Party", "de": "Audio folgen · Party", "es": "Seguir el audio · Party" }
             },
             {
               "value": "lounge_hot_lava",
@@ -1096,24 +664,8 @@
                 "es": "Lounge light · Blanco frío"
               }
             },
-            {
-              "value": "color",
-              "label": {
-                "en": "Fixed colour",
-                "fr": "Couleur fixe",
-                "de": "Feste Farbe",
-                "es": "Color fijo"
-              }
-            },
-            {
-              "value": "off",
-              "label": {
-                "en": "Ambilight off",
-                "fr": "Ambilight éteint",
-                "de": "Ambilight aus",
-                "es": "Ambilight apagado"
-              }
-            }
+            { "value": "color", "label": { "en": "Fixed colour", "fr": "Couleur fixe", "de": "Feste Farbe", "es": "Color fijo" } },
+            { "value": "off", "label": { "en": "Ambilight off", "fr": "Ambilight éteint", "de": "Ambilight aus", "es": "Ambilight apagado" } }
           ]
         },
         {
@@ -1131,26 +683,12 @@
             "de": "Hexadezimal. Leer: die letzte, sonst Weiß.",
             "es": "Hexadecimal. Vacío: el último, si no blanco."
           },
-          "placeholder": {
-            "en": "e.g. #FF8800",
-            "fr": "ex. #FF8800",
-            "de": "z. B. #FF8800",
-            "es": "p. ej. #FF8800"
-          },
+          "placeholder": { "en": "e.g. #FF8800", "fr": "ex. #FF8800", "de": "z. B. #FF8800", "es": "p. ej. #FF8800" },
           "required": false
         }
       ],
       "outputs": [
-        {
-          "key": "style",
-          "type": "string",
-          "label": {
-            "en": "Style applied",
-            "fr": "Style appliqué",
-            "de": "Angewendeter Stil",
-            "es": "Estilo aplicado"
-          }
-        }
+        { "key": "style", "type": "string", "label": { "en": "Style applied", "fr": "Style appliqué", "de": "Angewendeter Stil", "es": "Estilo aplicado" } }
       ]
     },
     {
@@ -1173,12 +711,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty when there is only one TV.",
             "fr": "Vide s'il n'y a qu'un téléviseur.",
@@ -1190,412 +723,58 @@
         {
           "key": "key",
           "type": "select",
-          "label": {
-            "en": "Key",
-            "fr": "Touche",
-            "de": "Taste",
-            "es": "Tecla"
-          },
+          "label": { "en": "Key", "fr": "Touche", "de": "Taste", "es": "Tecla" },
           "required": true,
           "options": [
-            {
-              "value": "home",
-              "label": {
-                "en": "Home",
-                "fr": "Accueil",
-                "de": "Home",
-                "es": "Inicio"
-              }
-            },
-            {
-              "value": "back",
-              "label": {
-                "en": "Back",
-                "fr": "Retour",
-                "de": "Zurück",
-                "es": "Volver"
-              }
-            },
-            {
-              "value": "up",
-              "label": {
-                "en": "Up",
-                "fr": "Haut",
-                "de": "Hoch",
-                "es": "Arriba"
-              }
-            },
-            {
-              "value": "down",
-              "label": {
-                "en": "Down",
-                "fr": "Bas",
-                "de": "Runter",
-                "es": "Abajo"
-              }
-            },
-            {
-              "value": "left",
-              "label": {
-                "en": "Left",
-                "fr": "Gauche",
-                "de": "Links",
-                "es": "Izquierda"
-              }
-            },
-            {
-              "value": "right",
-              "label": {
-                "en": "Right",
-                "fr": "Droite",
-                "de": "Rechts",
-                "es": "Derecha"
-              }
-            },
-            {
-              "value": "confirm",
-              "label": {
-                "en": "OK",
-                "fr": "OK",
-                "de": "OK",
-                "es": "OK"
-              }
-            },
-            {
-              "value": "options",
-              "label": {
-                "en": "Options",
-                "fr": "Options",
-                "de": "Optionen",
-                "es": "Opciones"
-              }
-            },
-            {
-              "value": "source",
-              "label": {
-                "en": "Sources",
-                "fr": "Sources",
-                "de": "Quellen",
-                "es": "Fuentes"
-              }
-            },
-            {
-              "value": "info",
-              "label": {
-                "en": "Info",
-                "fr": "Info",
-                "de": "Info",
-                "es": "Info"
-              }
-            },
-            {
-              "value": "adjust",
-              "label": {
-                "en": "Quick settings",
-                "fr": "Réglages rapides",
-                "de": "Schnelleinstellungen",
-                "es": "Ajustes rápidos"
-              }
-            },
-            {
-              "value": "watch_tv",
-              "label": {
-                "en": "Watch TV",
-                "fr": "Regarder la TV",
-                "de": "Fernsehen",
-                "es": "Ver la TV"
-              }
-            },
-            {
-              "value": "volume_up",
-              "label": {
-                "en": "Volume +",
-                "fr": "Volume +",
-                "de": "Lauter",
-                "es": "Volumen +"
-              }
-            },
-            {
-              "value": "volume_down",
-              "label": {
-                "en": "Volume −",
-                "fr": "Volume −",
-                "de": "Leiser",
-                "es": "Volumen −"
-              }
-            },
-            {
-              "value": "mute",
-              "label": {
-                "en": "Mute",
-                "fr": "Muet",
-                "de": "Stumm",
-                "es": "Silenciar"
-              }
-            },
-            {
-              "value": "channel_up",
-              "label": {
-                "en": "Channel +",
-                "fr": "Chaîne +",
-                "de": "Kanal +",
-                "es": "Canal +"
-              }
-            },
-            {
-              "value": "channel_down",
-              "label": {
-                "en": "Channel −",
-                "fr": "Chaîne −",
-                "de": "Kanal −",
-                "es": "Canal −"
-              }
-            },
-            {
-              "value": "play_pause",
-              "label": {
-                "en": "Play / pause",
-                "fr": "Lecture / pause",
-                "de": "Abspielen / Pause",
-                "es": "Reproducir / pausa"
-              }
-            },
-            {
-              "value": "play",
-              "label": {
-                "en": "Play",
-                "fr": "Lecture",
-                "de": "Abspielen",
-                "es": "Reproducir"
-              }
-            },
-            {
-              "value": "pause",
-              "label": {
-                "en": "Pause",
-                "fr": "Pause",
-                "de": "Pause",
-                "es": "Pause"
-              }
-            },
-            {
-              "value": "stop",
-              "label": {
-                "en": "Stop",
-                "fr": "Stop",
-                "de": "Stopp",
-                "es": "Detener"
-              }
-            },
-            {
-              "value": "rewind",
-              "label": {
-                "en": "Rewind",
-                "fr": "Retour rapide",
-                "de": "Zurückspulen",
-                "es": "Retroceder"
-              }
-            },
-            {
-              "value": "fast_forward",
-              "label": {
-                "en": "Fast forward",
-                "fr": "Avance rapide",
-                "de": "Vorspulen",
-                "es": "Avance rápido"
-              }
-            },
-            {
-              "value": "previous",
-              "label": {
-                "en": "Previous",
-                "fr": "Précédent",
-                "de": "Vorheriger",
-                "es": "Anterior"
-              }
-            },
-            {
-              "value": "next",
-              "label": {
-                "en": "Next",
-                "fr": "Suivant",
-                "de": "Weiter",
-                "es": "Siguiente"
-              }
-            },
-            {
-              "value": "record",
-              "label": {
-                "en": "Record",
-                "fr": "Enregistrer",
-                "de": "Aufnehmen",
-                "es": "Grabar"
-              }
-            },
-            {
-              "value": "ambilight",
-              "label": {
-                "en": "Ambilight",
-                "fr": "Ambilight",
-                "de": "Ambilight",
-                "es": "Ambilight"
-              }
-            },
-            {
-              "value": "subtitle",
-              "label": {
-                "en": "Subtitles",
-                "fr": "Sous-titres",
-                "de": "Untertitel",
-                "es": "Subtítulos"
-              }
-            },
-            {
-              "value": "teletext",
-              "label": {
-                "en": "Teletext",
-                "fr": "Télétexte",
-                "de": "Videotext",
-                "es": "Teletexto"
-              }
-            },
-            {
-              "value": "red",
-              "label": {
-                "en": "Red",
-                "fr": "Rouge",
-                "de": "Rot",
-                "es": "Rojo"
-              }
-            },
-            {
-              "value": "green",
-              "label": {
-                "en": "Green",
-                "fr": "Vert",
-                "de": "Grün",
-                "es": "Verde"
-              }
-            },
-            {
-              "value": "yellow",
-              "label": {
-                "en": "Yellow",
-                "fr": "Jaune",
-                "de": "Gelb",
-                "es": "Amarillo"
-              }
-            },
-            {
-              "value": "blue",
-              "label": {
-                "en": "Blue",
-                "fr": "Bleu",
-                "de": "Blau",
-                "es": "Azul"
-              }
-            },
-            {
-              "value": "num_0",
-              "label": {
-                "en": "0",
-                "fr": "0",
-                "de": "0",
-                "es": "0"
-              }
-            },
-            {
-              "value": "num_1",
-              "label": {
-                "en": "1",
-                "fr": "1",
-                "de": "1",
-                "es": "1"
-              }
-            },
-            {
-              "value": "num_2",
-              "label": {
-                "en": "2",
-                "fr": "2",
-                "de": "2",
-                "es": "2"
-              }
-            },
-            {
-              "value": "num_3",
-              "label": {
-                "en": "3",
-                "fr": "3",
-                "de": "3",
-                "es": "3"
-              }
-            },
-            {
-              "value": "num_4",
-              "label": {
-                "en": "4",
-                "fr": "4",
-                "de": "4",
-                "es": "4"
-              }
-            },
-            {
-              "value": "num_5",
-              "label": {
-                "en": "5",
-                "fr": "5",
-                "de": "5",
-                "es": "5"
-              }
-            },
-            {
-              "value": "num_6",
-              "label": {
-                "en": "6",
-                "fr": "6",
-                "de": "6",
-                "es": "6"
-              }
-            },
-            {
-              "value": "num_7",
-              "label": {
-                "en": "7",
-                "fr": "7",
-                "de": "7",
-                "es": "7"
-              }
-            },
-            {
-              "value": "num_8",
-              "label": {
-                "en": "8",
-                "fr": "8",
-                "de": "8",
-                "es": "8"
-              }
-            },
-            {
-              "value": "num_9",
-              "label": {
-                "en": "9",
-                "fr": "9",
-                "de": "9",
-                "es": "9"
-              }
-            }
+            { "value": "home", "label": { "en": "Home", "fr": "Accueil", "de": "Home", "es": "Inicio" } },
+            { "value": "back", "label": { "en": "Back", "fr": "Retour", "de": "Zurück", "es": "Volver" } },
+            { "value": "up", "label": { "en": "Up", "fr": "Haut", "de": "Hoch", "es": "Arriba" } },
+            { "value": "down", "label": { "en": "Down", "fr": "Bas", "de": "Runter", "es": "Abajo" } },
+            { "value": "left", "label": { "en": "Left", "fr": "Gauche", "de": "Links", "es": "Izquierda" } },
+            { "value": "right", "label": { "en": "Right", "fr": "Droite", "de": "Rechts", "es": "Derecha" } },
+            { "value": "confirm", "label": { "en": "OK", "fr": "OK", "de": "OK", "es": "OK" } },
+            { "value": "options", "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" } },
+            { "value": "source", "label": { "en": "Sources", "fr": "Sources", "de": "Quellen", "es": "Fuentes" } },
+            { "value": "info", "label": { "en": "Info", "fr": "Info", "de": "Info", "es": "Info" } },
+            { "value": "adjust", "label": { "en": "Quick settings", "fr": "Réglages rapides", "de": "Schnelleinstellungen", "es": "Ajustes rápidos" } },
+            { "value": "watch_tv", "label": { "en": "Watch TV", "fr": "Regarder la TV", "de": "Fernsehen", "es": "Ver la TV" } },
+            { "value": "volume_up", "label": { "en": "Volume +", "fr": "Volume +", "de": "Lauter", "es": "Volumen +" } },
+            { "value": "volume_down", "label": { "en": "Volume −", "fr": "Volume −", "de": "Leiser", "es": "Volumen −" } },
+            { "value": "mute", "label": { "en": "Mute", "fr": "Muet", "de": "Stumm", "es": "Silenciar" } },
+            { "value": "channel_up", "label": { "en": "Channel +", "fr": "Chaîne +", "de": "Kanal +", "es": "Canal +" } },
+            { "value": "channel_down", "label": { "en": "Channel −", "fr": "Chaîne −", "de": "Kanal −", "es": "Canal −" } },
+            { "value": "play_pause", "label": { "en": "Play / pause", "fr": "Lecture / pause", "de": "Abspielen / Pause", "es": "Reproducir / pausa" } },
+            { "value": "play", "label": { "en": "Play", "fr": "Lecture", "de": "Abspielen", "es": "Reproducir" } },
+            { "value": "pause", "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pause" } },
+            { "value": "stop", "label": { "en": "Stop", "fr": "Stop", "de": "Stopp", "es": "Detener" } },
+            { "value": "rewind", "label": { "en": "Rewind", "fr": "Retour rapide", "de": "Zurückspulen", "es": "Retroceder" } },
+            { "value": "fast_forward", "label": { "en": "Fast forward", "fr": "Avance rapide", "de": "Vorspulen", "es": "Avance rápido" } },
+            { "value": "previous", "label": { "en": "Previous", "fr": "Précédent", "de": "Vorheriger", "es": "Anterior" } },
+            { "value": "next", "label": { "en": "Next", "fr": "Suivant", "de": "Weiter", "es": "Siguiente" } },
+            { "value": "record", "label": { "en": "Record", "fr": "Enregistrer", "de": "Aufnehmen", "es": "Grabar" } },
+            { "value": "ambilight", "label": { "en": "Ambilight", "fr": "Ambilight", "de": "Ambilight", "es": "Ambilight" } },
+            { "value": "subtitle", "label": { "en": "Subtitles", "fr": "Sous-titres", "de": "Untertitel", "es": "Subtítulos" } },
+            { "value": "teletext", "label": { "en": "Teletext", "fr": "Télétexte", "de": "Videotext", "es": "Teletexto" } },
+            { "value": "red", "label": { "en": "Red", "fr": "Rouge", "de": "Rot", "es": "Rojo" } },
+            { "value": "green", "label": { "en": "Green", "fr": "Vert", "de": "Grün", "es": "Verde" } },
+            { "value": "yellow", "label": { "en": "Yellow", "fr": "Jaune", "de": "Gelb", "es": "Amarillo" } },
+            { "value": "blue", "label": { "en": "Blue", "fr": "Bleu", "de": "Blau", "es": "Azul" } },
+            { "value": "num_0", "label": { "en": "0", "fr": "0", "de": "0", "es": "0" } },
+            { "value": "num_1", "label": { "en": "1", "fr": "1", "de": "1", "es": "1" } },
+            { "value": "num_2", "label": { "en": "2", "fr": "2", "de": "2", "es": "2" } },
+            { "value": "num_3", "label": { "en": "3", "fr": "3", "de": "3", "es": "3" } },
+            { "value": "num_4", "label": { "en": "4", "fr": "4", "de": "4", "es": "4" } },
+            { "value": "num_5", "label": { "en": "5", "fr": "5", "de": "5", "es": "5" } },
+            { "value": "num_6", "label": { "en": "6", "fr": "6", "de": "6", "es": "6" } },
+            { "value": "num_7", "label": { "en": "7", "fr": "7", "de": "7", "es": "7" } },
+            { "value": "num_8", "label": { "en": "8", "fr": "8", "de": "8", "es": "8" } },
+            { "value": "num_9", "label": { "en": "9", "fr": "9", "de": "9", "es": "9" } }
           ]
         },
         {
           "key": "repeat",
           "type": "number",
-          "label": {
-            "en": "Presses",
-            "fr": "Appuis",
-            "de": "Drücke",
-            "es": "Pulsaciones"
-          },
+          "label": { "en": "Presses", "fr": "Appuis", "de": "Drücke", "es": "Pulsaciones" },
           "required": false,
           "default": 1,
           "min": 1,
@@ -1606,12 +785,7 @@
         {
           "key": "presses",
           "type": "number",
-          "label": {
-            "en": "Presses sent",
-            "fr": "Appuis envoyés",
-            "de": "Gesendete Drücke",
-            "es": "Pulsaciones enviadas"
-          }
+          "label": { "en": "Presses sent", "fr": "Appuis envoyés", "de": "Gesendete Drücke", "es": "Pulsaciones enviadas" }
         }
       ]
     }
@@ -1619,12 +793,7 @@
   "widgets": [
     {
       "key": "remote",
-      "label": {
-        "en": "Philips remote",
-        "fr": "Télécommande Philips",
-        "de": "Philips-Fernbedienung",
-        "es": "Mando Philips"
-      },
+      "label": { "en": "Philips remote", "fr": "Télécommande Philips", "de": "Philips-Fernbedienung", "es": "Mando Philips" },
       "description": {
         "en": "State, what is on screen, volume, and Power, Volume and Mute buttons.",
         "fr": "État, ce qui est à l'écran, volume, et boutons marche, volume et muet.",
@@ -1638,12 +807,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty: the first TV of the configuration.",
             "fr": "Vide : le premier téléviseur de la configuration.",
@@ -1656,12 +820,7 @@
     },
     {
       "key": "ambilight",
-      "label": {
-        "en": "Philips Ambilight",
-        "fr": "Ambilight Philips",
-        "de": "Philips Ambilight",
-        "es": "Ambilight Philips"
-      },
+      "label": { "en": "Philips Ambilight", "fr": "Ambilight Philips", "de": "Philips Ambilight", "es": "Ambilight Philips" },
       "description": {
         "en": "Ambilight on or off, and three styles of your choice.",
         "fr": "Ambilight allumé ou éteint, et trois styles au choix.",
@@ -1675,12 +834,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty: the first TV of the configuration.",
             "fr": "Vide : le premier téléviseur de la configuration.",
@@ -1692,12 +846,7 @@
         {
           "key": "style_1",
           "type": "select",
-          "label": {
-            "en": "Button 2",
-            "fr": "Bouton 2",
-            "de": "Taste 2",
-            "es": "Botón 2"
-          },
+          "label": { "en": "Button 2", "fr": "Bouton 2", "de": "Taste 2", "es": "Botón 2" },
           "required": false,
           "default": "video_standard",
           "options": [
@@ -1721,12 +870,7 @@
             },
             {
               "value": "video_vivid",
-              "label": {
-                "en": "Follow video · Vivid",
-                "fr": "Suivre la vidéo · Éclatant",
-                "de": "Video folgen · Lebhaft",
-                "es": "Seguir el vídeo · Intenso"
-              }
+              "label": { "en": "Follow video · Vivid", "fr": "Suivre la vidéo · Éclatant", "de": "Video folgen · Lebhaft", "es": "Seguir el vídeo · Intenso" }
             },
             {
               "value": "video_immersive",
@@ -1739,66 +883,31 @@
             },
             {
               "value": "video_game",
-              "label": {
-                "en": "Follow video · Game",
-                "fr": "Suivre la vidéo · Jeu",
-                "de": "Video folgen · Spiel",
-                "es": "Seguir el vídeo · Juego"
-              }
+              "label": { "en": "Follow video · Game", "fr": "Suivre la vidéo · Jeu", "de": "Video folgen · Spiel", "es": "Seguir el vídeo · Juego" }
             },
             {
               "value": "video_comfort",
-              "label": {
-                "en": "Follow video · Comfort",
-                "fr": "Suivre la vidéo · Confort",
-                "de": "Video folgen · Komfort",
-                "es": "Seguir el vídeo · Confort"
-              }
+              "label": { "en": "Follow video · Comfort", "fr": "Suivre la vidéo · Confort", "de": "Video folgen · Komfort", "es": "Seguir el vídeo · Confort" }
             },
             {
               "value": "video_cinema",
-              "label": {
-                "en": "Follow video · Cinema",
-                "fr": "Suivre la vidéo · Cinéma",
-                "de": "Video folgen · Kino",
-                "es": "Seguir el vídeo · Cine"
-              }
+              "label": { "en": "Follow video · Cinema", "fr": "Suivre la vidéo · Cinéma", "de": "Video folgen · Kino", "es": "Seguir el vídeo · Cine" }
             },
             {
               "value": "video_sports",
-              "label": {
-                "en": "Follow video · Sports",
-                "fr": "Suivre la vidéo · Sport",
-                "de": "Video folgen · Sport",
-                "es": "Seguir el vídeo · Deportes"
-              }
+              "label": { "en": "Follow video · Sports", "fr": "Suivre la vidéo · Sport", "de": "Video folgen · Sport", "es": "Seguir el vídeo · Deportes" }
             },
             {
               "value": "audio_energy_adaptive_brightness",
-              "label": {
-                "en": "Follow audio · Lumina",
-                "fr": "Suivre l'audio · Lumina",
-                "de": "Audio folgen · Lumina",
-                "es": "Seguir el audio · Lumina"
-              }
+              "label": { "en": "Follow audio · Lumina", "fr": "Suivre l'audio · Lumina", "de": "Audio folgen · Lumina", "es": "Seguir el audio · Lumina" }
             },
             {
               "value": "audio_energy_adaptive_colors",
-              "label": {
-                "en": "Follow audio · Colora",
-                "fr": "Suivre l'audio · Colora",
-                "de": "Audio folgen · Colora",
-                "es": "Seguir el audio · Colora"
-              }
+              "label": { "en": "Follow audio · Colora", "fr": "Suivre l'audio · Colora", "de": "Audio folgen · Colora", "es": "Seguir el audio · Colora" }
             },
             {
               "value": "audio_vu_meter",
-              "label": {
-                "en": "Follow audio · Retro",
-                "fr": "Suivre l'audio · Retro",
-                "de": "Audio folgen · Retro",
-                "es": "Seguir el audio · Retro"
-              }
+              "label": { "en": "Follow audio · Retro", "fr": "Suivre l'audio · Retro", "de": "Audio folgen · Retro", "es": "Seguir el audio · Retro" }
             },
             {
               "value": "audio_spectrum_analyzer",
@@ -1811,39 +920,19 @@
             },
             {
               "value": "audio_knight_rider_clockwise",
-              "label": {
-                "en": "Follow audio · Scanner",
-                "fr": "Suivre l'audio · Scanner",
-                "de": "Audio folgen · Scanner",
-                "es": "Seguir el audio · Scanner"
-              }
+              "label": { "en": "Follow audio · Scanner", "fr": "Suivre l'audio · Scanner", "de": "Audio folgen · Scanner", "es": "Seguir el audio · Scanner" }
             },
             {
               "value": "audio_knight_rider_alternating",
-              "label": {
-                "en": "Follow audio · Rhythm",
-                "fr": "Suivre l'audio · Rhythm",
-                "de": "Audio folgen · Rhythm",
-                "es": "Seguir el audio · Rhythm"
-              }
+              "label": { "en": "Follow audio · Rhythm", "fr": "Suivre l'audio · Rhythm", "de": "Audio folgen · Rhythm", "es": "Seguir el audio · Rhythm" }
             },
             {
               "value": "audio_random_pixel_flash",
-              "label": {
-                "en": "Follow audio · Flash",
-                "fr": "Suivre l'audio · Flash",
-                "de": "Audio folgen · Flash",
-                "es": "Seguir el audio · Flash"
-              }
+              "label": { "en": "Follow audio · Flash", "fr": "Suivre l'audio · Flash", "de": "Audio folgen · Flash", "es": "Seguir el audio · Flash" }
             },
             {
               "value": "audio_party",
-              "label": {
-                "en": "Follow audio · Party",
-                "fr": "Suivre l'audio · Party",
-                "de": "Audio folgen · Party",
-                "es": "Seguir el audio · Party"
-              }
+              "label": { "en": "Follow audio · Party", "fr": "Suivre l'audio · Party", "de": "Audio folgen · Party", "es": "Seguir el audio · Party" }
             },
             {
               "value": "lounge_hot_lava",
@@ -1890,26 +979,13 @@
                 "es": "Lounge light · Blanco frío"
               }
             },
-            {
-              "value": "color",
-              "label": {
-                "en": "Fixed colour",
-                "fr": "Couleur fixe",
-                "de": "Feste Farbe",
-                "es": "Color fijo"
-              }
-            }
+            { "value": "color", "label": { "en": "Fixed colour", "fr": "Couleur fixe", "de": "Feste Farbe", "es": "Color fijo" } }
           ]
         },
         {
           "key": "style_2",
           "type": "select",
-          "label": {
-            "en": "Button 3",
-            "fr": "Bouton 3",
-            "de": "Taste 3",
-            "es": "Botón 3"
-          },
+          "label": { "en": "Button 3", "fr": "Bouton 3", "de": "Taste 3", "es": "Botón 3" },
           "required": false,
           "default": "audio_energy_adaptive_brightness",
           "options": [
@@ -1933,12 +1009,7 @@
             },
             {
               "value": "video_vivid",
-              "label": {
-                "en": "Follow video · Vivid",
-                "fr": "Suivre la vidéo · Éclatant",
-                "de": "Video folgen · Lebhaft",
-                "es": "Seguir el vídeo · Intenso"
-              }
+              "label": { "en": "Follow video · Vivid", "fr": "Suivre la vidéo · Éclatant", "de": "Video folgen · Lebhaft", "es": "Seguir el vídeo · Intenso" }
             },
             {
               "value": "video_immersive",
@@ -1951,66 +1022,31 @@
             },
             {
               "value": "video_game",
-              "label": {
-                "en": "Follow video · Game",
-                "fr": "Suivre la vidéo · Jeu",
-                "de": "Video folgen · Spiel",
-                "es": "Seguir el vídeo · Juego"
-              }
+              "label": { "en": "Follow video · Game", "fr": "Suivre la vidéo · Jeu", "de": "Video folgen · Spiel", "es": "Seguir el vídeo · Juego" }
             },
             {
               "value": "video_comfort",
-              "label": {
-                "en": "Follow video · Comfort",
-                "fr": "Suivre la vidéo · Confort",
-                "de": "Video folgen · Komfort",
-                "es": "Seguir el vídeo · Confort"
-              }
+              "label": { "en": "Follow video · Comfort", "fr": "Suivre la vidéo · Confort", "de": "Video folgen · Komfort", "es": "Seguir el vídeo · Confort" }
             },
             {
               "value": "video_cinema",
-              "label": {
-                "en": "Follow video · Cinema",
-                "fr": "Suivre la vidéo · Cinéma",
-                "de": "Video folgen · Kino",
-                "es": "Seguir el vídeo · Cine"
-              }
+              "label": { "en": "Follow video · Cinema", "fr": "Suivre la vidéo · Cinéma", "de": "Video folgen · Kino", "es": "Seguir el vídeo · Cine" }
             },
             {
               "value": "video_sports",
-              "label": {
-                "en": "Follow video · Sports",
-                "fr": "Suivre la vidéo · Sport",
-                "de": "Video folgen · Sport",
-                "es": "Seguir el vídeo · Deportes"
-              }
+              "label": { "en": "Follow video · Sports", "fr": "Suivre la vidéo · Sport", "de": "Video folgen · Sport", "es": "Seguir el vídeo · Deportes" }
             },
             {
               "value": "audio_energy_adaptive_brightness",
-              "label": {
-                "en": "Follow audio · Lumina",
-                "fr": "Suivre l'audio · Lumina",
-                "de": "Audio folgen · Lumina",
-                "es": "Seguir el audio · Lumina"
-              }
+              "label": { "en": "Follow audio · Lumina", "fr": "Suivre l'audio · Lumina", "de": "Audio folgen · Lumina", "es": "Seguir el audio · Lumina" }
             },
             {
               "value": "audio_energy_adaptive_colors",
-              "label": {
-                "en": "Follow audio · Colora",
-                "fr": "Suivre l'audio · Colora",
-                "de": "Audio folgen · Colora",
-                "es": "Seguir el audio · Colora"
-              }
+              "label": { "en": "Follow audio · Colora", "fr": "Suivre l'audio · Colora", "de": "Audio folgen · Colora", "es": "Seguir el audio · Colora" }
             },
             {
               "value": "audio_vu_meter",
-              "label": {
-                "en": "Follow audio · Retro",
-                "fr": "Suivre l'audio · Retro",
-                "de": "Audio folgen · Retro",
-                "es": "Seguir el audio · Retro"
-              }
+              "label": { "en": "Follow audio · Retro", "fr": "Suivre l'audio · Retro", "de": "Audio folgen · Retro", "es": "Seguir el audio · Retro" }
             },
             {
               "value": "audio_spectrum_analyzer",
@@ -2023,39 +1059,19 @@
             },
             {
               "value": "audio_knight_rider_clockwise",
-              "label": {
-                "en": "Follow audio · Scanner",
-                "fr": "Suivre l'audio · Scanner",
-                "de": "Audio folgen · Scanner",
-                "es": "Seguir el audio · Scanner"
-              }
+              "label": { "en": "Follow audio · Scanner", "fr": "Suivre l'audio · Scanner", "de": "Audio folgen · Scanner", "es": "Seguir el audio · Scanner" }
             },
             {
               "value": "audio_knight_rider_alternating",
-              "label": {
-                "en": "Follow audio · Rhythm",
-                "fr": "Suivre l'audio · Rhythm",
-                "de": "Audio folgen · Rhythm",
-                "es": "Seguir el audio · Rhythm"
-              }
+              "label": { "en": "Follow audio · Rhythm", "fr": "Suivre l'audio · Rhythm", "de": "Audio folgen · Rhythm", "es": "Seguir el audio · Rhythm" }
             },
             {
               "value": "audio_random_pixel_flash",
-              "label": {
-                "en": "Follow audio · Flash",
-                "fr": "Suivre l'audio · Flash",
-                "de": "Audio folgen · Flash",
-                "es": "Seguir el audio · Flash"
-              }
+              "label": { "en": "Follow audio · Flash", "fr": "Suivre l'audio · Flash", "de": "Audio folgen · Flash", "es": "Seguir el audio · Flash" }
             },
             {
               "value": "audio_party",
-              "label": {
-                "en": "Follow audio · Party",
-                "fr": "Suivre l'audio · Party",
-                "de": "Audio folgen · Party",
-                "es": "Seguir el audio · Party"
-              }
+              "label": { "en": "Follow audio · Party", "fr": "Suivre l'audio · Party", "de": "Audio folgen · Party", "es": "Seguir el audio · Party" }
             },
             {
               "value": "lounge_hot_lava",
@@ -2102,26 +1118,13 @@
                 "es": "Lounge light · Blanco frío"
               }
             },
-            {
-              "value": "color",
-              "label": {
-                "en": "Fixed colour",
-                "fr": "Couleur fixe",
-                "de": "Feste Farbe",
-                "es": "Color fijo"
-              }
-            }
+            { "value": "color", "label": { "en": "Fixed colour", "fr": "Couleur fixe", "de": "Feste Farbe", "es": "Color fijo" } }
           ]
         },
         {
           "key": "style_3",
           "type": "select",
-          "label": {
-            "en": "Button 4",
-            "fr": "Bouton 4",
-            "de": "Taste 4",
-            "es": "Botón 4"
-          },
+          "label": { "en": "Button 4", "fr": "Bouton 4", "de": "Taste 4", "es": "Botón 4" },
           "required": false,
           "default": "lounge_hot_lava",
           "options": [
@@ -2145,12 +1148,7 @@
             },
             {
               "value": "video_vivid",
-              "label": {
-                "en": "Follow video · Vivid",
-                "fr": "Suivre la vidéo · Éclatant",
-                "de": "Video folgen · Lebhaft",
-                "es": "Seguir el vídeo · Intenso"
-              }
+              "label": { "en": "Follow video · Vivid", "fr": "Suivre la vidéo · Éclatant", "de": "Video folgen · Lebhaft", "es": "Seguir el vídeo · Intenso" }
             },
             {
               "value": "video_immersive",
@@ -2163,66 +1161,31 @@
             },
             {
               "value": "video_game",
-              "label": {
-                "en": "Follow video · Game",
-                "fr": "Suivre la vidéo · Jeu",
-                "de": "Video folgen · Spiel",
-                "es": "Seguir el vídeo · Juego"
-              }
+              "label": { "en": "Follow video · Game", "fr": "Suivre la vidéo · Jeu", "de": "Video folgen · Spiel", "es": "Seguir el vídeo · Juego" }
             },
             {
               "value": "video_comfort",
-              "label": {
-                "en": "Follow video · Comfort",
-                "fr": "Suivre la vidéo · Confort",
-                "de": "Video folgen · Komfort",
-                "es": "Seguir el vídeo · Confort"
-              }
+              "label": { "en": "Follow video · Comfort", "fr": "Suivre la vidéo · Confort", "de": "Video folgen · Komfort", "es": "Seguir el vídeo · Confort" }
             },
             {
               "value": "video_cinema",
-              "label": {
-                "en": "Follow video · Cinema",
-                "fr": "Suivre la vidéo · Cinéma",
-                "de": "Video folgen · Kino",
-                "es": "Seguir el vídeo · Cine"
-              }
+              "label": { "en": "Follow video · Cinema", "fr": "Suivre la vidéo · Cinéma", "de": "Video folgen · Kino", "es": "Seguir el vídeo · Cine" }
             },
             {
               "value": "video_sports",
-              "label": {
-                "en": "Follow video · Sports",
-                "fr": "Suivre la vidéo · Sport",
-                "de": "Video folgen · Sport",
-                "es": "Seguir el vídeo · Deportes"
-              }
+              "label": { "en": "Follow video · Sports", "fr": "Suivre la vidéo · Sport", "de": "Video folgen · Sport", "es": "Seguir el vídeo · Deportes" }
             },
             {
               "value": "audio_energy_adaptive_brightness",
-              "label": {
-                "en": "Follow audio · Lumina",
-                "fr": "Suivre l'audio · Lumina",
-                "de": "Audio folgen · Lumina",
-                "es": "Seguir el audio · Lumina"
-              }
+              "label": { "en": "Follow audio · Lumina", "fr": "Suivre l'audio · Lumina", "de": "Audio folgen · Lumina", "es": "Seguir el audio · Lumina" }
             },
             {
               "value": "audio_energy_adaptive_colors",
-              "label": {
-                "en": "Follow audio · Colora",
-                "fr": "Suivre l'audio · Colora",
-                "de": "Audio folgen · Colora",
-                "es": "Seguir el audio · Colora"
-              }
+              "label": { "en": "Follow audio · Colora", "fr": "Suivre l'audio · Colora", "de": "Audio folgen · Colora", "es": "Seguir el audio · Colora" }
             },
             {
               "value": "audio_vu_meter",
-              "label": {
-                "en": "Follow audio · Retro",
-                "fr": "Suivre l'audio · Retro",
-                "de": "Audio folgen · Retro",
-                "es": "Seguir el audio · Retro"
-              }
+              "label": { "en": "Follow audio · Retro", "fr": "Suivre l'audio · Retro", "de": "Audio folgen · Retro", "es": "Seguir el audio · Retro" }
             },
             {
               "value": "audio_spectrum_analyzer",
@@ -2235,39 +1198,19 @@
             },
             {
               "value": "audio_knight_rider_clockwise",
-              "label": {
-                "en": "Follow audio · Scanner",
-                "fr": "Suivre l'audio · Scanner",
-                "de": "Audio folgen · Scanner",
-                "es": "Seguir el audio · Scanner"
-              }
+              "label": { "en": "Follow audio · Scanner", "fr": "Suivre l'audio · Scanner", "de": "Audio folgen · Scanner", "es": "Seguir el audio · Scanner" }
             },
             {
               "value": "audio_knight_rider_alternating",
-              "label": {
-                "en": "Follow audio · Rhythm",
-                "fr": "Suivre l'audio · Rhythm",
-                "de": "Audio folgen · Rhythm",
-                "es": "Seguir el audio · Rhythm"
-              }
+              "label": { "en": "Follow audio · Rhythm", "fr": "Suivre l'audio · Rhythm", "de": "Audio folgen · Rhythm", "es": "Seguir el audio · Rhythm" }
             },
             {
               "value": "audio_random_pixel_flash",
-              "label": {
-                "en": "Follow audio · Flash",
-                "fr": "Suivre l'audio · Flash",
-                "de": "Audio folgen · Flash",
-                "es": "Seguir el audio · Flash"
-              }
+              "label": { "en": "Follow audio · Flash", "fr": "Suivre l'audio · Flash", "de": "Audio folgen · Flash", "es": "Seguir el audio · Flash" }
             },
             {
               "value": "audio_party",
-              "label": {
-                "en": "Follow audio · Party",
-                "fr": "Suivre l'audio · Party",
-                "de": "Audio folgen · Party",
-                "es": "Seguir el audio · Party"
-              }
+              "label": { "en": "Follow audio · Party", "fr": "Suivre l'audio · Party", "de": "Audio folgen · Party", "es": "Seguir el audio · Party" }
             },
             {
               "value": "lounge_hot_lava",
@@ -2314,27 +1257,14 @@
                 "es": "Lounge light · Blanco frío"
               }
             },
-            {
-              "value": "color",
-              "label": {
-                "en": "Fixed colour",
-                "fr": "Couleur fixe",
-                "de": "Feste Farbe",
-                "es": "Color fijo"
-              }
-            }
+            { "value": "color", "label": { "en": "Fixed colour", "fr": "Couleur fixe", "de": "Feste Farbe", "es": "Color fijo" } }
           ]
         }
       ]
     },
     {
       "key": "keys",
-      "label": {
-        "en": "Philips keys",
-        "fr": "Touches Philips",
-        "de": "Philips-Tasten",
-        "es": "Teclas Philips"
-      },
+      "label": { "en": "Philips keys", "fr": "Touches Philips", "de": "Philips-Tasten", "es": "Teclas Philips" },
       "description": {
         "en": "Four remote keys of your choice: arrows, OK, Back, Home…",
         "fr": "Quatre touches de télécommande au choix : flèches, OK, retour, accueil…",
@@ -2348,12 +1278,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty: the first TV of the configuration.",
             "fr": "Vide : le premier téléviseur de la configuration.",
@@ -2365,1617 +1290,216 @@
         {
           "key": "key_1",
           "type": "select",
-          "label": {
-            "en": "Button 1",
-            "fr": "Bouton 1",
-            "de": "Taste 1",
-            "es": "Botón 1"
-          },
+          "label": { "en": "Button 1", "fr": "Bouton 1", "de": "Taste 1", "es": "Botón 1" },
           "required": false,
           "default": "up",
           "options": [
-            {
-              "value": "home",
-              "label": {
-                "en": "Home",
-                "fr": "Accueil",
-                "de": "Home",
-                "es": "Inicio"
-              }
-            },
-            {
-              "value": "back",
-              "label": {
-                "en": "Back",
-                "fr": "Retour",
-                "de": "Zurück",
-                "es": "Volver"
-              }
-            },
-            {
-              "value": "up",
-              "label": {
-                "en": "Up",
-                "fr": "Haut",
-                "de": "Hoch",
-                "es": "Arriba"
-              }
-            },
-            {
-              "value": "down",
-              "label": {
-                "en": "Down",
-                "fr": "Bas",
-                "de": "Runter",
-                "es": "Abajo"
-              }
-            },
-            {
-              "value": "left",
-              "label": {
-                "en": "Left",
-                "fr": "Gauche",
-                "de": "Links",
-                "es": "Izquierda"
-              }
-            },
-            {
-              "value": "right",
-              "label": {
-                "en": "Right",
-                "fr": "Droite",
-                "de": "Rechts",
-                "es": "Derecha"
-              }
-            },
-            {
-              "value": "confirm",
-              "label": {
-                "en": "OK",
-                "fr": "OK",
-                "de": "OK",
-                "es": "OK"
-              }
-            },
-            {
-              "value": "options",
-              "label": {
-                "en": "Options",
-                "fr": "Options",
-                "de": "Optionen",
-                "es": "Opciones"
-              }
-            },
-            {
-              "value": "source",
-              "label": {
-                "en": "Sources",
-                "fr": "Sources",
-                "de": "Quellen",
-                "es": "Fuentes"
-              }
-            },
-            {
-              "value": "info",
-              "label": {
-                "en": "Info",
-                "fr": "Info",
-                "de": "Info",
-                "es": "Info"
-              }
-            },
-            {
-              "value": "adjust",
-              "label": {
-                "en": "Quick settings",
-                "fr": "Réglages rapides",
-                "de": "Schnelleinstellungen",
-                "es": "Ajustes rápidos"
-              }
-            },
-            {
-              "value": "watch_tv",
-              "label": {
-                "en": "Watch TV",
-                "fr": "Regarder la TV",
-                "de": "Fernsehen",
-                "es": "Ver la TV"
-              }
-            },
-            {
-              "value": "volume_up",
-              "label": {
-                "en": "Volume +",
-                "fr": "Volume +",
-                "de": "Lauter",
-                "es": "Volumen +"
-              }
-            },
-            {
-              "value": "volume_down",
-              "label": {
-                "en": "Volume −",
-                "fr": "Volume −",
-                "de": "Leiser",
-                "es": "Volumen −"
-              }
-            },
-            {
-              "value": "mute",
-              "label": {
-                "en": "Mute",
-                "fr": "Muet",
-                "de": "Stumm",
-                "es": "Silenciar"
-              }
-            },
-            {
-              "value": "channel_up",
-              "label": {
-                "en": "Channel +",
-                "fr": "Chaîne +",
-                "de": "Kanal +",
-                "es": "Canal +"
-              }
-            },
-            {
-              "value": "channel_down",
-              "label": {
-                "en": "Channel −",
-                "fr": "Chaîne −",
-                "de": "Kanal −",
-                "es": "Canal −"
-              }
-            },
-            {
-              "value": "play_pause",
-              "label": {
-                "en": "Play / pause",
-                "fr": "Lecture / pause",
-                "de": "Abspielen / Pause",
-                "es": "Reproducir / pausa"
-              }
-            },
-            {
-              "value": "play",
-              "label": {
-                "en": "Play",
-                "fr": "Lecture",
-                "de": "Abspielen",
-                "es": "Reproducir"
-              }
-            },
-            {
-              "value": "pause",
-              "label": {
-                "en": "Pause",
-                "fr": "Pause",
-                "de": "Pause",
-                "es": "Pause"
-              }
-            },
-            {
-              "value": "stop",
-              "label": {
-                "en": "Stop",
-                "fr": "Stop",
-                "de": "Stopp",
-                "es": "Detener"
-              }
-            },
-            {
-              "value": "rewind",
-              "label": {
-                "en": "Rewind",
-                "fr": "Retour rapide",
-                "de": "Zurückspulen",
-                "es": "Retroceder"
-              }
-            },
-            {
-              "value": "fast_forward",
-              "label": {
-                "en": "Fast forward",
-                "fr": "Avance rapide",
-                "de": "Vorspulen",
-                "es": "Avance rápido"
-              }
-            },
-            {
-              "value": "previous",
-              "label": {
-                "en": "Previous",
-                "fr": "Précédent",
-                "de": "Vorheriger",
-                "es": "Anterior"
-              }
-            },
-            {
-              "value": "next",
-              "label": {
-                "en": "Next",
-                "fr": "Suivant",
-                "de": "Weiter",
-                "es": "Siguiente"
-              }
-            },
-            {
-              "value": "record",
-              "label": {
-                "en": "Record",
-                "fr": "Enregistrer",
-                "de": "Aufnehmen",
-                "es": "Grabar"
-              }
-            },
-            {
-              "value": "ambilight",
-              "label": {
-                "en": "Ambilight",
-                "fr": "Ambilight",
-                "de": "Ambilight",
-                "es": "Ambilight"
-              }
-            },
-            {
-              "value": "subtitle",
-              "label": {
-                "en": "Subtitles",
-                "fr": "Sous-titres",
-                "de": "Untertitel",
-                "es": "Subtítulos"
-              }
-            },
-            {
-              "value": "teletext",
-              "label": {
-                "en": "Teletext",
-                "fr": "Télétexte",
-                "de": "Videotext",
-                "es": "Teletexto"
-              }
-            },
-            {
-              "value": "red",
-              "label": {
-                "en": "Red",
-                "fr": "Rouge",
-                "de": "Rot",
-                "es": "Rojo"
-              }
-            },
-            {
-              "value": "green",
-              "label": {
-                "en": "Green",
-                "fr": "Vert",
-                "de": "Grün",
-                "es": "Verde"
-              }
-            },
-            {
-              "value": "yellow",
-              "label": {
-                "en": "Yellow",
-                "fr": "Jaune",
-                "de": "Gelb",
-                "es": "Amarillo"
-              }
-            },
-            {
-              "value": "blue",
-              "label": {
-                "en": "Blue",
-                "fr": "Bleu",
-                "de": "Blau",
-                "es": "Azul"
-              }
-            },
-            {
-              "value": "num_0",
-              "label": {
-                "en": "0",
-                "fr": "0",
-                "de": "0",
-                "es": "0"
-              }
-            },
-            {
-              "value": "num_1",
-              "label": {
-                "en": "1",
-                "fr": "1",
-                "de": "1",
-                "es": "1"
-              }
-            },
-            {
-              "value": "num_2",
-              "label": {
-                "en": "2",
-                "fr": "2",
-                "de": "2",
-                "es": "2"
-              }
-            },
-            {
-              "value": "num_3",
-              "label": {
-                "en": "3",
-                "fr": "3",
-                "de": "3",
-                "es": "3"
-              }
-            },
-            {
-              "value": "num_4",
-              "label": {
-                "en": "4",
-                "fr": "4",
-                "de": "4",
-                "es": "4"
-              }
-            },
-            {
-              "value": "num_5",
-              "label": {
-                "en": "5",
-                "fr": "5",
-                "de": "5",
-                "es": "5"
-              }
-            },
-            {
-              "value": "num_6",
-              "label": {
-                "en": "6",
-                "fr": "6",
-                "de": "6",
-                "es": "6"
-              }
-            },
-            {
-              "value": "num_7",
-              "label": {
-                "en": "7",
-                "fr": "7",
-                "de": "7",
-                "es": "7"
-              }
-            },
-            {
-              "value": "num_8",
-              "label": {
-                "en": "8",
-                "fr": "8",
-                "de": "8",
-                "es": "8"
-              }
-            },
-            {
-              "value": "num_9",
-              "label": {
-                "en": "9",
-                "fr": "9",
-                "de": "9",
-                "es": "9"
-              }
-            }
+            { "value": "home", "label": { "en": "Home", "fr": "Accueil", "de": "Home", "es": "Inicio" } },
+            { "value": "back", "label": { "en": "Back", "fr": "Retour", "de": "Zurück", "es": "Volver" } },
+            { "value": "up", "label": { "en": "Up", "fr": "Haut", "de": "Hoch", "es": "Arriba" } },
+            { "value": "down", "label": { "en": "Down", "fr": "Bas", "de": "Runter", "es": "Abajo" } },
+            { "value": "left", "label": { "en": "Left", "fr": "Gauche", "de": "Links", "es": "Izquierda" } },
+            { "value": "right", "label": { "en": "Right", "fr": "Droite", "de": "Rechts", "es": "Derecha" } },
+            { "value": "confirm", "label": { "en": "OK", "fr": "OK", "de": "OK", "es": "OK" } },
+            { "value": "options", "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" } },
+            { "value": "source", "label": { "en": "Sources", "fr": "Sources", "de": "Quellen", "es": "Fuentes" } },
+            { "value": "info", "label": { "en": "Info", "fr": "Info", "de": "Info", "es": "Info" } },
+            { "value": "adjust", "label": { "en": "Quick settings", "fr": "Réglages rapides", "de": "Schnelleinstellungen", "es": "Ajustes rápidos" } },
+            { "value": "watch_tv", "label": { "en": "Watch TV", "fr": "Regarder la TV", "de": "Fernsehen", "es": "Ver la TV" } },
+            { "value": "volume_up", "label": { "en": "Volume +", "fr": "Volume +", "de": "Lauter", "es": "Volumen +" } },
+            { "value": "volume_down", "label": { "en": "Volume −", "fr": "Volume −", "de": "Leiser", "es": "Volumen −" } },
+            { "value": "mute", "label": { "en": "Mute", "fr": "Muet", "de": "Stumm", "es": "Silenciar" } },
+            { "value": "channel_up", "label": { "en": "Channel +", "fr": "Chaîne +", "de": "Kanal +", "es": "Canal +" } },
+            { "value": "channel_down", "label": { "en": "Channel −", "fr": "Chaîne −", "de": "Kanal −", "es": "Canal −" } },
+            { "value": "play_pause", "label": { "en": "Play / pause", "fr": "Lecture / pause", "de": "Abspielen / Pause", "es": "Reproducir / pausa" } },
+            { "value": "play", "label": { "en": "Play", "fr": "Lecture", "de": "Abspielen", "es": "Reproducir" } },
+            { "value": "pause", "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pause" } },
+            { "value": "stop", "label": { "en": "Stop", "fr": "Stop", "de": "Stopp", "es": "Detener" } },
+            { "value": "rewind", "label": { "en": "Rewind", "fr": "Retour rapide", "de": "Zurückspulen", "es": "Retroceder" } },
+            { "value": "fast_forward", "label": { "en": "Fast forward", "fr": "Avance rapide", "de": "Vorspulen", "es": "Avance rápido" } },
+            { "value": "previous", "label": { "en": "Previous", "fr": "Précédent", "de": "Vorheriger", "es": "Anterior" } },
+            { "value": "next", "label": { "en": "Next", "fr": "Suivant", "de": "Weiter", "es": "Siguiente" } },
+            { "value": "record", "label": { "en": "Record", "fr": "Enregistrer", "de": "Aufnehmen", "es": "Grabar" } },
+            { "value": "ambilight", "label": { "en": "Ambilight", "fr": "Ambilight", "de": "Ambilight", "es": "Ambilight" } },
+            { "value": "subtitle", "label": { "en": "Subtitles", "fr": "Sous-titres", "de": "Untertitel", "es": "Subtítulos" } },
+            { "value": "teletext", "label": { "en": "Teletext", "fr": "Télétexte", "de": "Videotext", "es": "Teletexto" } },
+            { "value": "red", "label": { "en": "Red", "fr": "Rouge", "de": "Rot", "es": "Rojo" } },
+            { "value": "green", "label": { "en": "Green", "fr": "Vert", "de": "Grün", "es": "Verde" } },
+            { "value": "yellow", "label": { "en": "Yellow", "fr": "Jaune", "de": "Gelb", "es": "Amarillo" } },
+            { "value": "blue", "label": { "en": "Blue", "fr": "Bleu", "de": "Blau", "es": "Azul" } },
+            { "value": "num_0", "label": { "en": "0", "fr": "0", "de": "0", "es": "0" } },
+            { "value": "num_1", "label": { "en": "1", "fr": "1", "de": "1", "es": "1" } },
+            { "value": "num_2", "label": { "en": "2", "fr": "2", "de": "2", "es": "2" } },
+            { "value": "num_3", "label": { "en": "3", "fr": "3", "de": "3", "es": "3" } },
+            { "value": "num_4", "label": { "en": "4", "fr": "4", "de": "4", "es": "4" } },
+            { "value": "num_5", "label": { "en": "5", "fr": "5", "de": "5", "es": "5" } },
+            { "value": "num_6", "label": { "en": "6", "fr": "6", "de": "6", "es": "6" } },
+            { "value": "num_7", "label": { "en": "7", "fr": "7", "de": "7", "es": "7" } },
+            { "value": "num_8", "label": { "en": "8", "fr": "8", "de": "8", "es": "8" } },
+            { "value": "num_9", "label": { "en": "9", "fr": "9", "de": "9", "es": "9" } }
           ]
         },
         {
           "key": "key_2",
           "type": "select",
-          "label": {
-            "en": "Button 2",
-            "fr": "Bouton 2",
-            "de": "Taste 2",
-            "es": "Botón 2"
-          },
+          "label": { "en": "Button 2", "fr": "Bouton 2", "de": "Taste 2", "es": "Botón 2" },
           "required": false,
           "default": "down",
           "options": [
-            {
-              "value": "home",
-              "label": {
-                "en": "Home",
-                "fr": "Accueil",
-                "de": "Home",
-                "es": "Inicio"
-              }
-            },
-            {
-              "value": "back",
-              "label": {
-                "en": "Back",
-                "fr": "Retour",
-                "de": "Zurück",
-                "es": "Volver"
-              }
-            },
-            {
-              "value": "up",
-              "label": {
-                "en": "Up",
-                "fr": "Haut",
-                "de": "Hoch",
-                "es": "Arriba"
-              }
-            },
-            {
-              "value": "down",
-              "label": {
-                "en": "Down",
-                "fr": "Bas",
-                "de": "Runter",
-                "es": "Abajo"
-              }
-            },
-            {
-              "value": "left",
-              "label": {
-                "en": "Left",
-                "fr": "Gauche",
-                "de": "Links",
-                "es": "Izquierda"
-              }
-            },
-            {
-              "value": "right",
-              "label": {
-                "en": "Right",
-                "fr": "Droite",
-                "de": "Rechts",
-                "es": "Derecha"
-              }
-            },
-            {
-              "value": "confirm",
-              "label": {
-                "en": "OK",
-                "fr": "OK",
-                "de": "OK",
-                "es": "OK"
-              }
-            },
-            {
-              "value": "options",
-              "label": {
-                "en": "Options",
-                "fr": "Options",
-                "de": "Optionen",
-                "es": "Opciones"
-              }
-            },
-            {
-              "value": "source",
-              "label": {
-                "en": "Sources",
-                "fr": "Sources",
-                "de": "Quellen",
-                "es": "Fuentes"
-              }
-            },
-            {
-              "value": "info",
-              "label": {
-                "en": "Info",
-                "fr": "Info",
-                "de": "Info",
-                "es": "Info"
-              }
-            },
-            {
-              "value": "adjust",
-              "label": {
-                "en": "Quick settings",
-                "fr": "Réglages rapides",
-                "de": "Schnelleinstellungen",
-                "es": "Ajustes rápidos"
-              }
-            },
-            {
-              "value": "watch_tv",
-              "label": {
-                "en": "Watch TV",
-                "fr": "Regarder la TV",
-                "de": "Fernsehen",
-                "es": "Ver la TV"
-              }
-            },
-            {
-              "value": "volume_up",
-              "label": {
-                "en": "Volume +",
-                "fr": "Volume +",
-                "de": "Lauter",
-                "es": "Volumen +"
-              }
-            },
-            {
-              "value": "volume_down",
-              "label": {
-                "en": "Volume −",
-                "fr": "Volume −",
-                "de": "Leiser",
-                "es": "Volumen −"
-              }
-            },
-            {
-              "value": "mute",
-              "label": {
-                "en": "Mute",
-                "fr": "Muet",
-                "de": "Stumm",
-                "es": "Silenciar"
-              }
-            },
-            {
-              "value": "channel_up",
-              "label": {
-                "en": "Channel +",
-                "fr": "Chaîne +",
-                "de": "Kanal +",
-                "es": "Canal +"
-              }
-            },
-            {
-              "value": "channel_down",
-              "label": {
-                "en": "Channel −",
-                "fr": "Chaîne −",
-                "de": "Kanal −",
-                "es": "Canal −"
-              }
-            },
-            {
-              "value": "play_pause",
-              "label": {
-                "en": "Play / pause",
-                "fr": "Lecture / pause",
-                "de": "Abspielen / Pause",
-                "es": "Reproducir / pausa"
-              }
-            },
-            {
-              "value": "play",
-              "label": {
-                "en": "Play",
-                "fr": "Lecture",
-                "de": "Abspielen",
-                "es": "Reproducir"
-              }
-            },
-            {
-              "value": "pause",
-              "label": {
-                "en": "Pause",
-                "fr": "Pause",
-                "de": "Pause",
-                "es": "Pause"
-              }
-            },
-            {
-              "value": "stop",
-              "label": {
-                "en": "Stop",
-                "fr": "Stop",
-                "de": "Stopp",
-                "es": "Detener"
-              }
-            },
-            {
-              "value": "rewind",
-              "label": {
-                "en": "Rewind",
-                "fr": "Retour rapide",
-                "de": "Zurückspulen",
-                "es": "Retroceder"
-              }
-            },
-            {
-              "value": "fast_forward",
-              "label": {
-                "en": "Fast forward",
-                "fr": "Avance rapide",
-                "de": "Vorspulen",
-                "es": "Avance rápido"
-              }
-            },
-            {
-              "value": "previous",
-              "label": {
-                "en": "Previous",
-                "fr": "Précédent",
-                "de": "Vorheriger",
-                "es": "Anterior"
-              }
-            },
-            {
-              "value": "next",
-              "label": {
-                "en": "Next",
-                "fr": "Suivant",
-                "de": "Weiter",
-                "es": "Siguiente"
-              }
-            },
-            {
-              "value": "record",
-              "label": {
-                "en": "Record",
-                "fr": "Enregistrer",
-                "de": "Aufnehmen",
-                "es": "Grabar"
-              }
-            },
-            {
-              "value": "ambilight",
-              "label": {
-                "en": "Ambilight",
-                "fr": "Ambilight",
-                "de": "Ambilight",
-                "es": "Ambilight"
-              }
-            },
-            {
-              "value": "subtitle",
-              "label": {
-                "en": "Subtitles",
-                "fr": "Sous-titres",
-                "de": "Untertitel",
-                "es": "Subtítulos"
-              }
-            },
-            {
-              "value": "teletext",
-              "label": {
-                "en": "Teletext",
-                "fr": "Télétexte",
-                "de": "Videotext",
-                "es": "Teletexto"
-              }
-            },
-            {
-              "value": "red",
-              "label": {
-                "en": "Red",
-                "fr": "Rouge",
-                "de": "Rot",
-                "es": "Rojo"
-              }
-            },
-            {
-              "value": "green",
-              "label": {
-                "en": "Green",
-                "fr": "Vert",
-                "de": "Grün",
-                "es": "Verde"
-              }
-            },
-            {
-              "value": "yellow",
-              "label": {
-                "en": "Yellow",
-                "fr": "Jaune",
-                "de": "Gelb",
-                "es": "Amarillo"
-              }
-            },
-            {
-              "value": "blue",
-              "label": {
-                "en": "Blue",
-                "fr": "Bleu",
-                "de": "Blau",
-                "es": "Azul"
-              }
-            },
-            {
-              "value": "num_0",
-              "label": {
-                "en": "0",
-                "fr": "0",
-                "de": "0",
-                "es": "0"
-              }
-            },
-            {
-              "value": "num_1",
-              "label": {
-                "en": "1",
-                "fr": "1",
-                "de": "1",
-                "es": "1"
-              }
-            },
-            {
-              "value": "num_2",
-              "label": {
-                "en": "2",
-                "fr": "2",
-                "de": "2",
-                "es": "2"
-              }
-            },
-            {
-              "value": "num_3",
-              "label": {
-                "en": "3",
-                "fr": "3",
-                "de": "3",
-                "es": "3"
-              }
-            },
-            {
-              "value": "num_4",
-              "label": {
-                "en": "4",
-                "fr": "4",
-                "de": "4",
-                "es": "4"
-              }
-            },
-            {
-              "value": "num_5",
-              "label": {
-                "en": "5",
-                "fr": "5",
-                "de": "5",
-                "es": "5"
-              }
-            },
-            {
-              "value": "num_6",
-              "label": {
-                "en": "6",
-                "fr": "6",
-                "de": "6",
-                "es": "6"
-              }
-            },
-            {
-              "value": "num_7",
-              "label": {
-                "en": "7",
-                "fr": "7",
-                "de": "7",
-                "es": "7"
-              }
-            },
-            {
-              "value": "num_8",
-              "label": {
-                "en": "8",
-                "fr": "8",
-                "de": "8",
-                "es": "8"
-              }
-            },
-            {
-              "value": "num_9",
-              "label": {
-                "en": "9",
-                "fr": "9",
-                "de": "9",
-                "es": "9"
-              }
-            }
+            { "value": "home", "label": { "en": "Home", "fr": "Accueil", "de": "Home", "es": "Inicio" } },
+            { "value": "back", "label": { "en": "Back", "fr": "Retour", "de": "Zurück", "es": "Volver" } },
+            { "value": "up", "label": { "en": "Up", "fr": "Haut", "de": "Hoch", "es": "Arriba" } },
+            { "value": "down", "label": { "en": "Down", "fr": "Bas", "de": "Runter", "es": "Abajo" } },
+            { "value": "left", "label": { "en": "Left", "fr": "Gauche", "de": "Links", "es": "Izquierda" } },
+            { "value": "right", "label": { "en": "Right", "fr": "Droite", "de": "Rechts", "es": "Derecha" } },
+            { "value": "confirm", "label": { "en": "OK", "fr": "OK", "de": "OK", "es": "OK" } },
+            { "value": "options", "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" } },
+            { "value": "source", "label": { "en": "Sources", "fr": "Sources", "de": "Quellen", "es": "Fuentes" } },
+            { "value": "info", "label": { "en": "Info", "fr": "Info", "de": "Info", "es": "Info" } },
+            { "value": "adjust", "label": { "en": "Quick settings", "fr": "Réglages rapides", "de": "Schnelleinstellungen", "es": "Ajustes rápidos" } },
+            { "value": "watch_tv", "label": { "en": "Watch TV", "fr": "Regarder la TV", "de": "Fernsehen", "es": "Ver la TV" } },
+            { "value": "volume_up", "label": { "en": "Volume +", "fr": "Volume +", "de": "Lauter", "es": "Volumen +" } },
+            { "value": "volume_down", "label": { "en": "Volume −", "fr": "Volume −", "de": "Leiser", "es": "Volumen −" } },
+            { "value": "mute", "label": { "en": "Mute", "fr": "Muet", "de": "Stumm", "es": "Silenciar" } },
+            { "value": "channel_up", "label": { "en": "Channel +", "fr": "Chaîne +", "de": "Kanal +", "es": "Canal +" } },
+            { "value": "channel_down", "label": { "en": "Channel −", "fr": "Chaîne −", "de": "Kanal −", "es": "Canal −" } },
+            { "value": "play_pause", "label": { "en": "Play / pause", "fr": "Lecture / pause", "de": "Abspielen / Pause", "es": "Reproducir / pausa" } },
+            { "value": "play", "label": { "en": "Play", "fr": "Lecture", "de": "Abspielen", "es": "Reproducir" } },
+            { "value": "pause", "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pause" } },
+            { "value": "stop", "label": { "en": "Stop", "fr": "Stop", "de": "Stopp", "es": "Detener" } },
+            { "value": "rewind", "label": { "en": "Rewind", "fr": "Retour rapide", "de": "Zurückspulen", "es": "Retroceder" } },
+            { "value": "fast_forward", "label": { "en": "Fast forward", "fr": "Avance rapide", "de": "Vorspulen", "es": "Avance rápido" } },
+            { "value": "previous", "label": { "en": "Previous", "fr": "Précédent", "de": "Vorheriger", "es": "Anterior" } },
+            { "value": "next", "label": { "en": "Next", "fr": "Suivant", "de": "Weiter", "es": "Siguiente" } },
+            { "value": "record", "label": { "en": "Record", "fr": "Enregistrer", "de": "Aufnehmen", "es": "Grabar" } },
+            { "value": "ambilight", "label": { "en": "Ambilight", "fr": "Ambilight", "de": "Ambilight", "es": "Ambilight" } },
+            { "value": "subtitle", "label": { "en": "Subtitles", "fr": "Sous-titres", "de": "Untertitel", "es": "Subtítulos" } },
+            { "value": "teletext", "label": { "en": "Teletext", "fr": "Télétexte", "de": "Videotext", "es": "Teletexto" } },
+            { "value": "red", "label": { "en": "Red", "fr": "Rouge", "de": "Rot", "es": "Rojo" } },
+            { "value": "green", "label": { "en": "Green", "fr": "Vert", "de": "Grün", "es": "Verde" } },
+            { "value": "yellow", "label": { "en": "Yellow", "fr": "Jaune", "de": "Gelb", "es": "Amarillo" } },
+            { "value": "blue", "label": { "en": "Blue", "fr": "Bleu", "de": "Blau", "es": "Azul" } },
+            { "value": "num_0", "label": { "en": "0", "fr": "0", "de": "0", "es": "0" } },
+            { "value": "num_1", "label": { "en": "1", "fr": "1", "de": "1", "es": "1" } },
+            { "value": "num_2", "label": { "en": "2", "fr": "2", "de": "2", "es": "2" } },
+            { "value": "num_3", "label": { "en": "3", "fr": "3", "de": "3", "es": "3" } },
+            { "value": "num_4", "label": { "en": "4", "fr": "4", "de": "4", "es": "4" } },
+            { "value": "num_5", "label": { "en": "5", "fr": "5", "de": "5", "es": "5" } },
+            { "value": "num_6", "label": { "en": "6", "fr": "6", "de": "6", "es": "6" } },
+            { "value": "num_7", "label": { "en": "7", "fr": "7", "de": "7", "es": "7" } },
+            { "value": "num_8", "label": { "en": "8", "fr": "8", "de": "8", "es": "8" } },
+            { "value": "num_9", "label": { "en": "9", "fr": "9", "de": "9", "es": "9" } }
           ]
         },
         {
           "key": "key_3",
           "type": "select",
-          "label": {
-            "en": "Button 3",
-            "fr": "Bouton 3",
-            "de": "Taste 3",
-            "es": "Botón 3"
-          },
+          "label": { "en": "Button 3", "fr": "Bouton 3", "de": "Taste 3", "es": "Botón 3" },
           "required": false,
           "default": "left",
           "options": [
-            {
-              "value": "home",
-              "label": {
-                "en": "Home",
-                "fr": "Accueil",
-                "de": "Home",
-                "es": "Inicio"
-              }
-            },
-            {
-              "value": "back",
-              "label": {
-                "en": "Back",
-                "fr": "Retour",
-                "de": "Zurück",
-                "es": "Volver"
-              }
-            },
-            {
-              "value": "up",
-              "label": {
-                "en": "Up",
-                "fr": "Haut",
-                "de": "Hoch",
-                "es": "Arriba"
-              }
-            },
-            {
-              "value": "down",
-              "label": {
-                "en": "Down",
-                "fr": "Bas",
-                "de": "Runter",
-                "es": "Abajo"
-              }
-            },
-            {
-              "value": "left",
-              "label": {
-                "en": "Left",
-                "fr": "Gauche",
-                "de": "Links",
-                "es": "Izquierda"
-              }
-            },
-            {
-              "value": "right",
-              "label": {
-                "en": "Right",
-                "fr": "Droite",
-                "de": "Rechts",
-                "es": "Derecha"
-              }
-            },
-            {
-              "value": "confirm",
-              "label": {
-                "en": "OK",
-                "fr": "OK",
-                "de": "OK",
-                "es": "OK"
-              }
-            },
-            {
-              "value": "options",
-              "label": {
-                "en": "Options",
-                "fr": "Options",
-                "de": "Optionen",
-                "es": "Opciones"
-              }
-            },
-            {
-              "value": "source",
-              "label": {
-                "en": "Sources",
-                "fr": "Sources",
-                "de": "Quellen",
-                "es": "Fuentes"
-              }
-            },
-            {
-              "value": "info",
-              "label": {
-                "en": "Info",
-                "fr": "Info",
-                "de": "Info",
-                "es": "Info"
-              }
-            },
-            {
-              "value": "adjust",
-              "label": {
-                "en": "Quick settings",
-                "fr": "Réglages rapides",
-                "de": "Schnelleinstellungen",
-                "es": "Ajustes rápidos"
-              }
-            },
-            {
-              "value": "watch_tv",
-              "label": {
-                "en": "Watch TV",
-                "fr": "Regarder la TV",
-                "de": "Fernsehen",
-                "es": "Ver la TV"
-              }
-            },
-            {
-              "value": "volume_up",
-              "label": {
-                "en": "Volume +",
-                "fr": "Volume +",
-                "de": "Lauter",
-                "es": "Volumen +"
-              }
-            },
-            {
-              "value": "volume_down",
-              "label": {
-                "en": "Volume −",
-                "fr": "Volume −",
-                "de": "Leiser",
-                "es": "Volumen −"
-              }
-            },
-            {
-              "value": "mute",
-              "label": {
-                "en": "Mute",
-                "fr": "Muet",
-                "de": "Stumm",
-                "es": "Silenciar"
-              }
-            },
-            {
-              "value": "channel_up",
-              "label": {
-                "en": "Channel +",
-                "fr": "Chaîne +",
-                "de": "Kanal +",
-                "es": "Canal +"
-              }
-            },
-            {
-              "value": "channel_down",
-              "label": {
-                "en": "Channel −",
-                "fr": "Chaîne −",
-                "de": "Kanal −",
-                "es": "Canal −"
-              }
-            },
-            {
-              "value": "play_pause",
-              "label": {
-                "en": "Play / pause",
-                "fr": "Lecture / pause",
-                "de": "Abspielen / Pause",
-                "es": "Reproducir / pausa"
-              }
-            },
-            {
-              "value": "play",
-              "label": {
-                "en": "Play",
-                "fr": "Lecture",
-                "de": "Abspielen",
-                "es": "Reproducir"
-              }
-            },
-            {
-              "value": "pause",
-              "label": {
-                "en": "Pause",
-                "fr": "Pause",
-                "de": "Pause",
-                "es": "Pause"
-              }
-            },
-            {
-              "value": "stop",
-              "label": {
-                "en": "Stop",
-                "fr": "Stop",
-                "de": "Stopp",
-                "es": "Detener"
-              }
-            },
-            {
-              "value": "rewind",
-              "label": {
-                "en": "Rewind",
-                "fr": "Retour rapide",
-                "de": "Zurückspulen",
-                "es": "Retroceder"
-              }
-            },
-            {
-              "value": "fast_forward",
-              "label": {
-                "en": "Fast forward",
-                "fr": "Avance rapide",
-                "de": "Vorspulen",
-                "es": "Avance rápido"
-              }
-            },
-            {
-              "value": "previous",
-              "label": {
-                "en": "Previous",
-                "fr": "Précédent",
-                "de": "Vorheriger",
-                "es": "Anterior"
-              }
-            },
-            {
-              "value": "next",
-              "label": {
-                "en": "Next",
-                "fr": "Suivant",
-                "de": "Weiter",
-                "es": "Siguiente"
-              }
-            },
-            {
-              "value": "record",
-              "label": {
-                "en": "Record",
-                "fr": "Enregistrer",
-                "de": "Aufnehmen",
-                "es": "Grabar"
-              }
-            },
-            {
-              "value": "ambilight",
-              "label": {
-                "en": "Ambilight",
-                "fr": "Ambilight",
-                "de": "Ambilight",
-                "es": "Ambilight"
-              }
-            },
-            {
-              "value": "subtitle",
-              "label": {
-                "en": "Subtitles",
-                "fr": "Sous-titres",
-                "de": "Untertitel",
-                "es": "Subtítulos"
-              }
-            },
-            {
-              "value": "teletext",
-              "label": {
-                "en": "Teletext",
-                "fr": "Télétexte",
-                "de": "Videotext",
-                "es": "Teletexto"
-              }
-            },
-            {
-              "value": "red",
-              "label": {
-                "en": "Red",
-                "fr": "Rouge",
-                "de": "Rot",
-                "es": "Rojo"
-              }
-            },
-            {
-              "value": "green",
-              "label": {
-                "en": "Green",
-                "fr": "Vert",
-                "de": "Grün",
-                "es": "Verde"
-              }
-            },
-            {
-              "value": "yellow",
-              "label": {
-                "en": "Yellow",
-                "fr": "Jaune",
-                "de": "Gelb",
-                "es": "Amarillo"
-              }
-            },
-            {
-              "value": "blue",
-              "label": {
-                "en": "Blue",
-                "fr": "Bleu",
-                "de": "Blau",
-                "es": "Azul"
-              }
-            },
-            {
-              "value": "num_0",
-              "label": {
-                "en": "0",
-                "fr": "0",
-                "de": "0",
-                "es": "0"
-              }
-            },
-            {
-              "value": "num_1",
-              "label": {
-                "en": "1",
-                "fr": "1",
-                "de": "1",
-                "es": "1"
-              }
-            },
-            {
-              "value": "num_2",
-              "label": {
-                "en": "2",
-                "fr": "2",
-                "de": "2",
-                "es": "2"
-              }
-            },
-            {
-              "value": "num_3",
-              "label": {
-                "en": "3",
-                "fr": "3",
-                "de": "3",
-                "es": "3"
-              }
-            },
-            {
-              "value": "num_4",
-              "label": {
-                "en": "4",
-                "fr": "4",
-                "de": "4",
-                "es": "4"
-              }
-            },
-            {
-              "value": "num_5",
-              "label": {
-                "en": "5",
-                "fr": "5",
-                "de": "5",
-                "es": "5"
-              }
-            },
-            {
-              "value": "num_6",
-              "label": {
-                "en": "6",
-                "fr": "6",
-                "de": "6",
-                "es": "6"
-              }
-            },
-            {
-              "value": "num_7",
-              "label": {
-                "en": "7",
-                "fr": "7",
-                "de": "7",
-                "es": "7"
-              }
-            },
-            {
-              "value": "num_8",
-              "label": {
-                "en": "8",
-                "fr": "8",
-                "de": "8",
-                "es": "8"
-              }
-            },
-            {
-              "value": "num_9",
-              "label": {
-                "en": "9",
-                "fr": "9",
-                "de": "9",
-                "es": "9"
-              }
-            }
+            { "value": "home", "label": { "en": "Home", "fr": "Accueil", "de": "Home", "es": "Inicio" } },
+            { "value": "back", "label": { "en": "Back", "fr": "Retour", "de": "Zurück", "es": "Volver" } },
+            { "value": "up", "label": { "en": "Up", "fr": "Haut", "de": "Hoch", "es": "Arriba" } },
+            { "value": "down", "label": { "en": "Down", "fr": "Bas", "de": "Runter", "es": "Abajo" } },
+            { "value": "left", "label": { "en": "Left", "fr": "Gauche", "de": "Links", "es": "Izquierda" } },
+            { "value": "right", "label": { "en": "Right", "fr": "Droite", "de": "Rechts", "es": "Derecha" } },
+            { "value": "confirm", "label": { "en": "OK", "fr": "OK", "de": "OK", "es": "OK" } },
+            { "value": "options", "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" } },
+            { "value": "source", "label": { "en": "Sources", "fr": "Sources", "de": "Quellen", "es": "Fuentes" } },
+            { "value": "info", "label": { "en": "Info", "fr": "Info", "de": "Info", "es": "Info" } },
+            { "value": "adjust", "label": { "en": "Quick settings", "fr": "Réglages rapides", "de": "Schnelleinstellungen", "es": "Ajustes rápidos" } },
+            { "value": "watch_tv", "label": { "en": "Watch TV", "fr": "Regarder la TV", "de": "Fernsehen", "es": "Ver la TV" } },
+            { "value": "volume_up", "label": { "en": "Volume +", "fr": "Volume +", "de": "Lauter", "es": "Volumen +" } },
+            { "value": "volume_down", "label": { "en": "Volume −", "fr": "Volume −", "de": "Leiser", "es": "Volumen −" } },
+            { "value": "mute", "label": { "en": "Mute", "fr": "Muet", "de": "Stumm", "es": "Silenciar" } },
+            { "value": "channel_up", "label": { "en": "Channel +", "fr": "Chaîne +", "de": "Kanal +", "es": "Canal +" } },
+            { "value": "channel_down", "label": { "en": "Channel −", "fr": "Chaîne −", "de": "Kanal −", "es": "Canal −" } },
+            { "value": "play_pause", "label": { "en": "Play / pause", "fr": "Lecture / pause", "de": "Abspielen / Pause", "es": "Reproducir / pausa" } },
+            { "value": "play", "label": { "en": "Play", "fr": "Lecture", "de": "Abspielen", "es": "Reproducir" } },
+            { "value": "pause", "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pause" } },
+            { "value": "stop", "label": { "en": "Stop", "fr": "Stop", "de": "Stopp", "es": "Detener" } },
+            { "value": "rewind", "label": { "en": "Rewind", "fr": "Retour rapide", "de": "Zurückspulen", "es": "Retroceder" } },
+            { "value": "fast_forward", "label": { "en": "Fast forward", "fr": "Avance rapide", "de": "Vorspulen", "es": "Avance rápido" } },
+            { "value": "previous", "label": { "en": "Previous", "fr": "Précédent", "de": "Vorheriger", "es": "Anterior" } },
+            { "value": "next", "label": { "en": "Next", "fr": "Suivant", "de": "Weiter", "es": "Siguiente" } },
+            { "value": "record", "label": { "en": "Record", "fr": "Enregistrer", "de": "Aufnehmen", "es": "Grabar" } },
+            { "value": "ambilight", "label": { "en": "Ambilight", "fr": "Ambilight", "de": "Ambilight", "es": "Ambilight" } },
+            { "value": "subtitle", "label": { "en": "Subtitles", "fr": "Sous-titres", "de": "Untertitel", "es": "Subtítulos" } },
+            { "value": "teletext", "label": { "en": "Teletext", "fr": "Télétexte", "de": "Videotext", "es": "Teletexto" } },
+            { "value": "red", "label": { "en": "Red", "fr": "Rouge", "de": "Rot", "es": "Rojo" } },
+            { "value": "green", "label": { "en": "Green", "fr": "Vert", "de": "Grün", "es": "Verde" } },
+            { "value": "yellow", "label": { "en": "Yellow", "fr": "Jaune", "de": "Gelb", "es": "Amarillo" } },
+            { "value": "blue", "label": { "en": "Blue", "fr": "Bleu", "de": "Blau", "es": "Azul" } },
+            { "value": "num_0", "label": { "en": "0", "fr": "0", "de": "0", "es": "0" } },
+            { "value": "num_1", "label": { "en": "1", "fr": "1", "de": "1", "es": "1" } },
+            { "value": "num_2", "label": { "en": "2", "fr": "2", "de": "2", "es": "2" } },
+            { "value": "num_3", "label": { "en": "3", "fr": "3", "de": "3", "es": "3" } },
+            { "value": "num_4", "label": { "en": "4", "fr": "4", "de": "4", "es": "4" } },
+            { "value": "num_5", "label": { "en": "5", "fr": "5", "de": "5", "es": "5" } },
+            { "value": "num_6", "label": { "en": "6", "fr": "6", "de": "6", "es": "6" } },
+            { "value": "num_7", "label": { "en": "7", "fr": "7", "de": "7", "es": "7" } },
+            { "value": "num_8", "label": { "en": "8", "fr": "8", "de": "8", "es": "8" } },
+            { "value": "num_9", "label": { "en": "9", "fr": "9", "de": "9", "es": "9" } }
           ]
         },
         {
           "key": "key_4",
           "type": "select",
-          "label": {
-            "en": "Button 4",
-            "fr": "Bouton 4",
-            "de": "Taste 4",
-            "es": "Botón 4"
-          },
+          "label": { "en": "Button 4", "fr": "Bouton 4", "de": "Taste 4", "es": "Botón 4" },
           "required": false,
           "default": "right",
           "options": [
-            {
-              "value": "home",
-              "label": {
-                "en": "Home",
-                "fr": "Accueil",
-                "de": "Home",
-                "es": "Inicio"
-              }
-            },
-            {
-              "value": "back",
-              "label": {
-                "en": "Back",
-                "fr": "Retour",
-                "de": "Zurück",
-                "es": "Volver"
-              }
-            },
-            {
-              "value": "up",
-              "label": {
-                "en": "Up",
-                "fr": "Haut",
-                "de": "Hoch",
-                "es": "Arriba"
-              }
-            },
-            {
-              "value": "down",
-              "label": {
-                "en": "Down",
-                "fr": "Bas",
-                "de": "Runter",
-                "es": "Abajo"
-              }
-            },
-            {
-              "value": "left",
-              "label": {
-                "en": "Left",
-                "fr": "Gauche",
-                "de": "Links",
-                "es": "Izquierda"
-              }
-            },
-            {
-              "value": "right",
-              "label": {
-                "en": "Right",
-                "fr": "Droite",
-                "de": "Rechts",
-                "es": "Derecha"
-              }
-            },
-            {
-              "value": "confirm",
-              "label": {
-                "en": "OK",
-                "fr": "OK",
-                "de": "OK",
-                "es": "OK"
-              }
-            },
-            {
-              "value": "options",
-              "label": {
-                "en": "Options",
-                "fr": "Options",
-                "de": "Optionen",
-                "es": "Opciones"
-              }
-            },
-            {
-              "value": "source",
-              "label": {
-                "en": "Sources",
-                "fr": "Sources",
-                "de": "Quellen",
-                "es": "Fuentes"
-              }
-            },
-            {
-              "value": "info",
-              "label": {
-                "en": "Info",
-                "fr": "Info",
-                "de": "Info",
-                "es": "Info"
-              }
-            },
-            {
-              "value": "adjust",
-              "label": {
-                "en": "Quick settings",
-                "fr": "Réglages rapides",
-                "de": "Schnelleinstellungen",
-                "es": "Ajustes rápidos"
-              }
-            },
-            {
-              "value": "watch_tv",
-              "label": {
-                "en": "Watch TV",
-                "fr": "Regarder la TV",
-                "de": "Fernsehen",
-                "es": "Ver la TV"
-              }
-            },
-            {
-              "value": "volume_up",
-              "label": {
-                "en": "Volume +",
-                "fr": "Volume +",
-                "de": "Lauter",
-                "es": "Volumen +"
-              }
-            },
-            {
-              "value": "volume_down",
-              "label": {
-                "en": "Volume −",
-                "fr": "Volume −",
-                "de": "Leiser",
-                "es": "Volumen −"
-              }
-            },
-            {
-              "value": "mute",
-              "label": {
-                "en": "Mute",
-                "fr": "Muet",
-                "de": "Stumm",
-                "es": "Silenciar"
-              }
-            },
-            {
-              "value": "channel_up",
-              "label": {
-                "en": "Channel +",
-                "fr": "Chaîne +",
-                "de": "Kanal +",
-                "es": "Canal +"
-              }
-            },
-            {
-              "value": "channel_down",
-              "label": {
-                "en": "Channel −",
-                "fr": "Chaîne −",
-                "de": "Kanal −",
-                "es": "Canal −"
-              }
-            },
-            {
-              "value": "play_pause",
-              "label": {
-                "en": "Play / pause",
-                "fr": "Lecture / pause",
-                "de": "Abspielen / Pause",
-                "es": "Reproducir / pausa"
-              }
-            },
-            {
-              "value": "play",
-              "label": {
-                "en": "Play",
-                "fr": "Lecture",
-                "de": "Abspielen",
-                "es": "Reproducir"
-              }
-            },
-            {
-              "value": "pause",
-              "label": {
-                "en": "Pause",
-                "fr": "Pause",
-                "de": "Pause",
-                "es": "Pause"
-              }
-            },
-            {
-              "value": "stop",
-              "label": {
-                "en": "Stop",
-                "fr": "Stop",
-                "de": "Stopp",
-                "es": "Detener"
-              }
-            },
-            {
-              "value": "rewind",
-              "label": {
-                "en": "Rewind",
-                "fr": "Retour rapide",
-                "de": "Zurückspulen",
-                "es": "Retroceder"
-              }
-            },
-            {
-              "value": "fast_forward",
-              "label": {
-                "en": "Fast forward",
-                "fr": "Avance rapide",
-                "de": "Vorspulen",
-                "es": "Avance rápido"
-              }
-            },
-            {
-              "value": "previous",
-              "label": {
-                "en": "Previous",
-                "fr": "Précédent",
-                "de": "Vorheriger",
-                "es": "Anterior"
-              }
-            },
-            {
-              "value": "next",
-              "label": {
-                "en": "Next",
-                "fr": "Suivant",
-                "de": "Weiter",
-                "es": "Siguiente"
-              }
-            },
-            {
-              "value": "record",
-              "label": {
-                "en": "Record",
-                "fr": "Enregistrer",
-                "de": "Aufnehmen",
-                "es": "Grabar"
-              }
-            },
-            {
-              "value": "ambilight",
-              "label": {
-                "en": "Ambilight",
-                "fr": "Ambilight",
-                "de": "Ambilight",
-                "es": "Ambilight"
-              }
-            },
-            {
-              "value": "subtitle",
-              "label": {
-                "en": "Subtitles",
-                "fr": "Sous-titres",
-                "de": "Untertitel",
-                "es": "Subtítulos"
-              }
-            },
-            {
-              "value": "teletext",
-              "label": {
-                "en": "Teletext",
-                "fr": "Télétexte",
-                "de": "Videotext",
-                "es": "Teletexto"
-              }
-            },
-            {
-              "value": "red",
-              "label": {
-                "en": "Red",
-                "fr": "Rouge",
-                "de": "Rot",
-                "es": "Rojo"
-              }
-            },
-            {
-              "value": "green",
-              "label": {
-                "en": "Green",
-                "fr": "Vert",
-                "de": "Grün",
-                "es": "Verde"
-              }
-            },
-            {
-              "value": "yellow",
-              "label": {
-                "en": "Yellow",
-                "fr": "Jaune",
-                "de": "Gelb",
-                "es": "Amarillo"
-              }
-            },
-            {
-              "value": "blue",
-              "label": {
-                "en": "Blue",
-                "fr": "Bleu",
-                "de": "Blau",
-                "es": "Azul"
-              }
-            },
-            {
-              "value": "num_0",
-              "label": {
-                "en": "0",
-                "fr": "0",
-                "de": "0",
-                "es": "0"
-              }
-            },
-            {
-              "value": "num_1",
-              "label": {
-                "en": "1",
-                "fr": "1",
-                "de": "1",
-                "es": "1"
-              }
-            },
-            {
-              "value": "num_2",
-              "label": {
-                "en": "2",
-                "fr": "2",
-                "de": "2",
-                "es": "2"
-              }
-            },
-            {
-              "value": "num_3",
-              "label": {
-                "en": "3",
-                "fr": "3",
-                "de": "3",
-                "es": "3"
-              }
-            },
-            {
-              "value": "num_4",
-              "label": {
-                "en": "4",
-                "fr": "4",
-                "de": "4",
-                "es": "4"
-              }
-            },
-            {
-              "value": "num_5",
-              "label": {
-                "en": "5",
-                "fr": "5",
-                "de": "5",
-                "es": "5"
-              }
-            },
-            {
-              "value": "num_6",
-              "label": {
-                "en": "6",
-                "fr": "6",
-                "de": "6",
-                "es": "6"
-              }
-            },
-            {
-              "value": "num_7",
-              "label": {
-                "en": "7",
-                "fr": "7",
-                "de": "7",
-                "es": "7"
-              }
-            },
-            {
-              "value": "num_8",
-              "label": {
-                "en": "8",
-                "fr": "8",
-                "de": "8",
-                "es": "8"
-              }
-            },
-            {
-              "value": "num_9",
-              "label": {
-                "en": "9",
-                "fr": "9",
-                "de": "9",
-                "es": "9"
-              }
-            }
+            { "value": "home", "label": { "en": "Home", "fr": "Accueil", "de": "Home", "es": "Inicio" } },
+            { "value": "back", "label": { "en": "Back", "fr": "Retour", "de": "Zurück", "es": "Volver" } },
+            { "value": "up", "label": { "en": "Up", "fr": "Haut", "de": "Hoch", "es": "Arriba" } },
+            { "value": "down", "label": { "en": "Down", "fr": "Bas", "de": "Runter", "es": "Abajo" } },
+            { "value": "left", "label": { "en": "Left", "fr": "Gauche", "de": "Links", "es": "Izquierda" } },
+            { "value": "right", "label": { "en": "Right", "fr": "Droite", "de": "Rechts", "es": "Derecha" } },
+            { "value": "confirm", "label": { "en": "OK", "fr": "OK", "de": "OK", "es": "OK" } },
+            { "value": "options", "label": { "en": "Options", "fr": "Options", "de": "Optionen", "es": "Opciones" } },
+            { "value": "source", "label": { "en": "Sources", "fr": "Sources", "de": "Quellen", "es": "Fuentes" } },
+            { "value": "info", "label": { "en": "Info", "fr": "Info", "de": "Info", "es": "Info" } },
+            { "value": "adjust", "label": { "en": "Quick settings", "fr": "Réglages rapides", "de": "Schnelleinstellungen", "es": "Ajustes rápidos" } },
+            { "value": "watch_tv", "label": { "en": "Watch TV", "fr": "Regarder la TV", "de": "Fernsehen", "es": "Ver la TV" } },
+            { "value": "volume_up", "label": { "en": "Volume +", "fr": "Volume +", "de": "Lauter", "es": "Volumen +" } },
+            { "value": "volume_down", "label": { "en": "Volume −", "fr": "Volume −", "de": "Leiser", "es": "Volumen −" } },
+            { "value": "mute", "label": { "en": "Mute", "fr": "Muet", "de": "Stumm", "es": "Silenciar" } },
+            { "value": "channel_up", "label": { "en": "Channel +", "fr": "Chaîne +", "de": "Kanal +", "es": "Canal +" } },
+            { "value": "channel_down", "label": { "en": "Channel −", "fr": "Chaîne −", "de": "Kanal −", "es": "Canal −" } },
+            { "value": "play_pause", "label": { "en": "Play / pause", "fr": "Lecture / pause", "de": "Abspielen / Pause", "es": "Reproducir / pausa" } },
+            { "value": "play", "label": { "en": "Play", "fr": "Lecture", "de": "Abspielen", "es": "Reproducir" } },
+            { "value": "pause", "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pause" } },
+            { "value": "stop", "label": { "en": "Stop", "fr": "Stop", "de": "Stopp", "es": "Detener" } },
+            { "value": "rewind", "label": { "en": "Rewind", "fr": "Retour rapide", "de": "Zurückspulen", "es": "Retroceder" } },
+            { "value": "fast_forward", "label": { "en": "Fast forward", "fr": "Avance rapide", "de": "Vorspulen", "es": "Avance rápido" } },
+            { "value": "previous", "label": { "en": "Previous", "fr": "Précédent", "de": "Vorheriger", "es": "Anterior" } },
+            { "value": "next", "label": { "en": "Next", "fr": "Suivant", "de": "Weiter", "es": "Siguiente" } },
+            { "value": "record", "label": { "en": "Record", "fr": "Enregistrer", "de": "Aufnehmen", "es": "Grabar" } },
+            { "value": "ambilight", "label": { "en": "Ambilight", "fr": "Ambilight", "de": "Ambilight", "es": "Ambilight" } },
+            { "value": "subtitle", "label": { "en": "Subtitles", "fr": "Sous-titres", "de": "Untertitel", "es": "Subtítulos" } },
+            { "value": "teletext", "label": { "en": "Teletext", "fr": "Télétexte", "de": "Videotext", "es": "Teletexto" } },
+            { "value": "red", "label": { "en": "Red", "fr": "Rouge", "de": "Rot", "es": "Rojo" } },
+            { "value": "green", "label": { "en": "Green", "fr": "Vert", "de": "Grün", "es": "Verde" } },
+            { "value": "yellow", "label": { "en": "Yellow", "fr": "Jaune", "de": "Gelb", "es": "Amarillo" } },
+            { "value": "blue", "label": { "en": "Blue", "fr": "Bleu", "de": "Blau", "es": "Azul" } },
+            { "value": "num_0", "label": { "en": "0", "fr": "0", "de": "0", "es": "0" } },
+            { "value": "num_1", "label": { "en": "1", "fr": "1", "de": "1", "es": "1" } },
+            { "value": "num_2", "label": { "en": "2", "fr": "2", "de": "2", "es": "2" } },
+            { "value": "num_3", "label": { "en": "3", "fr": "3", "de": "3", "es": "3" } },
+            { "value": "num_4", "label": { "en": "4", "fr": "4", "de": "4", "es": "4" } },
+            { "value": "num_5", "label": { "en": "5", "fr": "5", "de": "5", "es": "5" } },
+            { "value": "num_6", "label": { "en": "6", "fr": "6", "de": "6", "es": "6" } },
+            { "value": "num_7", "label": { "en": "7", "fr": "7", "de": "7", "es": "7" } },
+            { "value": "num_8", "label": { "en": "8", "fr": "8", "de": "8", "es": "8" } },
+            { "value": "num_9", "label": { "en": "9", "fr": "9", "de": "9", "es": "9" } }
           ]
         }
       ]
     },
     {
       "key": "shortcuts",
-      "label": {
-        "en": "Philips shortcuts",
-        "fr": "Raccourcis Philips",
-        "de": "Philips-Verknüpfungen",
-        "es": "Accesos directos Philips"
-      },
+      "label": { "en": "Philips shortcuts", "fr": "Raccourcis Philips", "de": "Philips-Verknüpfungen", "es": "Accesos directos Philips" },
       "description": {
         "en": "Four sources or apps of your choice, by name. TV and HDMI 1 to 3 by default.",
         "fr": "Quatre sources ou applications au choix, par leur nom. TV et HDMI 1 à 3 par défaut.",
@@ -3989,12 +1513,7 @@
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": {
-            "en": "TV",
-            "fr": "Téléviseur",
-            "de": "Fernseher",
-            "es": "Televisor"
-          },
+          "label": { "en": "TV", "fr": "Téléviseur", "de": "Fernseher", "es": "Televisor" },
           "description": {
             "en": "Empty: the first TV of the configuration.",
             "fr": "Vide : le premier téléviseur de la configuration.",
@@ -4006,70 +1525,30 @@
         {
           "key": "shortcut_1",
           "type": "string",
-          "label": {
-            "en": "Shortcut 1",
-            "fr": "Raccourci 1",
-            "de": "Verknüpfung 1",
-            "es": "Acceso directo 1"
-          },
+          "label": { "en": "Shortcut 1", "fr": "Raccourci 1", "de": "Verknüpfung 1", "es": "Acceso directo 1" },
           "required": false,
-          "placeholder": {
-            "en": "e.g. HDMI 2, Netflix",
-            "fr": "ex. HDMI 2, Netflix",
-            "de": "z. B. HDMI 2, Netflix",
-            "es": "p. ej. HDMI 2, Netflix"
-          }
+          "placeholder": { "en": "e.g. HDMI 2, Netflix", "fr": "ex. HDMI 2, Netflix", "de": "z. B. HDMI 2, Netflix", "es": "p. ej. HDMI 2, Netflix" }
         },
         {
           "key": "shortcut_2",
           "type": "string",
-          "label": {
-            "en": "Shortcut 2",
-            "fr": "Raccourci 2",
-            "de": "Verknüpfung 2",
-            "es": "Acceso directo 2"
-          },
+          "label": { "en": "Shortcut 2", "fr": "Raccourci 2", "de": "Verknüpfung 2", "es": "Acceso directo 2" },
           "required": false,
-          "placeholder": {
-            "en": "e.g. HDMI 2, Netflix",
-            "fr": "ex. HDMI 2, Netflix",
-            "de": "z. B. HDMI 2, Netflix",
-            "es": "p. ej. HDMI 2, Netflix"
-          }
+          "placeholder": { "en": "e.g. HDMI 2, Netflix", "fr": "ex. HDMI 2, Netflix", "de": "z. B. HDMI 2, Netflix", "es": "p. ej. HDMI 2, Netflix" }
         },
         {
           "key": "shortcut_3",
           "type": "string",
-          "label": {
-            "en": "Shortcut 3",
-            "fr": "Raccourci 3",
-            "de": "Verknüpfung 3",
-            "es": "Acceso directo 3"
-          },
+          "label": { "en": "Shortcut 3", "fr": "Raccourci 3", "de": "Verknüpfung 3", "es": "Acceso directo 3" },
           "required": false,
-          "placeholder": {
-            "en": "e.g. HDMI 2, Netflix",
-            "fr": "ex. HDMI 2, Netflix",
-            "de": "z. B. HDMI 2, Netflix",
-            "es": "p. ej. HDMI 2, Netflix"
-          }
+          "placeholder": { "en": "e.g. HDMI 2, Netflix", "fr": "ex. HDMI 2, Netflix", "de": "z. B. HDMI 2, Netflix", "es": "p. ej. HDMI 2, Netflix" }
         },
         {
           "key": "shortcut_4",
           "type": "string",
-          "label": {
-            "en": "Shortcut 4",
-            "fr": "Raccourci 4",
-            "de": "Verknüpfung 4",
-            "es": "Acceso directo 4"
-          },
+          "label": { "en": "Shortcut 4", "fr": "Raccourci 4", "de": "Verknüpfung 4", "es": "Acceso directo 4" },
           "required": false,
-          "placeholder": {
-            "en": "e.g. HDMI 2, Netflix",
-            "fr": "ex. HDMI 2, Netflix",
-            "de": "z. B. HDMI 2, Netflix",
-            "es": "p. ej. HDMI 2, Netflix"
-          }
+          "placeholder": { "en": "e.g. HDMI 2, Netflix", "fr": "ex. HDMI 2, Netflix", "de": "z. B. HDMI 2, Netflix", "es": "p. ej. HDMI 2, Netflix" }
         }
       ]
     }
