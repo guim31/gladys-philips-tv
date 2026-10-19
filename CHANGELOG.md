@@ -10,6 +10,12 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Fixed
+
+- The store indexer rejected the manifest (119 KB, over its 100 KB limit):
+  it is now printed wider (Prettier `printWidth` 160 for this file), 84 KB,
+  with a test that keeps it under 95 KB (forum t/11344/3).
+
 ## [1.0.1] - 2026-10-13
 
 ### Changed

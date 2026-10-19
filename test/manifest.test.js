@@ -299,3 +299,10 @@ test('the catalog description holds 10 to 100 characters per language', () => {
     );
   }
 });
+
+test('the manifest stays under the 100 KB the store indexer reads (forum t/11344/3)', async () => {
+  const bytes = (await readFile(new URL('../gladys-assistant-integration.json', import.meta.url)))
+    .length;
+  // MANIFEST_MAX_BYTES of GladysAssistant/integration-store; keep a margin.
+  assert.ok(bytes < 95 * 1024, `${bytes} bytes`);
+});
