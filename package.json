@@ -1,6 +1,6 @@
 {
   "name": "gladys-philips-tv",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "Gladys Assistant integration for Philips TVs (Android and Saphi, JointSpace API): power, volume, sources, apps, Ambilight and remote keys, locally.",
   "type": "module",
